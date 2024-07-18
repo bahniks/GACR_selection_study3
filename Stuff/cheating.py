@@ -23,7 +23,7 @@ from constants import TESTING, URL
 # PRVNÍ BLOK
 intro_block_1 = """V následujícím úkolu budete hádat, jestli na virtuální kostce (generátor náhodných čísel) na Vašem počítači padne liché, nebo sudé číslo. Každé z čísel 1, 2, 3, 4, 5 a 6 může padnout se stejnou pravděpodobností. Lichá čísla jsou 1, 3 a 5. Sudá čísla jsou 2, 4 a 6. 
 
-Úkol je rozdělen do čtyř samostatných bloků a každý blok sestává z dvanácti kol. V každém kole budete hádat výsledek jednotlivých hodů kostkou. Bloky se odlišují pravidly, dle nichž budete hádat hody kostkou. Pravidla níže však platí pro všechny čtyři bloky.
+Úkol je rozdělen do pěti samostatných bloků a každý blok sestává z dvanácti kol. V každém kole budete hádat výsledek jednotlivých hodů kostkou. Bloky se odlišují pravidly, dle nichž budete hádat hody kostkou. Pravidla níže však platí pro všech pět bloků.
 
 Uhodnete-li první hod v daném bloku, získáte 5 Kč, uhodnete-li další, získáte za něj dalších 10 Kč, uhodnete-li další hod, získáte za něj dalších 15 Kč a tak dále. Za každý další uhodnutý hod získáte navíc částku o 5 Kč vyšší, než byla předchozí odměna. Pokud tedy uhodnete všech 12 hodů v daném bloku, za poslední dvanáctý uhodnutý hod získáte 60 Kč a celkem získáte 390 Kč. Celkové odměny za různé množství správných odhadů jsou zobrazeny v této tabulce:
 <c>
@@ -39,7 +39,7 @@ Abychom ověřili, že rozumíte instrukcím, odpovězte prosím na kontrolní o
 
 
 intro_control1 = 'Které tvrzení o úkolu je pravdivé?' 
-intro_answers1 = ['Pravděpodobnost správného odhadu v každém kole je 50%.', 'V každém bloku úkolu učiníte deset odhadů.', 'Odměna za úkol je dána součtem správných odhadů ve čtyřech blocích úkolu.', 'Jakmile úkol dokončíte, experimentátor Vám za něj vyplatí odměnu.'] 
+intro_answers1 = ['Pravděpodobnost správného odhadu v každém kole je 50%.', 'V každém bloku úkolu učiníte deset odhadů.', 'Odměna za úkol je dána součtem správných odhadů v pěti blocích úkolu.', 'Jakmile úkol dokončíte, experimentátor Vám za něj vyplatí odměnu.'] 
 intro_feedback1 = ['Ano, budete odhadovat jednu ze dvou stejně pravděpodobných možností.', 'Ne, každý blok sestává z dvanácti kol.', 'Ne, odměna závisí pouze na počtu správných odhadů v jednom náhodně vylosovaném bloku.', 'Ne, odměna bude vyplacena až za všechny části studie dohromady po jejím skončení.']
 
 intro_control2 = 'Kolik obdržíte za úkol peněz, pokud bude vylosován blok, kde uhodnete dohromady 4 hody?' 
@@ -87,90 +87,41 @@ Jak jste zaznamenali, úkol měl dvě verze:
 <b>Verzi “PŘED”</b>, ve které uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
 <b>Verzi “PO”</b>, ve které uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
 
-Nyní Vás čeká třetí blok s dvanácti koly. V tomto bloku budete hrát verzi "PO". 
+Nyní Vás čeká třetí blok s dvanácti koly. V tomto bloku si můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Před čtvrtým blokem budete náhodně přiřazeni do skupiny spolu s dalšími třemi účastníky studie. {}Jeden z členů skupiny bude hrát ve čtvrtém bloku verzi "PO" a ostatní budou hrát verzi "PŘED". Kdo ze skupiny bude hrát verzi "PO" bude rozhodnuto hlasováním všech členů skupiny. Člen skupiny s nejvíce hlasy bude hrát verzi "PO".
-{}
-Každý člen skupiny bude mít jeden hlas, který přidělí některému z ostatních členů skupiny. Před hlasováním uvidíte výhru všech členů skupiny v tomto, třetím bloku a budete ji tedy moct vzít při hlasování v potaz.
-
-Po čtvrtém bloku všichni členové skupiny uvidí výhru zvoleného hráče.
-
-Vylosovaný blok úlohy, ze kterého Vám bude proplacena odměna, bude stejný pro celou Vaši skupinu.
-
-Ve třetím bloku budete tedy hrát verzi "PO" a před následujícím blokem budete spolu s ostatními členy Vaší skupiny hlasovat o tom, kdo bude v posledním bloku hrát verzi "PO". Před tímto hlasováním uvidíte výhru ostatních členů skupiny v tomto, třetím bloku."""
-
-condition_others = '''
-<b>Výhra člena skupiny, který bude hrát verzi "PO", bude odečtena od 400 Kč a zbylé peníze budou rozděleny rovným dílem mezi všechny členy skupiny.</b>
-'''
-condition_charity = '''
-<b>Výhra člena skupiny, který bude hrát verzi "PO", bude odečtena od 400 Kč a zbylé peníze budou darovány charitě Člověk v tísni.</b>
-'''
-condition_divided = '<b>Ve čtvrtém bloku se výhra celé skupiny sečte a rozdělí mezi všechny členy skupiny rovným dílem.</b> '
-
-
-control1 = 'Kdo bude hrát verzi "PO" úlohy ve třetím bloku?' 
-answers1 = ['Všichni členové skupiny.', 'Člen skupiny s nejvíce hlasy.', 'Člen skupiny, který měl nejvyšší výhru v druhém bloku.', 'Nikdo.'] 
-feedback1 = ['Ano, ve třetím bloku hrají všichni členové skupiny verzi "PO" úlohy.', 'Ne, před třetím blokem se nehlasuje. Verzi "PO" úlohy hrají všichni členové skupiny.', 'Ne, verzi "PO" úlohy hrají všichni členové skupiny.', 'Ne, verzi "PO" úlohy hrají všichni členové skupiny.']
-
-control2 = 'Kdo bude hrát verzi "PO" úlohy ve čtvrtém bloku?' 
-answers2 = ['Všichni členové skupiny.', 'Člen skupiny s nejvíce hlasy.', 'Člen skupiny, který bude mít nejvyšší výhru v třetím bloku.', 'Nikdo.'] 
-feedback2 = ['Ne, před čtvrtým blokem se hlasuje a verzi "PO" hraje pouze člen skupiny s nejvíce hlasy.', 'Ano, před čtvrtým blokem se hlasuje a verzi "PO" hraje pouze člen skupiny s nejvíce hlasy.', 'Ne, před čtvrtým blokem se hlasuje a verzi "PO" hraje pouze člen skupiny s nejvíce hlasy.', 'Ne, před čtvrtým blokem se hlasuje a verzi "PO" hraje pouze člen skupiny s nejvíce hlasy.']
-
-control3 = 'Co platí o výhře člena skupiny, který bude hrát verzi "PO" úlohy ve čtvrtém bloku?' 
-answers3 = ["Bude proplacena, pokud bude tento člen skupiny vylosován.", "Dělí se s členem skupiny, který obdržel nejméně hlasů.", "Bude přidělena charitě Člověk v tísni."] 
-feedback3 = ["Ne, výhra ", "Ne, výhra ", "Ne, výhra ", "Ano, výhra "]
-
-correct_answers3 = {"experimenter_divided": 'Sečte se s výhrou ostatních členů a rozdělí se rovným dílem.', "others_kept": 'Bude odečtena od 400 Kč a zbylé peníze budou rozděleny mezi všechny členy skupiny.', "charity_kept": 'Bude odečtena od 400 Kč a zbylé peníze budou darovány charitě Člověk v tísni.', "charity_divided": 'Bude odečtena od 400 Kč a zbylé peníze budou darovány charitě Člověk v tísni.\nNásledně se sečte s výhrou ostatních členů skupiny a rozdělí se rovným dílem.', "experimenter_kept": "Bude proplacena, pokud bude čtvrtý blok úlohy vylosován."}
-
-
-# HLASOVÁNÍ
-intro_voting = """Toto je konec třetího bloku o dvanácti kolech. Pokud bude tento blok vylosován, obdržíte {} Kč.
-
-Nyní Vás čeká čtvrtý blok s dvanácti pokusy.
-
-Byli jste přiřazeni do skupiny s dalšími třemi účastníky studie. {}
-
-Z každé skupiny bude v následujícím bloku jeden účastník hrát verzi "PO", ve které se uvádí, zda jste uhodli, či nikoliv, až po zobrazení výsledku hodu kostkou. Zbývající účastníci budou hrát verzi "PŘED". 
-{}
-Kdo ze skupiny bude hrát verzi "PO" bude rozhodnuto hlasováním všech členů skupiny. Člen skupiny s nejvíce hlasy bude hrát verzi "PO". V případě rovnosti hlasů bude vybrán jeden z hráčů s nejvíce hlasy náhodně.
-
-Níže jsou zobrazeny výhry ostatních účastníků studie ve třetím bloku. Označte, pro koho ze své skupiny hlasujete, aby hrál verzi "PO" v následujícím bloku, a zmáčkněte tlačítko "Pokračovat".
+Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
 
-# OTÁZKA PO HLASOVÁNÍ
-perception_intro = """Nyní odpovězte na několik otázek týkající se volby."""
+intro_fourth = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-q1 = 'Kolik si myslíte, že hráč, kterého jste Vy volili, nahlásí správných odhadů, pokud bude hrát verzi "PO" úlohy?'
-q2 = 'Kolik si myslíte, že obdržíte Vy hlasů od ostatních členů skupiny ve volbě?'
-q3 = 'Nakolik souhlasíte, že Hráč {}, který v třetím bloku vyhrál {} Kč, je ...'
-q4 = "Nakolik si myslíte, že si o Vás budou ostatní hráči myslet, že jste ..."
-characteristics = ["... čestný", "... sobecký", "... vypočítavý"]
-characteristics2 = ["... čestný/á", "... sobecký/á", "... vypočítavý/á"]
-scale = ["Zcela nesouhlasím", "Nesouhlasím", "Spíše nesouhlasím", "Spíše souhlasím", "Souhlasím", "Zcela souhlasím"]
+Po tomto bloku opět obdržíte úlohu, kterou jste zrovna dokončili. Budete ovšem spárováni s jiným účastníkem studie. 
+{}
 
-
-# VÝSLEDKY HLASOVÁNÍ
-wait_text = "Prosím počkejte na ostatní členy skupiny. Můžete vyplňovat vytištěný dotazník."
-
-
-voting_result = """Verzi PO {} Vaší skupiny.
+Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-voting_you = "budete hrát Vy, neboť pro Vás hlasoval"
-voting_other = "bude hrát hráč {}, pro kterého hlasoval"
-members = [" 1 člen", "i 2 členové", "i 3 členové"]
+versionText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto čtvrté kolo. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
+rewardText = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto čtvrtém kole. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
+version_rewardText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto čtvrté kolo a kolik správných odhadů jste v něm učinil(a). Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
+nothingText = ""
 
 
-# DOPLŇUJÍCÍ OTÁZKY PO ÚLOZE
-debrief_intro = """Nyní odpovězte na několik otázek týkající se této části studie."""
 
-d1 = 'Popište, jak jste se rozhodoval(a) o tom, komu dát hlas před čtvrtým blokem úlohy.'
-d2 = 'Nakolik jste chtěl(a) být ve čtvrtém bloku úlohy zvolen(a)?'
-d3 = 'Nakolik jste si myslel(a), že budete ve čtvrtém bloku úlohy zvolen(a)?'
-d4 = 'Jak moc jste preferoval(a) Vámi voleného člena skupiny před ostatními?'
-scale = ["Vůbec ne", "Jen trochu", "Do určité míry", "Spíše hodně", "Velmi"]
-d5 = 'Popište, zda jste dělal(a) něco ve třetím bloku úlohy, abyste byl(a) zvolen(a) pro hraní "PO" verze úlohy ve čtvrtém bloku.'
+intro_fifth = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
+
+Po tomto bloku opět obdržíte úlohu, kterou jste zrovna dokončili. Budete ovšem spárováni s jiným účastníkem studie. 
+{}
+
+Chcete hrát verzi “PŘED” nebo “PO”?
+"""
+
+
+
+
+# ČEKÁNÍ
+wait_text = "Prosím počkejte na ostatní členy skupiny."
+
 
 
 # KONEC
@@ -180,59 +131,6 @@ Toto je konec úkolu s kostkou.
 """
 
 
-others_kept_end = '''
-Člen skupiny, který hrál verzi "PO", vyhrál {} Kč. Tato výhra byla odečtena od 400 Kč a zbylých {} Kč bylo rozděleno rovným dílem mezi všechny členy skupiny. 
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy Vaši výhru {} Kč a ze zbylých peněz navíc {} Kč, tedy dohromady {} Kč.</b>
-'''
-
-charity_kept_end = '''
-Člen skupiny, který hrál verzi "PO", vyhrál {} Kč. Tato výhra byla odečtena od 400 Kč a zbylých {} Kč bude darováno charitě Člověk v tísni.
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy Vaši výhru {} Kč a {} Kč bude darováno charitě Člověk v tísni.</b>
-'''
-
-charity_divided_end = '''
-Člen skupiny, který hrál verzi "PO", vyhrál {} Kč. Tato výhra byla odečtena od 400 Kč a zbylých {} Kč bude darováno charitě Člověk v tísni.
-Vy jste vyhrál {} Kč a zbylí dva hráči vyhráli {} Kč. Celkově tedy Vaše skupina vyhrála {} Kč. Tato výhra se rozdělí mezi všechny členy skupiny rovným dílem.
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy {} Kč a {} Kč bude darováno charitě Člověk v tísni.</b>
-'''
-
-experimenter_kept_end = '''
-Člen skupiny, který hrál verzi "PO", vyhrál {} Kč. 
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte Vaši výhru {} Kč.</b>
-'''
-
-experimenter_divided_end = '''
-Člen skupiny, který hrál verzi "PO", vyhrál {} Kč.
-Vy jste vyhrál {} Kč a zbylí dva hráči vyhráli {} Kč. Celkově tedy Vaše skupina vyhrála {} Kč. Tato výhra se rozdělí mezi všechny členy skupiny rovným dílem.
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy {} Kč.</b>
-'''
-
-you_others_kept_end = '''
-Vyhrál jste {} Kč. Tato výhra byla odečtena od 400 Kč a zbylých {} Kč bylo rozděleno rovným dílem mezi všechny členy skupiny. 
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy Vaši výhru {} Kč a ze zbylých peněz navíc {} Kč, tedy dohromady {} Kč.</b>
-'''
-
-you_charity_kept_end = '''
-Vyhrál jste {} Kč. Tato výhra byla odečtena od 400 Kč a zbylých {} Kč bude darováno charitě Člověk v tísni.
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy Vaši výhru {} Kč a {} Kč bude darováno charitě Člověk v tísni.</b>
-'''
-
-you_charity_divided_end = '''
-Vyhrál jste {} Kč. Tato výhra byla odečtena od 400 Kč a zbylých {} Kč bude darováno charitě Člověk v tísni.
-Zbylí tři hráči vyhráli {} Kč. Celkově tedy Vaše skupina vyhrála {} Kč. Tato výhra se rozdělí mezi všechny členy skupiny rovným dílem.
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy {} Kč a {} Kč bude darováno charitě Člověk v tísni.</b>
-'''
-
-you_experimenter_kept_end = '''
-Vyhrál jste {} Kč. 
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte Vaši výhru {} Kč.</b>
-'''
-
-you_experimenter_divided_end = '''
-Vyhrál jste {} Kč.
-Zbylí tři hráči vyhráli {} Kč. Celkově tedy Vaše skupina vyhrála {} Kč. Tato výhra se rozdělí mezi všechny členy skupiny rovným dílem.
-<b>Pokud bude tento blok pro Vaši skupinu vybrán, obdržíte tedy {} Kč.</b>
-'''
 ################################################################################
 
 
@@ -260,7 +158,6 @@ class Cheating(ExperimentFrame):
             self.root.status["block"] = 1
             conditions = ["treatment", "control"]
             random.shuffle(conditions)  
-            conditions += ["treatment"]
             self.root.status["conditions"] = conditions
         self.blockNumber = self.root.status["block"]      
         
@@ -492,29 +389,30 @@ class Cheating(ExperimentFrame):
 
     
     def nextFun(self):
-        if self.blockNumber >= 3: # send the results of the after version in the third and fourth round            
+        if self.blockNumber >= 3: # send the results in the third to fifth round           
             wins = self.root.wins[self.blockNumber]
             reward = sum(self.rewards[:self.root.wins[self.blockNumber]])
-            if self.blockNumber == 3:
-                outcome = "|".join(["outcome", str(wins), str(reward)]) 
-            else:
-                outcome = "|".join(["outcome", str(reward)]) 
+            outcome = "|".join(["outcome", str(wins), str(reward), self.condition])
             while True:
                 data = urllib.parse.urlencode({'id': self.id, 'round': self.blockNumber, 'offer': outcome})
                 data = data.encode('ascii')
-                if URL == "TEST":
-                    if self.blockNumber == 3:
-                        self.root.texts["testOutcome"] = self.root.status["number"] + outcome.lstrip("outcome")
+                if URL == "TEST":                    
+                    otherversion = random.choice(["treatment", "control"])
+                    if otherversion == "control":
+                        chance = 0.5
                     else:
-                        self.root.texts["testResult"] = str(reward)
-                    response = "ok"
+                        chance = random.random() / 2
+                    otherwins = sum([1 for i in range(12) if random.random() > chance else 0])
+                    otherreward = sum(self.rewards[:otherwins])                    
+                    response = "|".join(["outcome", str(otherwins), str(otherreward), otherversion])
                 else:
                     try:
                         with urllib.request.urlopen(URL, data = data) as f:
                             response = f.read().decode("utf-8")       
                     except Exception:
                         continue
-                if response == "ok":                    
+                if response.startswith("outcome"):                    
+                    self.root.status["other" + str(self.blockNumber)] # pro trust game
                     super().nextFun()  
                     return            
                 sleep(0.1)
