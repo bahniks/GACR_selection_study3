@@ -15,15 +15,14 @@ from cheating import CheatingInstructions, Cheating, Instructions2, Wait, Voting
 from cheating import EndCheating, Login, Instructions3, OutcomeWait, VotingResult, Perception, Debrief, FinalWait
 from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
-from dictator import WaitDictator, InstructionsDictator, DictatorDecision, DictatorFeelings, WaitResult1, DictatorResult
-from dictator import DictatorFeelings2, WaitResult2, DictatorEnd
-from questionnaire import TEQ, RSMS, HEXACOinfo, PoliticalWill
+from trustgame import WaitDictator, InstructionsDictator, DictatorDecision, DictatorFeelings, WaitResult1, DictatorResult
+from trustgame import DictatorFeelings2, WaitResult2, DictatorEnd
+from questionnaire import TEQ, RSMS, PoliticalWill
 from tosca import TOSCA
 
 frames = [Initial,
           Login,
-          Intro,
-          HEXACOintro,
+          Intro,          
           CheatingInstructions,
           Cheating,
           Instructions2,
@@ -31,11 +30,16 @@ frames = [Initial,
           Instructions3,
           Cheating,
           OutcomeWait,
-          Voting,
-          Perception,
+          Trust,          
           Wait,
-          VotingResult,
-          Cheating,   
+          TrustResult,
+          Instructions4,
+          Cheating,
+          OutcomeWait,
+          Trust,
+          Wait,
+          Instructions5,
+          
           Debrief,    
           FinalWait,
           EndCheating,
