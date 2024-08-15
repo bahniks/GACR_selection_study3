@@ -23,7 +23,7 @@ from constants import TESTING, URL
 # PRVNÍ BLOK
 intro_block_1 = """V následujícím úkolu budete hádat, jestli na virtuální kostce (generátor náhodných čísel) na Vašem počítači padne liché, nebo sudé číslo. Každé z čísel 1, 2, 3, 4, 5 a 6 může padnout se stejnou pravděpodobností. Lichá čísla jsou 1, 3 a 5. Sudá čísla jsou 2, 4 a 6. 
 
-Úkol je rozdělen do pěti samostatných bloků a každý blok sestává z dvanácti kol. V každém kole budete hádat výsledek jednotlivých hodů kostkou. Bloky se odlišují pravidly, dle nichž budete hádat hody kostkou. Pravidla níže však platí pro všech pět bloků.
+Úkol je rozdělen do šesti samostatných bloků a každý blok sestává z dvanácti kol. V každém kole budete hádat výsledek jednotlivých hodů kostkou. Bloky se odlišují pravidly, dle nichž budete hádat hody kostkou. Pravidla níže však platí pro všech šest bloků.
 
 Uhodnete-li první hod v daném bloku, získáte 5 Kč, uhodnete-li další, získáte za něj dalších 10 Kč, uhodnete-li další hod, získáte za něj dalších 15 Kč a tak dále. Za každý další uhodnutý hod získáte navíc částku o 5 Kč vyšší, než byla předchozí odměna. Pokud tedy uhodnete všech 12 hodů v daném bloku, za poslední dvanáctý uhodnutý hod získáte 60 Kč a celkem získáte 390 Kč. Celkové odměny za různé množství správných odhadů jsou zobrazeny v této tabulce:
 <c>
@@ -81,7 +81,7 @@ Toto je konec prvního bloku. Pokud bude tento blok vylosován, obdržíte {} K�
 
 
 # TŘETÍ BLOK
-intro_third = """Toto je konec druhého bloku o dvanácti kolech. Pokud bude tento blok vylosován, obdržíte {} Kč.
+intro_block_3 = """Toto je konec druhého bloku o dvanácti kolech. Pokud bude tento blok vylosován, obdržíte {} Kč.
 
 Jak jste zaznamenali, úkol měl dvě verze:
 <b>Verzi “PŘED”</b>, ve které uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
@@ -93,34 +93,46 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
 
-intro_fourth = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
+intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu, kterou jste zrovna dokončili. Budete ovšem spárováni s jiným účastníkem studie. 
+Po tomto bloku opět obdržíte úlohu s dělením peněz, kterou jste zrovna dokončili. Částka přidělená prvnímu z hráčů bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
 {}
 
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-versionText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto čtvrté kolo. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
-rewardText = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto čtvrtém kole. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
-version_rewardText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto čtvrté kolo a kolik správných odhadů jste v něm učinil(a). Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
-nothingText = ""
+versionText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali v tomto kole. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
+rewardText = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
+version_rewardText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a). Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
+controlText = ""
 
 
 
-intro_fifth = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
+intro_block_5 = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu, kterou jste zrovna dokončili. Budete ovšem spárováni s jiným účastníkem studie. 
+Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená prvnímu z hráčů bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
 {}
 
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
 
+intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
+
+Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená prvnímu z hráčů bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
+{}
+
+Chcete hrát verzi “PŘED” nebo “PO”?
+"""
+
+FEE = 20
+versionText2 = "Opět se před touto úlohou bude moci tento účastnik studie dozvědět, jakou verzi úlohy jste si vybrali v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
+rewardText2 = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
+version_rewardText2 = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a), ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
 
 
 # ČEKÁNÍ
-wait_text = "Prosím počkejte na ostatní členy skupiny."
+wait_text = "Prosím počkejte na ostatní účastníky studie."
 
 
 
@@ -129,6 +141,12 @@ endtext = """Toto je konec posledního bloku.
 {}
 Toto je konec úkolu s kostkou.
 """
+
+
+# buttons
+controlchoicetext = "PŘED"
+treatmentchoicetext = "PO"
+
 
 
 ################################################################################
@@ -151,7 +169,6 @@ class Cheating(ExperimentFrame):
         self.fakeRolling = not TESTING
         self.diesize = 240
         self.rewards = [i*5 + 5 for i in range(self.trials)]
-        self.endowment = 100
         #######################
 
         if not "block" in self.root.status:
@@ -360,7 +377,7 @@ class Cheating(ExperimentFrame):
         t = perf_counter()
         if answer == "win":
             self.root.wins[self.blockNumber] += 1
-        self.responses.append([self.blockNumber, self.currentTrial, self.condition, self.root.status["source"], 
+        self.responses.append([self.blockNumber, self.currentTrial, self.condition,
                                self.root.status["condition"], self.currentRoll, self.response, answer, 
                                sum(self.rewards[:self.root.wins[self.blockNumber]]), t - self.time, self.firstResponse - self.time,
                                t - self.beforeSecondResponse])
@@ -389,30 +406,22 @@ class Cheating(ExperimentFrame):
 
     
     def nextFun(self):
-        if self.blockNumber >= 3: # send the results in the third to fifth round           
+        if self.blockNumber >= 3: # send the results in the third to sixth round           
             wins = self.root.wins[self.blockNumber]
             reward = sum(self.rewards[:self.root.wins[self.blockNumber]])
             outcome = "|".join(["outcome", str(wins), str(reward), self.condition])
             while True:
                 data = urllib.parse.urlencode({'id': self.id, 'round': self.blockNumber, 'offer': outcome})
                 data = data.encode('ascii')
-                if URL == "TEST":                    
-                    otherversion = random.choice(["treatment", "control"])
-                    if otherversion == "control":
-                        chance = 0.5
-                    else:
-                        chance = random.random() / 2
-                    otherwins = sum([1 for i in range(12) if random.random() > chance else 0])
-                    otherreward = sum(self.rewards[:otherwins])                    
-                    response = "|".join(["outcome", str(otherwins), str(otherreward), otherversion])
+                if URL == "TEST":
+                    response = "ok"
                 else:
                     try:
                         with urllib.request.urlopen(URL, data = data) as f:
                             response = f.read().decode("utf-8")       
                     except Exception:
                         continue
-                if response.startswith("outcome"):                    
-                    self.root.status["other" + str(self.blockNumber)] # pro trust game
+                if response == "ok":                    
                     super().nextFun()  
                     return            
                 sleep(0.1)
@@ -441,6 +450,24 @@ class Cheating(ExperimentFrame):
             #self.root.update()
             #self.after(700, self.continueButton.invoke)
 
+
+
+class Selection(InstructionsFrame):
+    def __init__(self, root, text, update = []):
+        super().__init__(root, text = text, proceed = False, update = update, height = 17)
+
+        ttk.Style().configure("TButton", font = "helvetica 15", width = 16)
+
+        self.control = ttk.Button(self, text = controlchoicetext,
+                                  command = lambda: self.response("control"))
+        self.treatment = ttk.Button(self, text = treatmentchoicetext,
+                                    command = lambda: self.response("treatment"))
+        self.control.grid(row = 2, column = 0)
+        self.treatment.grid(row = 2, column = 2)        
+
+    def response(self, choice):
+        self.root.status["conditions"].append("_" + choice)
+        self.nextFun()
 
 
     
@@ -512,200 +539,57 @@ class CheatingInstructions(InstructionsFrame):
 
 
 
-class Voting(InstructionsFrame):
-    def __init__(self, root):
-        # for testing
-        if not "block" in root.status: 
-            root.status["block"] = 1
-        if TESTING and not "outcome" in root.texts:
-            root.texts["outcome"] = "outcome_1|1|5_2|3|30_3|12|390_4|10|275_True"
-
-        super().__init__(root, text = root.texts["intro_block_4"], height = 23, font = 15, update = ["win3"])
-
-        # vote frame
-        self.voteVar = StringVar()
-        self.voteFrame = Canvas(self, background = "white", highlightbackground = "white", highlightcolor = "white")
-        
-        self.labs = {}
-        self.radios = {}
-        self.wins = {}
-
-        self.playerHead = ttk.Label(self.voteFrame, text = "Hráč", font = "helvetica 15 bold", background = "white")
-        self.playerHead.grid(row = 0, column = 1, pady = 10, padx = 20, sticky = W)
-        self.winHead = ttk.Label(self.voteFrame, text = "Výhra", font = "helvetica 15 bold", background = "white")
-        self.winHead.grid(row = 0, column = 2, pady = 10, padx = 20, sticky = E)
-        self.radioHead = ttk.Label(self.voteFrame, text = "Volba", font = "helvetica 15 bold", background = "white")
-        self.radioHead.grid(row = 0, column = 3, pady = 10, padx = 20)
-        
-        ttk.Style().configure("TRadiobutton", background = "white", font = "helvetica 15")
-        for i in range(4):
-            you = i + 1 == int(self.root.status["number"])
-            removed = int(self.root.texts["outcome"].split("_")[i+1].split("|")[1]) < 0
-            player = "Hráč " + str(i + 1) if not you else "Vy"
-            if removed:
-                player += " (Vyřazen)"
-            self.labs[i] = ttk.Label(self.voteFrame, text = player, font = "helvetica 15", background = "white")
-            self.labs[i].grid(row = i + 1, column = 1, sticky = W, padx = 20)
-            win = self.root.texts["outcome"].split("_")[i+1].split("|")[2]
-            self.wins[i] = ttk.Label(self.voteFrame, text = win, font = "helvetica 15", background = "white")
-            self.wins[i].grid(row = i + 1, column = 2, padx = 20, sticky = E)
-            state = "disabled" if you or removed else "normal"
-            self.radios[i] = ttk.Radiobutton(self.voteFrame, text = "", variable = self.voteVar, value = str(i + 1), command = self.voted, state = state)
-            self.radios[i].grid(row = i + 1, column = 3, padx = 20)
-                            
-        self.voteFrame.grid(row = 4, column = 1, sticky = N)
-        self.next.grid(row = 5, column = 1)
-        self.next["state"] = "disabled"
-   
-        self.rowconfigure(0, weight = 3)
-        self.rowconfigure(1, weight = 0)
-        self.rowconfigure(2, weight = 0)
-        self.rowconfigure(3, weight = 0)
-        self.rowconfigure(4, weight = 0)
-        self.rowconfigure(5, weight = 2)
-        self.rowconfigure(6, weight = 2)        
 
 
-    def voted(self):
-        self.next["state"] = "!disabled"
+# class Debrief(InstructionsFrame):
+#     def __init__(self, root):
+#         super().__init__(root, text = perception_intro, height = 2, font = 15)
 
-    def nextFun(self):
-        self.write()
-        super().nextFun()
- 
-    def write(self):
-        self.root.texts["votingResponse"] = self.voteVar.get()
+#         self.Q1 = TextArea(self, d1, alines = 5, qlines = 2, width = 60)
+#         self.Q2 = Measure(self, d2, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)  
+#         self.Q3 = Measure(self, d3, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)
+#         self.Q4 = Measure(self, d4, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)
+#         self.Q5 = TextArea(self, d5, alines = 5, width = 60)
 
-        self.file.write("Voting\n")
-        self.file.write(self.id + "\t" + str(self.root.status["block"]) + "\t" + self.voteVar.get() + "\t" + "\n\n")
+#         self.Q1.grid(row = 2, column = 1)
+#         self.Q2.grid(row = 3, column = 1)
+#         self.Q3.grid(row = 4, column = 1)
+#         self.Q4.grid(row = 5, column = 1)
+#         self.Q5.grid(row = 6, column = 1)
 
-        data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"], 'offer': self.voteVar.get()})
-        data = data.encode('ascii')
-        if URL != "TEST":
-            for i in range(60):
-                try: 
-                    with urllib.request.urlopen(URL, data = data) as f:
-                        if f.getcode() != 200 or f.read().decode("utf-8").strip() != "ok":
-                            self.root.config(cursor = "wait")
-                            self.root.update()
-                            sleep(1)
-                        else:
-                            self.root.config(cursor = "")
-                            break
-                except Exception:
-                    continue
-            else:
-                messagebox.showinfo(message = "Zavolejte prosím experimentátora.", icon = "error", parent = self.root, 
-                                  detail = "Pravděpodobně je problém se serverem.", title = "Problém")
-        else:
-            self.root.status["TESTvote"] = self.voteVar.get()
+#         self.warning = ttk.Label(self, text = "Odpovězte prosím na všechny otázky.",
+#                                  background = "white", font = "helvetica 15", foreground = "white")
+#         self.warning.grid(row = 7, column = 1)
 
+#         self.next.grid(row = 8, column = 1)
 
+#         self.rowconfigure(0, weight = 2)
+#         self.rowconfigure(1, weight = 1)
+#         self.rowconfigure(2, weight = 1)
+#         self.rowconfigure(3, weight = 1)
+#         self.rowconfigure(4, weight = 1)
+#         self.rowconfigure(5, weight = 1)
+#         self.rowconfigure(6, weight = 1)
+#         self.rowconfigure(7, weight = 1)
+#         self.rowconfigure(8, weight = 1)
+#         self.rowconfigure(9, weight = 2)
 
+#     def check(self):
+#         ok = all([self.Q1.check(), self.Q2.check(), self.Q3.check(), self.Q4.check(), self.Q5.check()])
+#         if ok:
+#             self.write()
+#         return ok
 
-class Perception(InstructionsFrame):
-    def __init__(self, root):
-        super().__init__(root, text = perception_intro, height = 2, font = 15, savedata = True)
+#     def back(self):
+#         self.warning.config(foreground = "red")
 
-        self.Q1 = Measure(self, q1, values = [i for i in range(13)], questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)  
-        self.Q2 = Measure(self, q2, values = [i for i in range(4)], questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 300)
-        
-        self.frames = {}
-        row = 3
-        for i in range(4):
-            if not i + 1 == int(self.root.status["number"]):
-                if int(self.root.texts["outcome"].split("_")[i+1].split("|")[1]) >= 0:
-                    self.frames[row-3] = OneFrame(self, q3.format(i+1, self.root.texts["outcome"].split("_")[i+1].split("|")[2]), items = characteristics, scale = scale)
-                    self.frames[row-3].grid(row = row, column = 1)
-                    row += 1
-
-        self.frames[row - 3] = OneFrame(self, q4, items = characteristics2, scale = scale)
-        self.frames[row - 3].grid(row = row, column = 1)
-
-        self.Q1.grid(row = 1, column = 1)
-        self.Q2.grid(row = 2, column = 1)
-
-        self.warning = ttk.Label(self, text = "Odpovězte prosím na všechny otázky.",
-                                 background = "white", font = "helvetica 15", foreground = "white")
-        self.warning.grid(row = 7, column = 1)
-
-        self.next.grid(row = 8, column = 1)
-
-        self.rowconfigure(0, weight = 2)
-        self.rowconfigure(1, weight = 1)
-        self.rowconfigure(2, weight = 1)
-        self.rowconfigure(3, weight = 1)
-        self.rowconfigure(4, weight = 1)
-        self.rowconfigure(5, weight = 1)
-        self.rowconfigure(6, weight = 1)
-        self.rowconfigure(7, weight = 1)
-        self.rowconfigure(8, weight = 1)
-        self.rowconfigure(9, weight = 2)
-
-    def check(self):
-        return all([self.Q1.check(), self.Q2.check()] + [i.check() for i in self.frames.values()])        
-
-    def back(self):
-        self.warning.config(foreground = "red")
-
-    def write(self):
-        self.file.write("Perception\n" + "\t".join([self.id, self.Q1.answer.get(), self.Q2.answer.get(), ""]))
-        for i in range(len(self.frames)):            
-            self.frames[i].write()
-            self.file.write("\t")
-        self.file.write("\n\n")
-
-
-
-class Debrief(InstructionsFrame):
-    def __init__(self, root):
-        super().__init__(root, text = perception_intro, height = 2, font = 15)
-
-        self.Q1 = TextArea(self, d1, alines = 5, qlines = 2, width = 60)
-        self.Q2 = Measure(self, d2, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)  
-        self.Q3 = Measure(self, d3, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)
-        self.Q4 = Measure(self, d4, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)
-        self.Q5 = TextArea(self, d5, alines = 5, width = 60)
-
-        self.Q1.grid(row = 2, column = 1)
-        self.Q2.grid(row = 3, column = 1)
-        self.Q3.grid(row = 4, column = 1)
-        self.Q4.grid(row = 5, column = 1)
-        self.Q5.grid(row = 6, column = 1)
-
-        self.warning = ttk.Label(self, text = "Odpovězte prosím na všechny otázky.",
-                                 background = "white", font = "helvetica 15", foreground = "white")
-        self.warning.grid(row = 7, column = 1)
-
-        self.next.grid(row = 8, column = 1)
-
-        self.rowconfigure(0, weight = 2)
-        self.rowconfigure(1, weight = 1)
-        self.rowconfigure(2, weight = 1)
-        self.rowconfigure(3, weight = 1)
-        self.rowconfigure(4, weight = 1)
-        self.rowconfigure(5, weight = 1)
-        self.rowconfigure(6, weight = 1)
-        self.rowconfigure(7, weight = 1)
-        self.rowconfigure(8, weight = 1)
-        self.rowconfigure(9, weight = 2)
-
-    def check(self):
-        ok = all([self.Q1.check(), self.Q2.check(), self.Q3.check(), self.Q4.check(), self.Q5.check()])
-        if ok:
-            self.write()
-        return ok
-
-    def back(self):
-        self.warning.config(foreground = "red")
-
-    def write(self):
-        self.file.write("Debrief\n" + "\t".join([self.id, self.Q2.answer.get(), self.Q3.answer.get(), self.Q4.answer.get()]))
-        self.file.write("\t")
-        self.Q1.write(False)        
-        self.file.write("\t")
-        self.Q5.write() 
-        self.file.write("\n") 
+#     def write(self):
+#         self.file.write("Debrief\n" + "\t".join([self.id, self.Q2.answer.get(), self.Q3.answer.get(), self.Q4.answer.get()]))
+#         self.file.write("\t")
+#         self.Q1.write(False)        
+#         self.file.write("\t")
+#         self.Q5.write() 
+#         self.file.write("\n") 
 
 
 
@@ -724,22 +608,15 @@ class Wait(InstructionsFrame):
                 data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"], 'offer': self.what})                
                 data = data.encode('ascii')
                 if URL == "TEST":
-                    if self.what == "voting":
-                        myvote = int(self.root.status["TESTvote"])
-                        # pridat pocitacni hlasu
-                        maxvotes = random.randint(1, 4)
-                        votes = random.randint(1, 3)
-                        condition = "treatment" if maxvotes == self.root.status["number"] else "control"
-                        response = "_".join([condition, str(maxvotes), str(votes)])
-                    elif self.what == "outcome":                                                
-                        response = "outcome"
-                        for i in range(4):
-                            if i + 1 == int(self.root.status["number"]):
-                                response += "_" + self.root.texts["testOutcome"]
-                            else:
-                                outcome = random.randint(0,12)                 
-                                response += "_" + "|".join([str(i + 1), str(outcome), str(sum([i*5 + 5 for i in range(12)][:outcome]))]) 
-                        response += "_True"
+                    if self.what == "outcome":                 
+                        otherversion = random.choice(["treatment", "control"])
+                        if otherversion == "control":
+                            chance = 0.5
+                        else:
+                            chance = random.random() / 2
+                        otherwins = sum([1 if random.random() > chance else 0 for i in range(12)])
+                        otherreward = sum([i*5 + 5 for i in range(12)][:otherwins])                    
+                        response = "|".join(["outcome", str(otherwins), str(otherreward), otherversion]) + "_True"
                     elif self.what == "result":
                         response = "result"
                         for i in range(4):
@@ -756,16 +633,7 @@ class Wait(InstructionsFrame):
                     except Exception as e:
                         continue
                 if response:              
-                    if self.what == "voting":
-                        condition, maxvotes, votes = response.split("_")         
-                        if maxvotes == "0":
-                            continue  
-                        else:
-                            self.root.status["winner"] = int(maxvotes)
-                        self.root.status["conditions"].append(condition)             
-                        self.updateResults(maxvotes, votes)
-                        self.write(response)
-                    elif self.what == "outcome":   
+                    if self.what == "outcome":   
                         if not response.endswith("True"):
                             continue
                         else:
@@ -785,61 +653,13 @@ class Wait(InstructionsFrame):
         self.progressBar.start()
         self.checkOffers()
 
-    def updateResults(self, maxvotes, votes):                
-        if maxvotes == self.root.status["number"]:
-            self.root.texts["voting_result_text"] = voting_you + members[int(votes) - 1]
-        else:
-            self.root.texts["voting_result_text"] = voting_other.format(maxvotes) + members[int(votes) - 1]
-
     def write(self, response):
-        self.file.write("Voting Result" + "\n")
-        self.file.write(self.id + "\t" + str(self.root.status["block"]) + "\t" + response.replace("_", "\t") + "\n\n")        
-
-    def createEndText(self, response):
-        outcomes = list(map(int, response.replace("-99", "0").split("_")[1:5]))
-        removed = response.count("-99")
-        remain = 4 - removed
-        p1, p2, p3, p4 = outcomes        
-        condition = self.root.status["source"] + "_" + self.root.status["condition"]
-        you = self.root.status["winner"] == int(self.root.status["number"])
-        textname = "you_" if you else ""
-        textname += condition + "_end"
-        text = eval(textname)
-        afterwin = outcomes[self.root.status["winner"] - 1]
-        youwin = outcomes[int(self.root.status["number"]) - 1]
-        remainder = 400 - afterwin
-        split = round(remainder / remain)
-        total = sum(outcomes)
-        divided = round(total/remain)
-        if condition == "others_kept":
-            text = text.format(afterwin, remainder, youwin, split, youwin + split)
-            reward = youwin + split
-        elif condition == "charity_kept":
-            text = text.format(afterwin, remainder, youwin, remainder)
-            reward = "{} Kč a charita za Vaši skupinu obdrží {}".format(youwin, remainder)
-        elif condition == "charity_divided":
-            if you:
-                text = text.format(afterwin, remainder, total - youwin, total, divided, remainder)            
-            else:
-                text = text.format(afterwin, remainder, youwin, total - afterwin - youwin, total, divided, remainder)            
-            reward = "{} Kč a charita za Vaši skupinu obdrží {}".format(divided, remainder)
-        elif condition == "experimenter_kept":
-            text = text.format(afterwin, youwin)
-            reward = youwin
-        elif condition == "experimenter_divided":
-            if you:
-                text = text.format(afterwin, total - afterwin, total, divided)
-            else:
-                text = text.format(afterwin, youwin, total - afterwin - youwin, total, divided)
-            reward = divided
-        self.root.texts["win4text"] = text
+        self.file.write("Voting Result" + "\n") # to do
+        self.file.write(self.id + "\t" + str(self.root.status["block"]) + "\t" + response.replace("_", "\t") + "\n\n") # to do
 
         # for the final screen
         win = int(self.root.status["winning_block"])
-        if win == 4:
-            self.root.texts["dice"] = str(reward)
-        else:
-            self.root.texts["dice"] = self.root.texts["win{}".format(win)]
+        self.root.texts["dice"] = self.root.texts["win{}".format(win)]
         self.root.texts["block"] = win
 
 
@@ -850,7 +670,7 @@ class Login(InstructionsFrame):
         self.progressBar = ttk.Progressbar(self, orient = HORIZONTAL, length = 400, mode = 'indeterminate')
         self.progressBar.grid(row = 2, column = 1, sticky = N)
 
-    def login(self):        
+    def login(self):       
         count = 0
         while True:
             self.update()
@@ -858,7 +678,7 @@ class Login(InstructionsFrame):
                 data = urllib.parse.urlencode({'id': self.root.id, 'round': 0, 'offer': "login"})
                 data = data.encode('ascii')
                 if URL == "TEST":
-                    response = "_".join(["start", random.choice(["others_kept", "charity_kept", "charity_divided", "experimenter_kept", "experimenter_divided"]), str(random.randint(1,4)), str(random.randint(1,4)), str(random.randint(1,2000))])
+                    response = "|".join(["start", random.choice(["control", "version", "reward", "version_reward"]), random.choice(["high-low", "low-high"]), str(random.randint(1,6)), str(random.randint(3,6)), str(random.randint(1,2000))])
                 else:
                     response = ""
                     try:
@@ -867,14 +687,14 @@ class Login(InstructionsFrame):
                     except Exception:
                         self.changeText("Server nedostupný")
                 if "start" in response:
-                    info, source, condition, number, winning_block, idNumber = response.split("_")                    
-                    self.root.status["source"] = source
+                    info, condition, incentive_order, winning_block, winning_trust, idNumber = response.split("|")                    
                     self.root.status["condition"] = condition   
-                    self.root.status["number"] = number
+                    self.root.status["incentive_order"] = incentive_order
                     self.root.status["winning_block"] = winning_block
+                    self.root.status["winning_trust"] = winning_trust
                     self.root.texts["idNumber"] = '{:03d}'.format(int(idNumber) % 1000)
-                    self.update_intro(source, condition)
-                    self.create_control_question(source, condition)
+                    self.update_intros(condition, incentive_order)
+                    #self.create_control_question(condition) # todo
                     self.progressBar.stop()
                     self.write(response)
                     self.nextFun()                      
@@ -888,7 +708,7 @@ class Login(InstructionsFrame):
                     self.changeText("Studie není otevřena")
                 elif response == "closed":
                     self.changeText("Studie je uzavřena pro přihlašování")
-                elif response == "not_grouped":
+                elif response == "not_grouped": # to asi nebude potreba
                     self.changeText("Nebyla Vám přiřazena žádná skupina. Zavolejte prosím experimentátora zvednutím ruky.")
             count += 1                  
             sleep(0.1)        
@@ -897,25 +717,27 @@ class Login(InstructionsFrame):
         self.progressBar.start()
         self.login()
 
-    def update_intro(self, source, condition):
-        source = {"others": condition_others, "charity": condition_charity, "experimenter": ""}[source]
-        condition = {"divided": condition_divided, "kept": ""}[condition]
-        self.root.texts["condition"] = condition
-        self.root.texts["source"] = source
-        self.root.texts["intro_block_4"] = intro_voting.format("{}", condition, source)
+    def update_intros(self, condition, incentive_order):
+        self.root.texts["incentive_4"] = 50 if incentive_order == "low-high" else 200
+        self.root.texts["incentive_5"] = 200 if incentive_order == "low-high" else 50
+        self.root.texts["add_block_4"] = eval(condition + "Text")
+        self.root.texts["add_block_5"] = eval(condition + "Text")
+        self.root.texts["add_block_6"] = eval(condition + "Text2")
 
-    def create_control_question(self, source, condition):        
-        condition = source + "_" + condition
-        global answers3
-        correctAnswer = correct_answers3[condition]
-        answers3 += [correctAnswer]
-        global feedback3
-        if condition == "experimenter_divided":
-            correctAnswer.replace("Sečte se", "se sečte")
-        else:
-            correctAnswer = correctAnswer[:1].lower() + correctAnswer[1:]
-        for i in range(4):
-            feedback3[i] += correctAnswer
+
+
+    # def create_control_question(self, source, condition):        
+    #     condition = source + "_" + condition
+    #     global answers3
+    #     correctAnswer = correct_answers3[condition]
+    #     answers3 += [correctAnswer]
+    #     global feedback3
+    #     if condition == "experimenter_divided":
+    #         correctAnswer.replace("Sečte se", "se sečte")
+    #     else:
+    #         correctAnswer = correctAnswer[:1].lower() + correctAnswer[1:]
+    #     for i in range(4):
+    #         feedback3[i] += correctAnswer
 
     def write(self, response):
         self.file.write("Login" + "\n")
@@ -927,33 +749,41 @@ class Login(InstructionsFrame):
 
 
 controlTexts1 = [[intro_control1, intro_answers1, intro_feedback1], [intro_control2, intro_answers2, intro_feedback2]]
-controlTexts3 = [[control1, answers1, feedback1], [control2, answers2, feedback2], [control3, answers3, feedback3]]
+# controlTexts3 = [[control1, answers1, feedback1], [control2, answers2, feedback2], [control3, answers3, feedback3]]
 
 CheatingInstructions = (InstructionsAndUnderstanding, {"text": intro_block_1, "height": 24, "width": 105, "name": "Cheating Instructions Control Questions", "randomize": False, "controlTexts": controlTexts1})
 Instructions2 = (InstructionsFrame, {"text": intro_block_2, "height": 5, "update": ["win1"]})
-Instructions3 = (InstructionsAndUnderstanding, {"text": intro_third, "height": 28, "width": 100, "name": "Cheating Round 3 Control Questions", "update": ["win2", "condition", "source"], "controlTexts": controlTexts3})
-VotingResult = (InstructionsFrame, {"text": voting_result, "height": 3, "update": ["voting_result_text"]})
-EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["win4text"]})
-OutcomeWait = (Wait, {"what": "outcome"})
-FinalWait = (Wait, {"what": "result"})
+Instructions3 = (Selection, {"text": intro_block_3, "update": ["win2"]})
+Instructions4 = (Selection, {"text": intro_block_4, "update": ["incentive_4", "add_block_4"]})
+Instructions5 = (Selection, {"text": intro_block_5, "update": ["incentive_5", "add_block_5"]})
+Instructions6 = (Selection, {"text": intro_block_6, "update": ["add_block_6"]})
+
+EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["trust6"]}) # to do update
+OutcomeWait = (Wait, {"what": "outcome"}) # todo
+# FinalWait = (Wait, {"what": "result"})
 
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login,
-         CheatingInstructions,
-         Cheating,
-         Instructions2,
-         Cheating,
-         Instructions3,
-         Cheating,
-         OutcomeWait,
-         Voting,
-         Perception,
-         Wait,
-         VotingResult,
-         Cheating,   
-         Debrief,
-         FinalWait, 
-         EndCheating
+    GUI([#Initial,
+          Login,
+          #Intro,          
+          CheatingInstructions,
+          Cheating,
+          Instructions2,
+          Cheating,
+          Instructions3, # selection
+          Cheating,
+          OutcomeWait,
+          Instructions4, # selection + info about trust
+          Cheating,
+          OutcomeWait,
+          Instructions5, # selection + info about trust
+          Cheating,
+          OutcomeWait,
+          Instructions6, # selection + info about trust and payment for info
+          Cheating,
+          OutcomeWait,
+          #Debrief,    
+          EndCheating
          ])
