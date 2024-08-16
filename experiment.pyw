@@ -15,7 +15,7 @@ from cheating import CheatingInstructions, Cheating, Instructions2, Instructions
 from cheating import EndCheating, Login, OutcomeWait, VotingResult, Perception, Debrief, FinalWait
 from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
-from trustgame import Wait, Trust, TrustResult
+from trustgame import WaitTrust, Trust, TrustResult
 #from trustgame import DictatorFeelings2, WaitResult2, DictatorEnd
 #from questionnaire import TEQ, RSMS, PoliticalWill
 #from tosca import TOSCA
@@ -31,25 +31,25 @@ frames = [Initial,
           Cheating,
           OutcomeWait,
           Trust, # trust instructions + decision
-          Wait,
+          WaitTrust,
           TrustResult,
           Instructions4, # selection + info about trust
           Cheating,
           OutcomeWait,
           Trust,
-          Wait,
+          WaitTrust,
           TrustResult,
           Instructions5, # selection + info about trust
           Cheating,
           OutcomeWait,
           Trust,
-          Wait,
+          WaitTrust,
           TrustResult,
           Instructions6, # selection + info about trust and payment for info
           Cheating,
           OutcomeWait,
           Trust,
-          Wait,
+          WaitTrust,
           TrustResult,
           #Debrief,    
           EndCheating,

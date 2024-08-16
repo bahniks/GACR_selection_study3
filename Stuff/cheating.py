@@ -119,7 +119,7 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 
 intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená prvnímu z hráčů bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
+Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená prvnímu z hráčů bude opět 200 Kč a budete spárováni s jiným účastníkem studie. 
 {}
 
 Chcete hrát verzi “PŘED” nebo “PO”?
@@ -129,7 +129,7 @@ FEE = 20
 versionText2 = "Opět se před touto úlohou bude moci tento účastnik studie dozvědět, jakou verzi úlohy jste si vybrali v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
 rewardText2 = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
 version_rewardText2 = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a), ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
-
+controlText2 = "TODO" # to do delit do jedne ze zbyvajicich tri skupin
 
 # ČEKÁNÍ
 wait_text = "Prosím počkejte na ostatní účastníky studie."
@@ -725,7 +725,6 @@ class Login(InstructionsFrame):
         self.root.texts["add_block_6"] = eval(condition + "Text2")
 
 
-
     # def create_control_question(self, source, condition):        
     #     condition = source + "_" + condition
     #     global answers3
@@ -765,9 +764,7 @@ OutcomeWait = (Wait, {"what": "outcome"}) # todo
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([#Initial,
-          Login,
-          #Intro,          
+    GUI([Login,      
           CheatingInstructions,
           Cheating,
           Instructions2,
