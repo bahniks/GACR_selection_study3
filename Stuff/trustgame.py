@@ -17,13 +17,13 @@ from cheating import Login
 
 ################################################################################
 # TEXTS
-instructions3 = """Vaše rozhodnutí v této úloze budou mít finanční důsledky pro Vás a pro dalšího přítomného účastníka. Pozorně si přečtěte pokyny, abyste porozuměli studii a své roli v ní. 
+instructions3 = """Vaše rozhodnutí v této úloze budou mít finanční důsledky pro Vás a pro dalšího přítomného účastníka v laboratoři. Pozorně si přečtěte pokyny, abyste porozuměli studii a své roli v ní. 
 
-V rámci této úlohy jste spárováni s jiným účastníkem studie. Oba obržíte 100 Kč.
+V rámci této úlohy jste spárováni s dalším účastníkem studie. Oba obdržíte 100 Kč.
 
-Bude Vám náhodně přidělena jedna ze dvou rolí: budete buď hráčem A, nebo hráčem B. Oba účastníci ve dvojici budou vždy informováni o rozhodnutích toho druhého.
+Bude Vám náhodně přidělena jedna ze dvou rolí: budete buď hráčem A, nebo hráčem B. Oba účastníci ve dvojici budou vždy informováni o rozhodnutích druhého hráče.
 
-<i>Hráč A:</i> Má možnost poslat hráči B od 0 do 100 Kč (v krocích po 20 Kč). Poslaná částka se ztrojnásobí.
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do 100 Kč (po 20 Kč). Poslaná částka se ztrojnásobí.
 <i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
 
 Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
@@ -70,13 +70,17 @@ Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.
 
 
 
+
 class ScaleFrame(Canvas):
-    def __init__(self, root, font = 15, maximum = 0):
+    def __init__(self, root, font = 15, maximum = 0, player = "A", returned = 0):
         super().__init__(root, background = "white", highlightbackground = "white", highlightcolor = "white")
 
         self.parent = root
         self.root = root.root
-        self.rounding = maximum / 5
+        self.rounding = maximum / 5 if player == "A" else 10
+        self.player = player
+        self.returned = returned
+        self.font = font
 
         self.valueVar = StringVar()
         self.valueVar.set("0")
@@ -86,20 +90,44 @@ class ScaleFrame(Canvas):
         self.value = ttk.Scale(self, orient = HORIZONTAL, from_ = 0, to = maximum, length = 500,
                             variable = self.valueVar, command = self.changedValue)
 
-        self.totalText = "      Hráč A: {} Kč   Já: {} Kč"
+        self.playerText1 = "Já:" if player == "A" else "Hráč A:"
+        self.playerText2 = "Hráč B:" if player == "A" else "Já:"
+        self.totalText1 = "{0:3d} Kč" if player == "A" else "{0:3d} Kč"
+        self.totalText2 = "{0:3d} Kč" if player == "A" else "{0:3d} Kč"
 
         self.valueLab = ttk.Label(self, textvariable = self.valueVar, font = "helvetica {}".format(font), background = "white", width = 3, anchor = "e")
-        self.currencyLab = ttk.Label(self, text = "Kč", font = "helvetica {}".format(font), background = "white")
-        self.totalLab = ttk.Label(self, text = self.totalText.format(0,0), font = "helvetica {}".format(font), background = "white")
+        self.currencyLab = ttk.Label(self, text = "Kč", font = "helvetica {}".format(font), background = "white", width = 6)
+        self.playerLab1 = ttk.Label(self, text = self.playerText1, font = "helvetica {}".format(font), background = "white", width = 6, anchor = "e") 
+        self.playerLab2 = ttk.Label(self, text = self.playerText2, font = "helvetica {}".format(font), background = "white", width = 6, anchor = "e") 
+        self.totalLab1 = ttk.Label(self, text = self.totalText1.format(0), font = "helvetica {}".format(font), background = "white", width = 6, anchor = "e")
+        self.totalLab2 = ttk.Label(self, text = self.totalText2.format(0), font = "helvetica {}".format(font), background = "white", width = 6, anchor = "e")
+        self.spaces = ttk.Label(self, text = " ", font = "helvetica {}".format(font), background = "white", width = 1)
+        self.changedValue(0)
 
-        self.value.grid(column = 1, row = 1, padx = 15)
+        self.value.grid(column = 1, row = 1, padx = 10)
         self.valueLab.grid(column = 3, row = 1)        
         self.currencyLab.grid(column = 4, row = 1)
-        self.totalLab.grid(column = 5, row = 1, padx = 10)
+        self.playerLab1.grid(column = 5, row = 1, padx = 3)
+        self.totalLab1.grid(column = 6, row = 1, padx = 3, sticky = "ew")
+        self.spaces.grid(column = 7, row = 1)
+        self.playerLab2.grid(column = 8, row = 1, padx = 3)        
+        self.totalLab2.grid(column = 9, row = 1, padx = 3, sticky = "ew")
 
 
-    def changedValue(self, value):                
-        self.valueVar.set(str(int(round(eval(self.valueVar.get())/self.rounding, 0)*self.rounding)))
+
+    def changedValue(self, value):         
+        newval = int(round(eval(self.valueVar.get())/self.rounding, 0)*self.rounding)
+        self.valueVar.set("{0:3d}".format(newval))
+        if self.player == "A":
+            self.totalLab1["text"] = self.totalText1.format(100 - newval)
+            self.totalLab2["text"] = self.totalText2.format(100 + newval * 3)
+            self.totalLab1["font"] = "helvetica {} bold".format(self.font)
+            self.playerLab1["font"] = "helvetica {} bold".format(self.font)
+        else:
+            self.totalLab1["text"] = self.totalText1.format(100 - self.returned + newval)
+            self.totalLab2["text"] = self.totalText2.format(self.returned * 3 + 100 - newval)
+            self.totalLab2["font"] = "helvetica {} bold".format(self.font)
+            self.playerLab2["font"] = "helvetica {} bold".format(self.font)
         self.parent.checkAnswers()
               
 
@@ -115,20 +143,23 @@ class Trust(InstructionsFrame):
         super().__init__(root, text = text, height = height, font = 15, width = width)
 
         self.labA = ttk.Label(self, text = "Pokud budu hráč A", font = "helvetica 15 bold", background = "white")
-        self.labA.grid(column = 0, row = 2, columnspan = 3, pady = 10)
+        self.labA.grid(column = 0, row = 2, columnspan = 3, pady = 10)        
 
-        self.labR = ttk.Label(self, text = "Odměna", font = "helvetica 15 bold", background = "white")
+        # ta x-pozice tady je hnusny hack, idealne by se daly texty odmen vsechny sem ze slideru
+        self.labR = ttk.Label(self, text = "Odměna", font = "helvetica 15 bold", background = "white", anchor = "center", width = 28)
         self.labR.grid(column = 1, row = 2, pady = 10, sticky = E)
 
         self.frames = {}
-        for i in range(7):
+        for i in range(7):            
             if i != 6:
-                text = "Pokud hráč A pošle {} Kč:".format(i*20)
+                text = "Pokud hráč A pošle {} Kč, pošlu:".format(i*20)
                 ttk.Label(self, text = text, font = "helvetica 15", background = "white").grid(column = 0, row = 6 + i, pady = 1, sticky = E)
+                player = "B"
             else:
-                ttk.Label(self, text = "Pošlu:", font = "helvetica 15", background = "white").grid(column = 0, row = 3, pady = 1, sticky = E)
-            maximum = i * 3 * 100 / 5 + 100 if i < 6 else 100
-            self.frames[i] = ScaleFrame(self, maximum = maximum)
+                ttk.Label(self, text = "Pošlu:", font = "helvetica 15", background = "white").grid(column = 0, row = 3, pady = 1, sticky = E)            
+                player = "A"
+            maximum = i * 3 * 100 / 5 + 100 if i < 6 else 100            
+            self.frames[i] = ScaleFrame(self, maximum = maximum, player = player, returned = i*20)                        
             row = 6 + i if i < 6 else 3
             self.frames[i].grid(column = 1, row = row, pady = 1)
         
