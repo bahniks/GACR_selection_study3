@@ -10,28 +10,46 @@ import urllib.parse
 
 from common import ExperimentFrame, InstructionsFrame, Measure, MultipleChoice, InstructionsAndUnderstanding
 from gui import GUI
-from constants import TESTING, URL
+from constants import TESTING, URL, TRUST
 from questionnaire import Questionnaire
 from cheating import Login
 
 
 ################################################################################
 # TEXTS
-instructions3 = """Vaše rozhodnutí v této úloze budou mít finanční důsledky pro Vás a pro dalšího přítomného účastníka v laboratoři. Pozorně si přečtěte pokyny, abyste porozuměli studii a své roli v ní. 
+instructionsT1 = """Vaše rozhodnutí v této úloze budou mít finanční důsledky pro Vás a pro dalšího přítomného účastníka v laboratoři. Pozorně si přečtěte pokyny, abyste porozuměli studii a své roli v ní. 
 
-V rámci této úlohy jste spárováni s dalším účastníkem studie. Oba obdržíte 100 Kč.
+V rámci této úlohy jste spárováni s dalším účastníkem studie. Oba obdržíte {} Kč.
 
 Bude Vám náhodně přidělena jedna ze dvou rolí: budete buď hráčem A, nebo hráčem B. Oba účastníci ve dvojici budou vždy informováni o rozhodnutích druhého hráče.
 
-<i>Hráč A:</i> Má možnost poslat hráči B od 0 do 100 Kč (po 20 Kč). Poslaná částka se ztrojnásobí.
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí.
 <i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
 
 Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
 
 Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký je celkový výsledek rozhodnutí Vás a druhého účastníka. 
+
 Tuto úlohu budete hrát v rámci studie celkem čtyřikrát a Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z těchto čtyř."""
 
+instructionsT2 = """Nyní obdržíte opět úlohu, v které jste spárováni s jiným účastníkem studie a můžete si posílat peníze.
 
+V tomto kole oba obdržíte {} Kč.
+
+Podobně jako v předchozím kole úlohy:
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí.
+<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
+
+Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
+
+Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký je celkový výsledek rozhodnutí Vás a druhého účastníka. 
+
+Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát."""
+
+instructionsT4 = instructionsT3 = instructionsT2
+
+
+# to do
 trustControl1 = "Jaká je role hráče A a hráče B ve studii?"
 trustAnswers1 = ["Hráč A rozhoduje, kolik hráči B vezme peněz. Účastníci studie jsou v obou kolech buď hráčem A, nebo hráčem B (role se nemění).",
 "Hráč A rozhoduje, kolik hráči B vezme peněz. Účastníci studie jsou nejprve hráčem A v druhém kole hráčem B (role se vymění).", "Hráč B rozhoduje, kolik hráči A vezme peněz. Účastníci studie jsou v obou kolech buď hráčem A, nebo hráčem B (role se nemění).", "Hráč B rozhoduje, kolik hráči A vezme peněz. Účastníci studie jsou nejprve hráčem A v druhém kole hráčem B (role se vymění)."]
@@ -72,7 +90,7 @@ Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.
 
 
 class ScaleFrame(Canvas):
-    def __init__(self, root, font = 15, maximum = 0, player = "A", returned = 0):
+    def __init__(self, root, font = 15, maximum = 0, player = "A", returned = 0, endowment = 100):
         super().__init__(root, background = "white", highlightbackground = "white", highlightcolor = "white")
 
         self.parent = root
@@ -81,6 +99,7 @@ class ScaleFrame(Canvas):
         self.player = player
         self.returned = returned
         self.font = font
+        self.endowment = endowment
 
         self.valueVar = StringVar()
         self.valueVar.set("0")
@@ -119,13 +138,13 @@ class ScaleFrame(Canvas):
         newval = int(round(eval(self.valueVar.get())/self.rounding, 0)*self.rounding)
         self.valueVar.set("{0:3d}".format(newval))
         if self.player == "A":
-            self.totalLab1["text"] = self.totalText1.format(100 - newval)
-            self.totalLab2["text"] = self.totalText2.format(100 + newval * 3)
+            self.totalLab1["text"] = self.totalText1.format(self.endowment - newval)
+            self.totalLab2["text"] = self.totalText2.format(self.endowment + newval * 3)
             self.totalLab1["font"] = "helvetica {} bold".format(self.font)
             self.playerLab1["font"] = "helvetica {} bold".format(self.font)
         else:
-            self.totalLab1["text"] = self.totalText1.format(100 - self.returned + newval)
-            self.totalLab2["text"] = self.totalText2.format(self.returned * 3 + 100 - newval)
+            self.totalLab1["text"] = self.totalText1.format(self.endowment - self.returned + newval)
+            self.totalLab2["text"] = self.totalText2.format(self.returned * 3 + self.endowment - newval)
             self.totalLab2["font"] = "helvetica {} bold".format(self.font)
             self.playerLab2["font"] = "helvetica {} bold".format(self.font)
         self.parent.checkAnswers()
@@ -134,9 +153,17 @@ class ScaleFrame(Canvas):
 
 class Trust(InstructionsFrame):
     def __init__(self, root):
-        
-        # to do
-        text = instructions3 # updatovat dle kola, dodelat dalsi texty
+
+        if not "trustblock" in root.status:
+            root.status["trustblock"] = 1
+        else:
+            root.status["trustblock"] += 1
+
+        endowments = list(map(TRUST.__getitem__, [1,2,0,2])) if root.status["incentive_order"] == "high-low" else list(map(TRUST.__getitem__, [1,0,2,2]))
+        endowment = endowments[root.status["trustblock"] - 1]
+
+        text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5))
+
         height = 20
         width = 100
 
@@ -158,8 +185,8 @@ class Trust(InstructionsFrame):
             else:
                 ttk.Label(self, text = "Pošlu:", font = "helvetica 15", background = "white").grid(column = 0, row = 3, pady = 1, sticky = E)            
                 player = "A"
-            maximum = i * 3 * 100 / 5 + 100 if i < 6 else 100            
-            self.frames[i] = ScaleFrame(self, maximum = maximum, player = player, returned = i*20)                        
+            maximum = int(i * 3 * endowment / 5 + endowment) if i < 6 else endowment            
+            self.frames[i] = ScaleFrame(self, maximum = maximum, player = player, returned = int(i*endowment/5), endowment = endowment)
             row = 6 + i if i < 6 else 3
             self.frames[i].grid(column = 1, row = row, pady = 1)
         
@@ -194,8 +221,8 @@ class Trust(InstructionsFrame):
             self.next["state"] = "normal"
 
     def nextFun(self):
-        self.send()        
-        self.write()
+        #self.send() # to do - pridat getData
+        #self.write() # to do
         super().nextFun()
 
     def send(self):
