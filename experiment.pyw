@@ -12,7 +12,7 @@ from quest import QuestInstructions #, Hexaco
 from intros import Initial, Intro, Ending #, HEXACOintro
 from demo import Demographics
 from cheating import CheatingInstructions, Cheating, Instructions2, Instructions3, Instructions4, Instructions5, Instructions6
-from cheating import EndCheating, Login, OutcomeWait, VotingResult, Perception, Debrief, FinalWait
+from cheating import EndCheating, Login, OutcomeWait #, VotingResult, Perception, Debrief, FinalWait
 from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
 from trustgame import WaitTrust, Trust, TrustResult

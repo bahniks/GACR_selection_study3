@@ -399,6 +399,8 @@ class Cheating(ExperimentFrame):
         
                    
     def write(self):
+        if self.root.status["block"] == int(self.root.status["winning_block"]):
+            self.root.texts["dice"] = sum(self.rewards[:self.root.wins[self.blockNumber]])
         self.root.status["block"] += 1
         for response in self.responses:
             begin = [self.id]
@@ -466,7 +468,7 @@ class Selection(InstructionsFrame):
         self.treatment.grid(row = 2, column = 2)        
 
     def response(self, choice):
-        self.root.status["conditions"].append("_" + choice)
+        self.root.status["conditions"].append(choice)
         self.nextFun()
 
 
@@ -654,13 +656,14 @@ class Wait(InstructionsFrame):
         self.checkOffers()
 
     def write(self, response):
-        self.file.write("Voting Result" + "\n") # to do
-        self.file.write(self.id + "\t" + str(self.root.status["block"]) + "\t" + response.replace("_", "\t") + "\n\n") # to do
+        pass
+        # self.file.write("Voting Result" + "\n") # to do
+        # self.file.write(self.id + "\t" + str(self.root.status["block"]) + "\t" + response.replace("_", "\t") + "\n\n") # to do
 
         # for the final screen
-        win = int(self.root.status["winning_block"])
-        self.root.texts["dice"] = self.root.texts["win{}".format(win)]
-        self.root.texts["block"] = win
+        # win = int(self.root.status["winning_block"])
+        # self.root.texts["dice"] = self.root.texts["win{}".format(win)]
+        #self.root.texts["block"] = win # uz je v login
 
 
 class Login(InstructionsFrame):
@@ -678,7 +681,14 @@ class Login(InstructionsFrame):
                 data = urllib.parse.urlencode({'id': self.root.id, 'round': 0, 'offer': "login"})
                 data = data.encode('ascii')
                 if URL == "TEST":
-                    response = "|".join(["start", random.choice(["control", "version", "reward", "version_reward"]), random.choice(["high-low", "low-high"]), str(random.randint(1,6)), str(random.randint(3,6)), str(random.randint(1,2000))])
+                    condition = random.choice(["control", "version", "reward", "version_reward"])
+                    incentive_order = random.choice(["high-low", "low-high"])
+                    winning_block = str(random.randint(1,6))
+                    winning_trust = str(random.randint(3,6))
+                    idNumber = str(random.randint(1,2000))
+                    trustRoles = "".join([random.choice(["A", "B"]) for i in range(4)])
+                    trustPairs = "_".join([str(random.randint(1, 10)) for i in range(4)])
+                    response = "|".join(["start", condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs, idNumber]) # idNumber vyhodit?
                 else:
                     response = ""
                     try:
@@ -687,12 +697,14 @@ class Login(InstructionsFrame):
                     except Exception:
                         self.changeText("Server nedostupný")
                 if "start" in response:
-                    info, condition, incentive_order, winning_block, winning_trust, idNumber = response.split("|")                    
+                    info, condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs, idNumber = response.split("|") # idNumber vyhodit?                   
                     self.root.status["condition"] = condition   
                     self.root.status["incentive_order"] = incentive_order
-                    self.root.status["winning_block"] = winning_block
-                    self.root.status["winning_trust"] = winning_trust
-                    self.root.texts["idNumber"] = '{:03d}'.format(int(idNumber) % 1000)
+                    self.root.texts["block"] = self.root.status["winning_block"] = winning_block
+                    self.root.texts["trustblock"] = self.root.status["winning_trust"] = winning_trust
+                    self.root.status["trust_roles"] = list(trustRoles)
+                    self.root.status["trust_pairs"] = trustPairs.split("_")
+                    self.root.texts["idNumber"] = '{:03d}'.format(int(idNumber) % 1000) # vyhodit? bylo pro hexaco                    
                     self.update_intros(condition, incentive_order)
                     #self.create_control_question(condition) # todo
                     self.progressBar.stop()
@@ -724,7 +736,6 @@ class Login(InstructionsFrame):
         self.root.texts["add_block_5"] = eval(condition + "Text")
         self.root.texts["add_block_6"] = eval(condition + "Text2")
 
-
     # def create_control_question(self, source, condition):        
     #     condition = source + "_" + condition
     #     global answers3
@@ -740,7 +751,7 @@ class Login(InstructionsFrame):
 
     def write(self, response):
         self.file.write("Login" + "\n")
-        self.file.write(self.id + response.replace("_", "\t").lstrip("start") + "\n\n")        
+        self.file.write(self.id + response.replace("_", "\t").replace("|", "\t").lstrip("start") + "\n\n")        
 
     def gothrough(self):
         self.run()
