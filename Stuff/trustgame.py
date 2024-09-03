@@ -33,7 +33,7 @@ Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký 
 Tuto úlohu budete hrát v rámci studie celkem čtyřikrát a Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z těchto čtyř."""
 
 instructionsT2 = """Nyní obdržíte opět úlohu, v které jste spárováni s jiným účastníkem studie a můžete si posílat peníze.
-
+<b>{}</b>
 V tomto kole oba obdržíte {} Kč.
 
 Podobně jako v předchozím kole úlohy:
@@ -45,6 +45,13 @@ Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro ob�
 Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký je celkový výsledek rozhodnutí Vás a druhého účastníka. 
 
 Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát."""
+
+rewardTrustText = "\nTento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.\n"
+versionTrustText = "\nTento účastník studie si v minulém kole hry s házením kostkou vybral {}.\n"
+after_text = "PO verzi hry, ve které se uvádí, zda byla předpověď správná, či nikoliv, až poté, co se zobrazí výsledek hodu kostkou"
+before_text = "PŘED verzi hry, ve které se uvádí předpověď před tím, než se zobrazí výsledek hodu kostkou"
+version_rewardTrustText = "\nTento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.\n"
+
 
 instructionsT4 = instructionsT3 = instructionsT2
 
@@ -165,7 +172,20 @@ class Trust(InstructionsFrame):
 
         endowment = root.status["endowments"][root.status["trustblock"] - 1]
 
-        text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5))
+        if root.status["trustblock"] == 1:            
+            text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5))
+        else:
+            _, otherwins, otherreward, otherversion = root.status["outcome" + str(root.status["trustblock"] + 2)].rstrip("_True").split("|") 
+            selectedVersion = after_text if otherversion == "treatment" else before_text 
+            if root.status["condition"] == "version":
+                conditionText = versionTrustText.format(selectedVersion)
+            elif root.status["condition"] == "reward":
+                conditionText = rewardTrustText.format(otherreward, otherwins)
+            elif root.status["condition"] == "version_reward":
+                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins)
+            elif root.status["condition"] == "control":
+                conditionText = ""
+            text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5))
 
         height = 20
         width = 100
@@ -334,12 +354,17 @@ class WaitTrust(InstructionsFrame):
 TrustResult = (InstructionsFrame, {"text": "{}", "update": ["trustResult"]})
 
 
+
+
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login,         
+    from cheating import OutcomeWait
+    GUI([Login,    
+         OutcomeWait,
          Trust,
          WaitTrust,
-         TrustResult,         
+         TrustResult,
+         OutcomeWait,
          Trust,
          WaitTrust,
          TrustResult

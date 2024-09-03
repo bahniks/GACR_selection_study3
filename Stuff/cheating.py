@@ -595,10 +595,9 @@ class CheatingInstructions(InstructionsFrame):
 
 
 
-class Wait(InstructionsFrame):
-    def __init__(self, root, what = "voting"):
+class OutcomeWait(InstructionsFrame):
+    def __init__(self, root):
         super().__init__(root, text = wait_text, height = 3, font = 15, proceed = False, width = 45)
-        self.what = what
         self.progressBar = ttk.Progressbar(self, orient = HORIZONTAL, length = 400, mode = 'indeterminate')
         self.progressBar.grid(row = 2, column = 1, sticky = N)
 
@@ -607,27 +606,17 @@ class Wait(InstructionsFrame):
         while True:
             self.update()
             if count % 50 == 0:
-                data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"], 'offer': self.what})                
+                data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"], 'offer': "outcome"})                
                 data = data.encode('ascii')
-                if URL == "TEST":
-                    if self.what == "outcome":                 
-                        otherversion = random.choice(["treatment", "control"])
-                        if otherversion == "control":
-                            chance = 0.5
-                        else:
-                            chance = random.random() / 2
-                        otherwins = sum([1 if random.random() > chance else 0 for i in range(12)])
-                        otherreward = sum([i*5 + 5 for i in range(12)][:otherwins])                    
-                        response = "|".join(["outcome", str(otherwins), str(otherreward), otherversion]) + "_True"
-                    elif self.what == "result":
-                        response = "result"
-                        for i in range(4):
-                            if i + 1 == int(self.root.status["number"]):
-                                response += "_" + self.root.texts["testResult"]
-                            else:
-                                outcome = random.randint(0,12)   
-                                response += "_" + str(sum([i*5 + 5 for i in range(12)][:outcome]))
-                        response += "_True"
+                if URL == "TEST":            
+                    otherversion = random.choice(["treatment", "control"])
+                    if otherversion == "control":
+                        chance = 0.5
+                    else:
+                        chance = random.random() / 2
+                    otherwins = sum([1 if random.random() > chance else 0 for i in range(12)])
+                    otherreward = sum([i*5 + 5 for i in range(12)][:otherwins])                    
+                    response = "|".join(["outcome", str(otherwins), str(otherreward), otherversion]) + "_True"
                 else:
                     try:
                         with urllib.request.urlopen(URL, data = data) as f:
@@ -635,16 +624,14 @@ class Wait(InstructionsFrame):
                     except Exception as e:
                         continue
                 if response:              
-                    if self.what == "outcome":   
-                        if not response.endswith("True"):
-                            continue
+                    if not response.endswith("True"):
+                        continue
+                    else:                                                
+                        if URL == "TEST":
+                            if "trustblock" in self.root.status:
+                                self.root.status["outcome" + str(self.root.status["trustblock"] + 3)] = response
                         else:
-                            self.root.texts["outcome"] = response
-                    elif self.what == "result":   
-                        if not response.endswith("True"):
-                            continue
-                        else:
-                            self.root.texts["result"] = self.createEndText(response)
+                            self.root.status["outcome" + str(self.root.status["block"])] = response                         
                     self.progressBar.stop()
                     self.nextFun()  
                     return
@@ -657,13 +644,7 @@ class Wait(InstructionsFrame):
 
     def write(self, response):
         pass
-        # self.file.write("Voting Result" + "\n") # to do
-        # self.file.write(self.id + "\t" + str(self.root.status["block"]) + "\t" + response.replace("_", "\t") + "\n\n") # to do
 
-        # for the final screen
-        # win = int(self.root.status["winning_block"])
-        # self.root.texts["dice"] = self.root.texts["win{}".format(win)]
-        #self.root.texts["block"] = win # uz je v login
 
 
 class Login(InstructionsFrame):
@@ -769,8 +750,7 @@ Instructions5 = (Selection, {"text": intro_block_5, "update": ["incentive_5", "a
 Instructions6 = (Selection, {"text": intro_block_6, "update": ["add_block_6"]})
 
 EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["trust6"]}) # to do update
-OutcomeWait = (Wait, {"what": "outcome"}) # todo
-# FinalWait = (Wait, {"what": "result"})
+
 
 
 if __name__ == "__main__":
