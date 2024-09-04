@@ -65,7 +65,7 @@ class GUI(Tk):
                     setattr(self, key, value)    
                       
         mode = "a" if load else "w"
-        with open(self.outputfile, mode = mode) as self.file:
+        with open(self.outputfile, mode = mode, encoding = "utf-8") as self.file:
             self.nextFrame()
             self.mainloop()
             
