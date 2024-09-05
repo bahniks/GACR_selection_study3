@@ -53,7 +53,35 @@ before_text = "PŘED verzi hry, ve které se uvádí předpověď před tím, ne
 version_rewardTrustText = "\nTento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.\n"
 
 
-instructionsT4 = instructionsT3 = instructionsT2
+instructionsT3 = instructionsT2
+
+
+instructionsT4 = """Nyní obdržíte opět úlohu, v které jste spárováni s jiným účastníkem studie a můžete si posílat peníze.
+
+V tomto kole oba obdržíte {} Kč.
+
+Podobně jako v předchozích kolech úlohy:
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí.
+<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
+
+Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
+
+Vy i druhý hráč se můžete nyní rozhodnout, kolik jste ochotni zaplatit za informaci o {}.
+
+Následně bude jedna z částek vylosována a, pokud jste uvedl(a) částku stejnou nebo vyšší, tato částka vám bude stržena z odměny a dozvíte se {}.
+
+{}"""
+
+# to do
+feeQuestion = "Kolik byste byl(a) ochoten/ochotná zaplatit za informaci o {}?"
+versionFeeText = "verzi hry, kterou si vybral {} v posledním bloku úlohy s kostkou"
+rewardFeeText = "odměně, kterou získal {} v posledním bloku úlohy s kostkou"
+version_rewardFeeText = "verzi hry, kterou si vybral {} v posledním bloku úlohy s kostkou a odměně, kterou v tomto bloku získal"
+otherText = "druhý z vás"
+secondText = "hráč, s kterým jste spárováni,"
+
+
+
 
 
 # to do
