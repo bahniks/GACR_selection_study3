@@ -475,69 +475,69 @@ class Selection(InstructionsFrame):
     
     
 
-class CheatingInstructions(InstructionsFrame):
-    def __init__(self, root):
-        super().__init__(root, text = intro_block_1, height = 33, font = 15, width = 100)
+# class CheatingInstructions(InstructionsFrame):
+#     def __init__(self, root):
+#         super().__init__(root, text = intro_block_1, height = 33, font = 15, width = 100)
 
-        self.checkVar = StringVar()
-        self.vcmd = (self.register(self.onValidate), '%P')
-        self.checkFrame = Canvas(self, background = "white", highlightbackground = "white",
-                                 highlightcolor = "white")
-        self.checkFrame.grid(row = 2, column = 1)
-        self.entry = ttk.Entry(self.checkFrame, textvariable = self.checkVar, width = 10, justify = "right",
-                               font = "helvetica 15", validate = "key", validatecommand = self.vcmd)
-        self.entry.grid(row = 2, column = 1, padx = 6)
-        self.currencyLabel = ttk.Label(self.checkFrame, text = "Kč", font = "helvetica 15",
-                                       background = "white")
-        self.currencyLabel.grid(row = 2, column = 2, sticky = NSEW)
+#         self.checkVar = StringVar()
+#         self.vcmd = (self.register(self.onValidate), '%P')
+#         self.checkFrame = Canvas(self, background = "white", highlightbackground = "white",
+#                                  highlightcolor = "white")
+#         self.checkFrame.grid(row = 2, column = 1)
+#         self.entry = ttk.Entry(self.checkFrame, textvariable = self.checkVar, width = 10, justify = "right",
+#                                font = "helvetica 15", validate = "key", validatecommand = self.vcmd)
+#         self.entry.grid(row = 2, column = 1, padx = 6)
+#         self.currencyLabel = ttk.Label(self.checkFrame, text = "Kč", font = "helvetica 15",
+#                                        background = "white")
+#         self.currencyLabel.grid(row = 2, column = 2, sticky = NSEW)
 
-        self.lowerText = Text(self, font = "helvetica 15", relief = "flat", background = "white",
-                              width = 100, height = 2, wrap = "word", highlightbackground = "white")
-        self.lowerText.grid(row = 3, column = 1, pady = 15)
-        self.lowerText["state"] = "disabled"
+#         self.lowerText = Text(self, font = "helvetica 15", relief = "flat", background = "white",
+#                               width = 100, height = 2, wrap = "word", highlightbackground = "white")
+#         self.lowerText.grid(row = 3, column = 1, pady = 15)
+#         self.lowerText["state"] = "disabled"
         
-        self.next.grid(row = 7, column = 1)
-        self.next["state"] = "disabled"
-        self.text.grid(row = 1, column = 1, columnspan = 1)
+#         self.next.grid(row = 7, column = 1)
+#         self.next["state"] = "disabled"
+#         self.text.grid(row = 1, column = 1, columnspan = 1)
 
-        self.rowconfigure(0, weight = 1)
-        self.rowconfigure(2, weight = 0)
-        self.rowconfigure(3, weight = 0)
-        self.rowconfigure(7, weight = 1)
-        self.rowconfigure(8, weight = 2)
+#         self.rowconfigure(0, weight = 1)
+#         self.rowconfigure(2, weight = 0)
+#         self.rowconfigure(3, weight = 0)
+#         self.rowconfigure(7, weight = 1)
+#         self.rowconfigure(8, weight = 2)
 
-        self.checked = False
+#         self.checked = False
         
-    def onValidate(self, P):
-        try:
-            if int(P) >= 0:
-                self.next["state"] = "!disabled"
-            else:
-                self.next["state"] = "disabled"
-        except Exception as e:
-            self.next["state"] = "disabled"
-        return True
+#     def onValidate(self, P):
+#         try:
+#             if int(P) >= 0:
+#                 self.next["state"] = "!disabled"
+#             else:
+#                 self.next["state"] = "disabled"
+#         except Exception as e:
+#             self.next["state"] = "disabled"
+#         return True
     
-    def nextFun(self):
-        if self.checked:
-            super().nextFun()
-        else:
-            answer = int(self.checkVar.get())
-            if answer == 15:
-                text = correct_answer.format(answer)
-            else:
-                text = wrong_answer.format(answer)
-            self.lowerText["state"] = "normal"
-            self.lowerText.insert("1.0", text)
-            self.lowerText["state"] = "disabled"
-            self.checked = True
+#     def nextFun(self):
+#         if self.checked:
+#             super().nextFun()
+#         else:
+#             answer = int(self.checkVar.get())
+#             if answer == 15:
+#                 text = correct_answer.format(answer)
+#             else:
+#                 text = wrong_answer.format(answer)
+#             self.lowerText["state"] = "normal"
+#             self.lowerText.insert("1.0", text)
+#             self.lowerText["state"] = "disabled"
+#             self.checked = True
 
-    def gothrough(self):
-        self.entry.focus_set()
-        self.event_generate('<KeyPress-1>')
-        self.event_generate('<KeyPress-5>')
-        self.after(500, self.next.invoke)
-        self.after(500, self.next.invoke)
+#     def gothrough(self):
+#         self.entry.focus_set()
+#         self.event_generate('<KeyPress-1>')
+#         self.event_generate('<KeyPress-5>')
+#         self.after(500, self.next.invoke)
+#         self.after(500, self.next.invoke)
 
 
 
@@ -666,10 +666,9 @@ class Login(InstructionsFrame):
                     incentive_order = random.choice(["high-low", "low-high"])
                     winning_block = str(random.randint(1,6))
                     winning_trust = str(random.randint(3,6))
-                    idNumber = str(random.randint(1,2000))
                     trustRoles = "".join([random.choice(["A", "B"]) for i in range(4)])
                     trustPairs = "_".join([str(random.randint(1, 10)) for i in range(4)])
-                    response = "|".join(["start", condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs, idNumber]) # idNumber vyhodit?
+                    response = "|".join(["start", condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs])
                 else:
                     response = ""
                     try:
@@ -678,7 +677,7 @@ class Login(InstructionsFrame):
                     except Exception:
                         self.changeText("Server nedostupný")
                 if "start" in response:
-                    info, condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs, idNumber = response.split("|") # idNumber vyhodit?                   
+                    info, condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs = response.split("|")              
                     self.root.status["condition"] = condition   
                     self.root.status["incentive_order"] = incentive_order
                     self.root.texts["block"] = self.root.status["winning_block"] = winning_block
