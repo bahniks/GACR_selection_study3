@@ -684,7 +684,7 @@ class Login(InstructionsFrame):
                     self.root.texts["trustblock"] = self.root.status["winning_trust"] = winning_trust
                     self.root.status["trust_roles"] = list(trustRoles)
                     self.root.status["trust_pairs"] = trustPairs.split("_")
-                    self.root.texts["idNumber"] = '{:03d}'.format(int(idNumber) % 1000) # vyhodit? bylo pro hexaco                    
+                    #self.root.texts["idNumber"] = '{:03d}'.format(int(idNumber) % 1000) # vyhodit? bylo pro hexaco                    
                     self.update_intros(condition, incentive_order)
                     #self.create_control_question(condition) # todo
                     self.progressBar.stop()
