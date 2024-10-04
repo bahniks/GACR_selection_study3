@@ -14,7 +14,7 @@ import urllib.parse
 
 from common import ExperimentFrame, InstructionsFrame, Measure, MultipleChoice, InstructionsAndUnderstanding, OneFrame, Question, TextArea
 from gui import GUI
-from constants import TESTING, URL
+from constants import TESTING, URL, TOKEN
 
 
 ################################################################################
@@ -95,7 +95,7 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 
 intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz, kterou jste zrovna dokončili. Částka přidělená prvnímu z hráčů bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
+Po tomto bloku opět obdržíte úlohu s dělením peněz, kterou jste zrovna dokončili. Částka přidělená oběma hráčům bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
 {}
 
 Chcete hrát verzi “PŘED” nebo “PO”?
@@ -110,7 +110,7 @@ controlText = ""
 
 intro_block_5 = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená prvnímu z hráčů bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
+Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená oběma hráčům bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
 {}
 
 Chcete hrát verzi “PŘED” nebo “PO”?
@@ -119,17 +119,21 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 
 intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená prvnímu z hráčů bude opět 200 Kč a budete spárováni s jiným účastníkem studie. 
+Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená oběma hráčům bude opět 200 Kč a budete spárováni s jiným účastníkem studie. 
 {}
-
+{}
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-FEE = 20
-versionText2 = "Opět se před touto úlohou bude moci tento účastnik studie dozvědět, jakou verzi úlohy jste si vybrali v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
-rewardText2 = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
-version_rewardText2 = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a), ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
-controlText2 = "TODO" # to do delit do jedne ze zbyvajicich tri skupin
+tokenConditionText = f"\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz.</b>"
+
+tokenContribution = f"Chcete věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni?"
+
+# FEE = 20
+# versionText2 = "Opět se před touto úlohou bude moci tento účastnik studie dozvědět, jakou verzi úlohy jste si vybrali v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
+# rewardText2 = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole, ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
+# version_rewardText2 = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a), ale pouze, pokud zaplatí poplatek {} Kč. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a), pokud zaplatíte poplatek {} Kč.".format(FEE, FEE)
+# controlText2 = "TODO" # to do delit do jedne ze zbyvajicich tri skupin
 
 # ČEKÁNÍ
 wait_text = "Prosím počkejte na ostatní účastníky studie."
@@ -464,13 +468,37 @@ class Selection(InstructionsFrame):
                                   command = lambda: self.response("control"))
         self.treatment = ttk.Button(self, text = treatmentchoicetext,
                                     command = lambda: self.response("treatment"))
+
         self.control.grid(row = 2, column = 0)
         self.treatment.grid(row = 2, column = 2)        
+
+        if self.root.status["block"] == 6 and self.root.status["tokenCondition"] == "yes":
+            self.control.grid_forget()
+            self.treatment.grid_forget()
+            self.question = ttk.Label(text = tokenContribution, font = "helvetica 15", background = "white")
+            self.question.grid(row = 2, column = 0, columnspan = 3)
+            self.yes = ttk.Button(self, text = "Ano", command = lambda: self.token(True))
+            self.no = ttk.Button(self, text = "Ne", command = lambda: self.token(False))
+            self.yes.grid(row = 3, column = 0)
+            self.no.grid(row = 3, column = 2)   
+
+
+    def token(self, response):
+        self.root.status["tokenContributed"] = response
+        self.sendData({'id': self.id, 'round': "token", 'offer': str(response)})
+        self.yes["state"] = "disabled"
+        self.no["state"] = "disabled"
+        self.question2 = ttk.Label(text = "Chcete hrát verzi “PŘED” nebo “PO”?", font = "helvetica 15", background = "white")        
+        self.control.grid(row = 5, column = 0)
+        self.treatment.grid(row = 5, column = 2)   
+
 
     def response(self, choice):
         self.root.status["conditions"].append(choice)
         self.nextFun()
 
+    def write(self):
+        pass # TODO - minimalne ukladani o prispevku charite, verze jde zjistit z vysledku
 
     
     
@@ -664,11 +692,12 @@ class Login(InstructionsFrame):
                 if URL == "TEST":
                     condition = random.choice(["control", "version", "reward", "version_reward"])
                     incentive_order = random.choice(["high-low", "low-high"])
+                    tokenCondition = random.choice(["yes", "no"])
                     winning_block = str(random.randint(1,6))
                     winning_trust = str(random.randint(3,6))
                     trustRoles = "".join([random.choice(["A", "B"]) for i in range(4)])
-                    trustPairs = "_".join([str(random.randint(1, 10)) for i in range(4)])
-                    response = "|".join(["start", condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs])
+                    trustPairs = "_".join([str(random.randint(1, 10)) for i in range(4)])                    
+                    response = "|".join(["start", condition, incentive_order, tokenCondition, winning_block, winning_trust, trustRoles, trustPairs])
                 else:
                     response = ""
                     try:
@@ -677,9 +706,10 @@ class Login(InstructionsFrame):
                     except Exception:
                         self.changeText("Server nedostupný")
                 if "start" in response:
-                    info, condition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs = response.split("|")              
+                    info, condition, tokenCondition, incentive_order, winning_block, winning_trust, trustRoles, trustPairs = response.split("|")              
                     self.root.status["condition"] = condition   
                     self.root.status["incentive_order"] = incentive_order
+                    self.root.status["tokenCondition"] = tokenCondition   
                     self.root.texts["block"] = self.root.status["winning_block"] = winning_block
                     self.root.texts["trustblock"] = self.root.status["winning_trust"] = winning_trust
                     self.root.status["trust_roles"] = list(trustRoles)
@@ -714,7 +744,8 @@ class Login(InstructionsFrame):
         self.root.texts["incentive_5"] = 200 if incentive_order == "low-high" else 50
         self.root.texts["add_block_4"] = eval(condition + "Text")
         self.root.texts["add_block_5"] = eval(condition + "Text")
-        self.root.texts["add_block_6"] = eval(condition + "Text2")
+        self.root.texts["add_block_6"] = eval(condition + "Text")
+        self.root.texts["add_block_6"] += tokenConditionText if self.root.status["tokenCondition"] == "yes" else ""
 
     # def create_control_question(self, source, condition):        
     #     condition = source + "_" + condition
