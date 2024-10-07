@@ -46,11 +46,20 @@ Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký 
 
 Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát."""
 
-rewardTrustText = "\nTento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.\n"
-versionTrustText = "\nTento účastník studie si v minulém kole hry s házením kostkou vybral {}.\n"
+rewardTrustText = """
+Tento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.
+Tento účastník podobně ví, jakou odměnu jste v minulém kole hry s házením kostkou dostal(a) Vy.
+"""
+versionTrustText = """
+Tento účastník studie si v minulém kole hry s házením kostkou vybral {}.
+Tento účastník podobně ví, jakou verzi hry jste si v minulém kole hry s házením kostkou vybral(a) Vy.
+"""
 after_text = "PO verzi hry, ve které se uvádí, zda byla předpověď správná, či nikoliv, až poté, co se zobrazí výsledek hodu kostkou"
 before_text = "PŘED verzi hry, ve které se uvádí předpověď před tím, než se zobrazí výsledek hodu kostkou"
-version_rewardTrustText = "\nTento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.\n"
+version_rewardTrustText = """
+Tento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.
+Tento účastník podobně ví, jakou verzi hry jste si v minulém kole hry s házením kostkou vybral(a) Vy a jakou odměnu jste v ní dostal(a).
+"""
 
 
 instructionsT3 = instructionsT2
@@ -103,7 +112,7 @@ Tato částka byla ztrojnásobena na {} Kč.
 <b>Ze svých {} Kč Vám poslal hráč B {} Kč.</b>
 
 <b>V této úloze jste tedy získal(a) {} Kč a hráč B {} Kč.</b>
-Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.
+Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.{}
 """
 
 trustResultTextB = """Náhodně Vám byla vybrána role hráče B.
@@ -113,9 +122,10 @@ Tato částka byla ztrojnásobena na {} Kč.
 <b>Ze svých {} Kč jste poslal(a) hráči B {} Kč.</b>
 
 <b>V této úloze jste tedy získal(a) {} Kč a hráč A {} Kč.</b>
-Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.
+Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.{}
 """
 
+diceText = "\n\nNyní budete pokračovat v úloze s odhadováním hodů kostky."
 
 
 ################################################################################
@@ -215,7 +225,7 @@ class Trust(InstructionsFrame):
                 conditionText = ""
             text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5))
 
-        height = 20
+        height = 22
         width = 100
 
         super().__init__(root, text = text, height = height, font = 15, width = width)
@@ -337,10 +347,12 @@ class WaitTrust(InstructionsFrame):
                         reward = endowment - sentA + sentB if self.root.status["trust_roles"][block] == "A" else endowment + sentA*3 - sentB    
                         self.root.texts["trust"] = str(reward)                        
 
+                    dice = "" if block == 4 else diceText
+
                     if self.root.status["trust_roles"][block - 1] == "A": 
-                        text = trustResultTextA.format(sentA, sentA*3, endowment + sentA*3, sentB, endowment - sentA + sentB, endowment + sentA*3 - sentB)
+                        text = trustResultTextA.format(sentA, sentA*3, endowment + sentA*3, sentB, endowment - sentA + sentB, endowment + sentA*3 - sentB, dice)
                     else:
-                        text = trustResultTextB.format(sentA, sentA*3, endowment + sentA*3, sentB, endowment + sentA*3 - sentB, endowment - sentA + sentB)
+                        text = trustResultTextB.format(sentA, sentA*3, endowment + sentA*3, sentB, endowment + sentA*3 - sentB, endowment - sentA + sentB, dice)
                     self.root.texts["trustResult"] = text
 
                     self.write(response)
