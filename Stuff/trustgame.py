@@ -10,7 +10,7 @@ import urllib.parse
 
 from common import ExperimentFrame, InstructionsFrame, Measure, MultipleChoice, InstructionsAndUnderstanding
 from gui import GUI
-from constants import TESTING, URL, TRUST
+from constants import TESTING, URL, TRUST, TOKEN
 from questionnaire import Questionnaire
 from cheating import Login
 
@@ -79,25 +79,31 @@ Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký 
 
 Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát."""
 
-# # to do
-# feeQuestion = "Kolik byste byl(a) ochoten/ochotná zaplatit za informaci o {}?"
-# versionFeeText = "verzi hry, kterou si vybral {} v posledním bloku úlohy s kostkou"
-# rewardFeeText = "odměně, kterou získal {} v posledním bloku úlohy s kostkou"
-# version_rewardFeeText = "verzi hry, kterou si vybral {} v posledním bloku úlohy s kostkou a odměně, kterou v tomto bloku získal"
-# otherText = "druhý z vás"
-# secondText = "hráč, s kterým jste spárováni,"
-
-
+contributedText = f"Tento účastník se rozhodl nepřispět {TOKEN} Kč charitě, když měl možnost."
+notContributedText = f"Tento účastník se rozhodl přispět {TOKEN} Kč charitě, když měl možnost."
+controlText = ""
 
 
 
 # to do
 trustControl1 = "Jaká je role hráče A a hráče B ve studii?"
-trustAnswers1 = ["Hráč A rozhoduje, kolik vezme hráči B peněz.",
-"Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B jakékoli množství dostupných peněz zpět.", 
-"Hráč B rozhoduje, kolik hráči A vezme peněz. Účastníci studie jsou v obou kolech buď hráčem A, nebo hráčem B (role se nemění).", 
-"Hráč B rozhoduje, kolik hráči A vezme peněz. Účastníci studie jsou nejprve hráčem A v druhém kole hráčem B (role se vymění)."]
-trustFeedback1 = ["Správná odpověď.", "Chybná odpověď. Účastníci studie jsou v obou kolech buď hráčem A, nebo hráčem B (role se nemění).", "Chybná odpověď. Hráč A rozhoduje, kolik hráči B vezme peněz.", "Chybná odpověď. Hráč A rozhoduje, kolik hráči B vezme peněz. Účastníci studie jsou v obou kolech buď hráčem A, nebo hráčem B (role se nemění)."]
+trustAnswers1 = ["Hráč A rozhoduje, kolik vezme hráči B peněz a hráč B se rozhoduje, kolik vezme hráči A peněz na oplátku.",
+"Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B\njakékoli množství dostupných peněz zpět.", 
+"Hráči A a B se rozhodují, kolik si navzájem pošlou peněz. Transfer peněz mezi nimi je dán rozdílem poslaných peněz.", 
+"Hráč A se rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí. Hráč B může vzít hráči A\njakékoli množství zbylých peněz."]
+trustFeedback1 = ["Chybná odpověď. Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B jakékoli množství dostupných peněz zpět.", 
+"Správná odpověď.", "Chybná odpověď. Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B jakékoli množství dostupných peněz zpět.", 
+"Chybná odpověď. Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B jakékoli množství dostupných peněz zpět."]
+
+
+trustControl2 = "Jakou odměnu obdrží hráč A, pokud hráči B pošle 40 Kč a ten mu pošle zpět 60 Kč?"
+trustAnswers2 = ["40 Kč (100 - 3 × 40 + 60)", "120 Kč (100 - 40 + 60)", "160 Kč (100 + 3 × (60 - 40))", "240 Kč (100 - 40 + 3 × 60)"]
+trustFeedback2 = ["Chybná odpověď. Hráč A obdrží 100 Kč, z kterých 40 Kč pošle hráči B, zbyde mu tedy 60 Kč, ke kterým obdrží od hráče B 60 Kč, tj. na konec obdrží 120 Kč (100 - 40 + 60).", "Správná odpověď.", "Chybná odpověď. Hráč A obdrží 100 Kč, z kterých 40 Kč pošle hráči B, zbyde mu tedy 60 Kč, ke kterým obdrží od hráče B 60 Kč, tj. na konec obdrží 120 Kč (100 - 40 + 60).", "Chybná odpověď. Hráč A obdrží 100 Kč, z kterých 40 Kč pošle hráči B, zbyde mu tedy 60 Kč, ke kterým obdrží od hráče B 60 Kč, tj. na konec obdrží 120 Kč (100 - 40 + 60)."]
+
+
+trustControl3 = "Jakou odměnu obdrží hráč B, pokud hráč A pošle 40 Kč a hráč B mu pošle zpět 60 Kč?"
+trustAnswers3 = ["80 Kč (100 + 40 - 60)", "160 Kč (100 + 3 × 40 - 60)", "240 Kč (100 + 3 × 60 - 40))", "280 Kč (100 + 3 × 40 + 60)"]
+trustFeedback3 = ["Chybná odpověď. Hráč B obdrží 100 Kč, ke kterým obdrží 120 Kč od hráče A (poslaných 40 Kč se ztrojnásobí) a následně pošle hráči A 60 Kč, tj. na konec obdrží 160 Kč (100 + 3 × 40 - 60).", "Správná odpověď.", "Chybná odpověď. Hráč B obdrží 100 Kč, ke kterým obdrží 120 Kč od hráče A (poslaných 40 Kč se ztrojnásobí) a následně pošle hráči A 60 Kč, tj. na konec obdrží 160 Kč (100 + 3 × 40 - 60).", "Chybná odpověď. Hráč B obdrží 100 Kč, ke kterým obdrží 120 Kč od hráče A (poslaných 40 Kč se ztrojnásobí) a následně pošle hráči A 60 Kč, tj. na konec obdrží 160 Kč (100 + 3 × 40 - 60)."]
 
 
 
@@ -214,7 +220,7 @@ class Trust(InstructionsFrame):
             text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5))
         else:
             _, otherwins, otherreward, otherversion = root.status["outcome" + str(root.status["trustblock"] + 2)].rstrip("_True").split("|") 
-            selectedVersion = after_text if otherversion == "treatment" else before_text 
+            selectedVersion = after_text if "treatment" in otherversion else before_text 
             if root.status["condition"] == "version":
                 conditionText = versionTrustText.format(selectedVersion)
             elif root.status["condition"] == "reward":
@@ -223,6 +229,8 @@ class Trust(InstructionsFrame):
                 conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins)
             elif root.status["condition"] == "control":
                 conditionText = ""
+            if root.status["trustblock"] == 4:
+                conditionText += eval(otherversion.split("_")[1] + "Text")
             text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5))
 
         height = 22
@@ -344,7 +352,7 @@ class WaitTrust(InstructionsFrame):
                     sentA, sentB = int(sentA), int(sentB)
                     
                     if int(self.root.status["winning_trust"]) == block + 2:
-                        reward = endowment - sentA + sentB if self.root.status["trust_roles"][block] == "A" else endowment + sentA*3 - sentB    
+                        reward = endowment - sentA + sentB if self.root.status["trust_roles"][block-1] == "A" else endowment + sentA*3 - sentB    
                         self.root.texts["trust"] = str(reward)                        
 
                     dice = "" if block == 4 else diceText
@@ -376,24 +384,14 @@ class WaitTrust(InstructionsFrame):
 
        
 
-# class InstructionsDictator(InstructionsAndUnderstanding):
-#     def __init__(self, root):
-#         out = ["forgive-ignore", "ignore-punish", "forgive-punish"].index(root.status["dictatorCondition"]) + 2
-#         controlTexts = controlTexts1
-#         controlTexts.pop(out)
-        
-#         super().__init__(root, text = instructions, height = 31, width = 110, name = "Dictator Control Questions", randomize = False, controlTexts = controlTexts, update = ["firstOption", "secondOption"])    
-
-
-
-# controlTexts1 = [[DictControl1, DictAnswers1, DictFeedback1], [DictControl2, DictAnswers2, DictFeedback2], [DictControl3, DictAnswers3, DictFeedback3], [DictControl4, DictAnswers4, DictFeedback4], [DictControl5, DictAnswers5, DictFeedback5]]
 # DictatorEnd = (InstructionsFrame, {"text": "{}", "height": 8, "update": ["dictatorEnd"]})
 # DictatorFeelings2 = (DictatorFeelings, {"round": 2})
 
 
 TrustResult = (InstructionsFrame, {"text": "{}", "update": ["trustResult"]})
 
-
+controlTexts = [[trustControl1, trustAnswers1, trustFeedback1], [trustControl2, trustAnswers2, trustFeedback2], [trustControl3, trustAnswers3, trustFeedback3]]
+InstructionsTrust = (InstructionsAndUnderstanding, {"text": instructionsT1.format(TRUST[1], TRUST[1], int(TRUST[1]/5)), "height": 20, "width": 100, "name": "Trust Control Questions", "randomize": False, "controlTexts": controlTexts, "fillerheight": 300})
 
 
 if __name__ == "__main__":
@@ -401,6 +399,7 @@ if __name__ == "__main__":
     from cheating import OutcomeWait
     GUI([Login,    
          OutcomeWait,
+         InstructionsTrust,
          Trust,
          WaitTrust,
          TrustResult,

@@ -132,7 +132,7 @@ Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená
 {}
 """
 
-tokenConditionText = f"\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz.</b>\n"
+tokenConditionText = f"\n\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz.</b>\n"
 
 tokenContribution = f"Chcete věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni?"
 
@@ -476,7 +476,7 @@ class Selection(InstructionsFrame):
         self.control.grid(row = 2, column = 0)
         self.treatment.grid(row = 2, column = 2)        
 
-        if self.root.status["block"] == 6 and self.root.status["tokenCondition"] == "yes":
+        if self.root.status["block"] == 6 and self.root.status["tokenCondition"]:
             self.control.grid_forget()
             self.treatment.grid_forget()
             
@@ -504,7 +504,7 @@ class Selection(InstructionsFrame):
 
     def token(self, response):
         self.root.status["tokenContributed"] = response
-        self.sendData({'id': self.id, 'round': "token", 'offer': str(response)})
+        self.sendData({'id': self.id, 'round': "token", 'offer': str(response)})        
         self.yes["state"] = "disabled"
         self.no["state"] = "disabled"
         self.question2["foreground"] = "black"
@@ -516,7 +516,7 @@ class Selection(InstructionsFrame):
         self.root.status["conditions"].append(choice)
         self.nextFun()
 
-    def write(self):
+    def write(self):        
         pass # TODO - minimalne ukladani o prispevku charite, verze jde zjistit z vysledku
 
     
@@ -662,7 +662,13 @@ class OutcomeWait(InstructionsFrame):
                     else:
                         chance = random.random() / 2
                     otherwins = sum([1 if random.random() > chance else 0 for i in range(12)])
-                    otherreward = sum([i*5 + 5 for i in range(12)][:otherwins])                    
+                    otherreward = sum([i*5 + 5 for i in range(12)][:otherwins])        
+                    if self.root.status["block"] == 7:
+                        if self.root.status["tokenCondition"]:
+                            contributed = random.choice(["contributed", "notContributed"])
+                        else:
+                            contributed = "control"
+                        otherversion += "_" + contributed
                     response = "|".join(["outcome", str(otherwins), str(otherreward), otherversion]) + "_True"
                 else:
                     try:
@@ -711,12 +717,12 @@ class Login(InstructionsFrame):
                 if URL == "TEST":
                     condition = random.choice(["control", "version", "reward", "version_reward"])
                     incentive_order = random.choice(["high-low", "low-high"])
-                    tokenCondition = random.choice(["yes", "no"])                    
+                    tokenCondition = random.choice([True, False])                    
                     winning_block = str(random.randint(1,6))
                     winning_trust = str(random.randint(3,6))
                     trustRoles = "".join([random.choice(["A", "B"]) for i in range(4)])
                     trustPairs = "_".join([str(random.randint(1, 10)) for i in range(4)])                    
-                    response = "|".join(["start", condition, incentive_order, tokenCondition, winning_block, winning_trust, trustRoles, trustPairs])
+                    response = "|".join(["start", condition, incentive_order, str(tokenCondition), winning_block, winning_trust, trustRoles, trustPairs])
                 else:
                     response = ""
                     try:
@@ -728,7 +734,7 @@ class Login(InstructionsFrame):
                     info, condition, incentive_order, tokenCondition, winning_block, winning_trust, trustRoles, trustPairs = response.split("|")              
                     self.root.status["condition"] = condition   
                     self.root.status["incentive_order"] = incentive_order                    
-                    self.root.status["tokenCondition"] = tokenCondition   
+                    self.root.status["tokenCondition"] = eval(tokenCondition)
                     self.root.texts["block"] = self.root.status["winning_block"] = winning_block
                     self.root.texts["trustblock"] = self.root.status["winning_trust"] = winning_trust
                     self.root.status["trust_roles"] = list(trustRoles)
@@ -763,7 +769,7 @@ class Login(InstructionsFrame):
         self.root.texts["add_block_4"] = eval(condition + "Text")
         self.root.texts["add_block_5"] = eval(condition + "Text")
         self.root.texts["add_block_6"] = eval(condition + "Text")
-        self.root.texts["add_block_6"] += tokenConditionText if self.root.status["tokenCondition"] == "yes" else "\n\n" + version_choice
+        self.root.texts["add_block_6"] += tokenConditionText if self.root.status["tokenCondition"] else "\n\n" + version_choice
 
     # def create_control_question(self, source, condition):        
     #     condition = source + "_" + condition
@@ -805,7 +811,7 @@ EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["tr
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
     GUI([Login,      
-    Instructions6, # pryc
+    #Instructions6, # pryc
           CheatingInstructions,
           Cheating,
           Instructions2,

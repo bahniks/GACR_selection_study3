@@ -10,7 +10,7 @@ from time import sleep
 from common import InstructionsFrame
 from gui import GUI
 
-from constants import BONUS, PARTICIPATION_FEE, URL
+from constants import BONUS, PARTICIPATION_FEE, URL, TOKEN
 from cheating import Login
 
 
@@ -30,7 +30,7 @@ Všechny informace, které v průběhu studie uvidíte, jsou pravdivé a nebudet
 
 
 ending = """
-V úloze s házením kostek byl náhodně vybrán blok {}. V úkolu s kostkou jste tedy vydělali {} Kč. V úkolu, kde se dělily peníze s dalším účastníkem studie byl náhodně vybrán blok {} a získali jste tedy {} Kč. V loteriích jste vydělali {} Kč. Za účast na studii dostáváte {} Kč. Vaše odměna za tuto studii je tedy dohromady {} Kč, zaokrouhleno na desítky korun nahoru získáváte {} Kč. Napište prosím tuto (zaokrouhlenou) částku do příjmového dokladu na stole před Vámi. 
+V úloze s házením kostek byl náhodně vybrán blok {}. V úkolu s kostkou jste tedy vydělali {} Kč. V úkolu, kde se dělily peníze s dalším účastníkem studie byl náhodně vybrán blok {} a získali jste tedy {} Kč. V loteriích jste vydělali {} Kč. Za účast na studii dostáváte {} Kč. {}Vaše odměna za tuto studii je tedy dohromady {} Kč, zaokrouhleno na desítky korun nahoru získáváte {} Kč. Napište prosím tuto (zaokrouhlenou) částku do příjmového dokladu na stole před Vámi. 
 
 Výsledky experimentu budou volně dostupné na stránkách Centra laboratorního a experimentálního výzkumu FPH VŠE, krátce po vyhodnocení dat a publikaci výsledků. Žádáme Vás, abyste nesdělovali detaily této studie možným účastníkům, aby jejich volby a odpovědi nebyly ovlivněny a znehodnoceny.
   
@@ -40,6 +40,7 @@ Toto je konec experimentu. Děkujeme za Vaši účast!
  
 Centrum laboratorního a experimentálního výzkumu FPH VŠE""" 
 
+contributionText = f"Ze své výhry jste přispěli {TOKEN} Kč charitě. "
 
 login = """
 Vítejte na výzkumné studii pořádané Fakultou podnikohospodářskou Vysoké školy ekonomické v Praze! 
@@ -70,10 +71,12 @@ Počkejte na pokyn experimentátora.""".format(PARTICIPATION_FEE)
 class Ending(InstructionsFrame):
     def __init__(self, root):
         dice = int(str(root.texts["dice"]).split(" ")[0])
-        root.texts["reward"] = dice + int(root.texts["trust"]) + int(root.texts["lottery_win"]) + PARTICIPATION_FEE
+        contribution = TOKEN if root.status["tokenContributed"] else 0
+        root.texts["contribution"] = contributionText if root.status["tokenContributed"] else ""
+        root.texts["reward"] = dice + int(root.texts["trust"]) + int(root.texts["lottery_win"]) + PARTICIPATION_FEE - contribution
         root.texts["rounded_reward"] = ceil(root.texts["reward"] / 10) * 10
         root.texts["participation_fee"] = str(PARTICIPATION_FEE)
-        updates = ["block", "dice", "trustblock", "trust", "lottery_win", "participation_fee", "reward", "rounded_reward"]
+        updates = ["block", "dice", "trustblock", "trust", "lottery_win", "participation_fee", "contribution", "reward", "rounded_reward"]
         super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 20, update = updates)
         self.file.write("Ending\n")
         self.file.write(self.id + "\t" + "\t".join([str(root.texts["rounded_reward"]), str(root.texts["block"])]) + "\n\n")

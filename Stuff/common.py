@@ -400,7 +400,7 @@ class MultipleChoice(Canvas):
                                           font = "helvetica 15", wraplength = 1000)
         self.filler.grid(column = 0, row = len(answers) + 1, pady = 5, sticky = NW)
         self.feedback = ttk.Label(self, text = " \n ", background = "white", anchor = "center",
-                                          font = "helvetica 15", wraplength = 950)
+                                          font = "helvetica 15", wraplength = 900)
         self.feedback.grid(column = 0, row = len(answers) + 1, pady = 5, sticky = NW)
         self.rowconfigure(len(answers) + 1, weight = 1)
 
@@ -423,14 +423,14 @@ class MultipleChoice(Canvas):
         
 
 class InstructionsAndUnderstanding(InstructionsFrame):
-    def __init__(self, root, controlTexts, name, randomize = True, **kwargs):
+    def __init__(self, root, controlTexts, name, randomize = True, fillerheight = 255, **kwargs):
         super().__init__(root, **kwargs)
         self.controlTexts = controlTexts
         self.randomize = randomize
 
         self.controlFrame = Canvas(self, background = "white", highlightbackground = "white",
                                  highlightcolor = "white")
-        self.filler2 = Canvas(self.controlFrame, background = "white", width = 1, height = 255,
+        self.filler2 = Canvas(self.controlFrame, background = "white", width = 1, height = fillerheight,
                                 highlightbackground = "white", highlightcolor = "white")
         self.filler2.grid(column = 1, row = 0, rowspan = 10, sticky = NS)
 
