@@ -23,8 +23,8 @@ V rámci této úlohy jste spárováni s dalším účastníkem studie. Oba obdr
 
 Bude Vám náhodně přidělena jedna ze dvou rolí: budete buď hráčem A, nebo hráčem B. Oba účastníci ve dvojici budou vždy informováni o rozhodnutích druhého hráče.
 
-<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí.
-<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí a obdrží ji hráč B.
+<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze, tedy úvodních {} Kč a ztrojnásobenou částku poslanou hráčem A.
 
 Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
 
@@ -37,14 +37,17 @@ instructionsT2 = """Nyní obdržíte opět úlohu, v které jste spárováni s j
 V tomto kole oba obdržíte {} Kč.
 
 Podobně jako v předchozím kole úlohy:
-<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí.
-<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí a obdrží ji hráč B.
+<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze, tedy úvodních {} Kč a ztrojnásobenou částku poslanou hráčem A.
 
 Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
 
 Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký je celkový výsledek rozhodnutí Vás a druhého účastníka. 
 
-Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát."""
+Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát.
+
+Svou volbu učiňte posunutím modrých ukazatelů níže."""
+
 
 rewardTrustText = """
 Tento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.
@@ -70,14 +73,17 @@ instructionsT4 = """Nyní obdržíte opět úlohu, v které jste spárováni s j
 V tomto kole oba obdržíte {} Kč.
 
 Podobně jako v předchozích kolech úlohy:
-<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí.
-<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze.
+<i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí a obdrží ji hráč B.
+<i>Hráč B:</i> Může poslat zpět hráči A jakékoli množství peněz získaných v této úloze, tedy úvodních {} Kč a ztrojnásobenou částku poslanou hráčem A.
 
 Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro obě role.
 
 Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký je celkový výsledek rozhodnutí Vás a druhého účastníka. 
 
-Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát."""
+Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z celkových čtyř, které budete hrát.
+
+Svou volbu učiňte posunutím modrých ukazatelů níže."""
+
 
 contributedText = f"Tento účastník se rozhodl nepřispět {TOKEN} Kč charitě, když měl možnost."
 notContributedText = f"Tento účastník se rozhodl přispět {TOKEN} Kč charitě, když měl možnost."
@@ -151,6 +157,7 @@ class ScaleFrame(Canvas):
         self.returned = returned
         self.font = font
         self.endowment = endowment
+        self.maximum = maximum
 
         self.valueVar = StringVar()
         self.valueVar.set("0")
@@ -159,7 +166,7 @@ class ScaleFrame(Canvas):
 
         self.value = ttk.Scale(self, orient = HORIZONTAL, from_ = 0, to = maximum, length = 400,
                             variable = self.valueVar, command = self.changedValue)
-        self.value.bind("<ButtonRelease-1>", self.onClick)
+        self.value.bind("<Button-1>", self.onClick)
 
         self.playerText1 = "Já:" if player == "A" else "Hráč A:"
         self.playerText2 = "Hráč B:" if player == "A" else "Já:"
@@ -193,6 +200,7 @@ class ScaleFrame(Canvas):
 
 
     def changedValue(self, value):           
+        value = str(min([max([eval(str(value)), 0]), self.maximum]))
         self.valueVar.set(value)
         newval = int(round(eval(self.valueVar.get())/self.rounding, 0)*self.rounding)
         self.valueVar.set("{0:3d}".format(newval))
@@ -226,6 +234,7 @@ class Trust(InstructionsFrame):
 
         if root.status["trustblock"] == 1:            
             text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5), endowment)
+            text += "\n\nSvou volbu učiňte posunutím modrých ukazatelů níže."
         else:
             _, otherwins, otherreward, otherversion = root.status["outcome" + str(root.status["trustblock"] + 2)].rstrip("_True").split("|") 
             selectedVersion = after_text if "treatment" in otherversion else before_text 
@@ -241,7 +250,7 @@ class Trust(InstructionsFrame):
                 conditionText += eval(otherversion.split("_")[1] + "Text")
             text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5), endowment)
 
-        height = 22
+        height = 23
         width = 100
 
         super().__init__(root, text = text, height = height, font = 15, width = width)
@@ -410,7 +419,7 @@ class WaitTrust(InstructionsFrame):
 TrustResult = (InstructionsFrame, {"text": "{}", "update": ["trustResult"]})
 
 controlTexts = [[trustControl1, trustAnswers1, trustFeedback1], [trustControl2, trustAnswers2, trustFeedback2], [trustControl3, trustAnswers3, trustFeedback3]]
-InstructionsTrust = (InstructionsAndUnderstanding, {"text": instructionsT1.format(TRUST[1], TRUST[1], int(TRUST[1]/5)), "height": 20, "width": 100, "name": "Trust Control Questions", "randomize": False, "controlTexts": controlTexts, "fillerheight": 300})
+InstructionsTrust = (InstructionsAndUnderstanding, {"text": instructionsT1.format(TRUST[1], TRUST[1], int(TRUST[1]/5), TRUST[1]) + "\n\n", "height": 23, "width": 100, "name": "Trust Control Questions", "randomize": False, "controlTexts": controlTexts, "fillerheight": 300})
 
 
 if __name__ == "__main__":

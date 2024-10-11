@@ -105,19 +105,17 @@ intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto blo
 <b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
 <b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
 
-<b>DŮLEŽITÁ INFORMACE:</b> Po tomto čtvrtém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B), kterou jste zrovna dokončili. 
-Částka přidělená oběma hráčům bude ovšem <b>{} Kč</b> a budete spárováni s jiným účastníkem studie. 
+<b>Po tomto čtvrtém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B), kterou jste zrovna dokončili. 
+Částka přidělená oběma hráčům bude ovšem {} Kč</b> a budete spárováni s jiným účastníkem studie. 
 
 {}
-
-Prosíme, před rozhodnutím zvažte, jaké informace o Vás spárovaný účastník bude mít k dispozici z bloku hádání stran kostky (ve verzi “PŘED” nebo “PO”) v následující hře s dělením peněz (mezi hráče A a B). A jaké informace budete mít Vy o něm/ní.
 
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-versionText = "<b>DŮLEŽITÁ INFORMACE:</b> Před touto úlohou se tento účastnik studie dozví, <b>jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
-rewardText = "<b>DŮLEŽITÁ INFORMACE:</b> Před touto úlohou se tento účastnik studie dozví, <b>kolik správných odhadů jste učinil(a) v tomto kole (ve verzi “PŘED” nebo “PO”).</b> Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
-version_rewardText = "<b>DŮLEŽITÁ INFORMACE:</b> Před touto úlohou se tento účastnik studie dozví, <b>jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
+versionText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
+rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole (ve verzi “PŘED” nebo “PO”).</b> Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
+version_rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
 controlText = ""
 
 
@@ -127,12 +125,9 @@ intro_block_5 = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku
 <b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
 <b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
 
-Po tomto pátém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). Částka přidělená oběma hráčům bude ovšem <b>{} Kč</b> a budete spárováni s jiným účastníkem studie. 
+<b>Po tomto pátém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). Částka přidělená oběma hráčům bude ovšem {} Kč</b> a budete spárováni s jiným účastníkem studie. 
 
 {}
-
-Prosíme, opět před rozhodnutím zvažte, jaké informace o Vás spárovaný účastník bude mít k dispozici z bloku hádání stran kostky (ve verzi “PŘED” nebo “PO”) v následující hře s dělením peněz (mezi hráče A a B). A jaké informace budete mít Vy o něm/ní.
-
 
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
@@ -143,12 +138,9 @@ intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto blok
 <b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
 <b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
 
-Po tomto šestém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). Částka přidělená oběma hráčům bude <b>200 Kč</b> a budete spárováni opět s jiným účastníkem studie. 
+Po tomto šestém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). <b>Částka přidělená oběma hráčům bude 200 Kč</b> a budete spárováni opět s jiným účastníkem studie. 
 
-{}
-
-Prosíme, opět před rozhodnutím zvažte, jaké informace o Vás spárovaný účastník bude mít k dispozici z bloku hádání stran kostky (ve verzi “PŘED” nebo “PO”) v následující hře s dělením peněz (mezi hráče A a B). A jaké informace budete mít Vy o něm/ní.
-"""
+{}"""
 
 tokenConditionText = f"\n\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz (mezi hráče A a hráče B).</b>\n"
 
@@ -820,7 +812,7 @@ Instructions3 = (Selection, {"text": intro_block_3, "update": ["win2"]})
 Info3 = (InstructionsFrame, {"text": info_block_3, "height": 7, "update": ["win3"]})
 Instructions4 = (Selection, {"text": intro_block_4, "update": ["incentive_4", "add_block_4"]})
 Instructions5 = (Selection, {"text": intro_block_5, "update": ["incentive_5", "add_block_5"]})
-Instructions6 = (Selection, {"text": intro_block_6, "height": 14, "update": ["add_block_6"]})
+Instructions6 = (Selection, {"text": intro_block_6, "height": 19, "update": ["add_block_6"]})
 
 EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["trust6"]}) # to do update
 
@@ -829,7 +821,7 @@ EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["tr
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
     GUI([Login,      
-    #Instructions6, # pryc
+    Instructions6, # pryc
           CheatingInstructions,
           Cheating,
           Instructions2,
