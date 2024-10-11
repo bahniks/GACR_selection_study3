@@ -33,8 +33,6 @@ Odměna v Kč      |  0 |   5 |  15 |  30 |  50 |  75 | 105 | 140 | 180 | 225 | 
 </c>
 Po skončení studie bude jeden blok náhodně vylosován. Obdržíte peníze, které jste vydělali pouze v tomto vylosovaném bloku. Pokud správně uhodnete všech dvanáct hodů v daném bloku, a tento blok bude později vylosován, obdržíte 390 Kč. Vaše výsledky v ostatních blocích nijak neovlivní množství peněz, které obdržíte.
 
-Při obdržení odměny za dnešní studii Vám bude vyplacena celková suma za všechny části studie. Experimentátor, který Vám bude vyplácet odměnu, neuvidí, kolik jste vyhráli v jednotlivých částech studie. 
-
 Abychom ověřili, že rozumíte instrukcím, odpovězte prosím na kontrolní otázky:"""
 
 
@@ -104,23 +102,37 @@ Tato úloha bude pokračovat následně čtvrtým blokem s dvanácti koly.
 # ČTVRTÝ BLOK
 intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz, kterou jste zrovna dokončili. Částka přidělená oběma hráčům bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
+<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
+<b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+
+<b>DŮLEŽITÁ INFORMACE:</b> Po tomto čtvrtém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B), kterou jste zrovna dokončili. 
+Částka přidělená oběma hráčům bude ovšem <b>{} Kč</b> a budete spárováni s jiným účastníkem studie. 
+
 {}
+
+Prosíme, před rozhodnutím zvažte, jaké informace o Vás spárovaný účastník bude mít k dispozici z bloku hádání stran kostky (ve verzi “PŘED” nebo “PO”) v následující hře s dělením peněz (mezi hráče A a B). A jaké informace budete mít Vy o něm/ní.
 
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-versionText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali v tomto kole. Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
-rewardText = "Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole. Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
-version_rewardText = "Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a). Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
+versionText = "<b>DŮLEŽITÁ INFORMACE:</b> Před touto úlohou se tento účastnik studie dozví, <b>jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
+rewardText = "<b>DŮLEŽITÁ INFORMACE:</b> Před touto úlohou se tento účastnik studie dozví, <b>kolik správných odhadů jste učinil(a) v tomto kole (ve verzi “PŘED” nebo “PO”).</b> Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
+version_rewardText = "<b>DŮLEŽITÁ INFORMACE:</b> Před touto úlohou se tento účastnik studie dozví, <b>jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
 controlText = ""
 
 
 
 intro_block_5 = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená oběma hráčům bude ovšem {} Kč a budete spárováni s jiným účastníkem studie. 
+<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
+<b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+
+Po tomto pátém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). Částka přidělená oběma hráčům bude ovšem <b>{} Kč</b> a budete spárováni s jiným účastníkem studie. 
+
 {}
+
+Prosíme, opět před rozhodnutím zvažte, jaké informace o Vás spárovaný účastník bude mít k dispozici z bloku hádání stran kostky (ve verzi “PŘED” nebo “PO”) v následující hře s dělením peněz (mezi hráče A a B). A jaké informace budete mít Vy o něm/ní.
+
 
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
@@ -128,11 +140,17 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 
 intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-Po tomto bloku opět obdržíte úlohu s dělením peněz. Částka přidělená oběma hráčům bude opět 200 Kč a budete spárováni s jiným účastníkem studie. 
+<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
+<b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+
+Po tomto šestém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). Částka přidělená oběma hráčům bude <b>200 Kč</b> a budete spárováni opět s jiným účastníkem studie. 
+
 {}
+
+Prosíme, opět před rozhodnutím zvažte, jaké informace o Vás spárovaný účastník bude mít k dispozici z bloku hádání stran kostky (ve verzi “PŘED” nebo “PO”) v následující hře s dělením peněz (mezi hráče A a B). A jaké informace budete mít Vy o něm/ní.
 """
 
-tokenConditionText = f"\n\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz.</b>\n"
+tokenConditionText = f"\n\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz (mezi hráče A a hráče B).</b>\n"
 
 tokenContribution = f"Chcete věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni?"
 
@@ -463,7 +481,7 @@ class Cheating(ExperimentFrame):
 
 
 class Selection(InstructionsFrame):
-    def __init__(self, root, text, update = [], height = 17):
+    def __init__(self, root, text, update = [], height = 24):
         super().__init__(root, text = text, proceed = False, update = update, height = height)
 
         ttk.Style().configure("TButton", font = "helvetica 15", width = 16)

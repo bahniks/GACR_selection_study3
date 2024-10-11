@@ -84,8 +84,6 @@ notContributedText = f"Tento účastník se rozhodl přispět {TOKEN} Kč charit
 controlText = ""
 
 
-
-# to do
 trustControl1 = "Jaká je role hráče A a hráče B ve studii?"
 trustAnswers1 = ["Hráč A rozhoduje, kolik vezme hráči B peněz a hráč B se rozhoduje, kolik vezme hráči A peněz na oplátku.",
 "Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B\njakékoli množství dostupných peněz zpět.", 
@@ -133,6 +131,8 @@ Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.{}
 
 diceText = "\n\nNyní budete pokračovat v úloze s odhadováním hodů kostky."
 
+checkButtonText = "Rozhodl(a) jsem se u všech možností"
+
 
 ################################################################################
 
@@ -157,8 +157,9 @@ class ScaleFrame(Canvas):
 
         ttk.Style().configure("TScale", background = "white")
 
-        self.value = ttk.Scale(self, orient = HORIZONTAL, from_ = 0, to = maximum, length = 500,
+        self.value = ttk.Scale(self, orient = HORIZONTAL, from_ = 0, to = maximum, length = 400,
                             variable = self.valueVar, command = self.changedValue)
+        self.value.bind("<ButtonRelease-1>", self.onClick)
 
         self.playerText1 = "Já:" if player == "A" else "Hráč A:"
         self.playerText2 = "Hráč B:" if player == "A" else "Já:"
@@ -184,8 +185,15 @@ class ScaleFrame(Canvas):
         self.totalLab2.grid(column = 9, row = 1, padx = 3, sticky = "ew")
 
 
+    def onClick(self, event):
+        click_position = event.x
+        newValue = int((click_position / self.value.winfo_width()) * self.value['to'])
+        self.changedValue(newValue)
+        self.update()
 
-    def changedValue(self, value):         
+
+    def changedValue(self, value):           
+        self.valueVar.set(value)
         newval = int(round(eval(self.valueVar.get())/self.rounding, 0)*self.rounding)
         self.valueVar.set("{0:3d}".format(newval))
         if self.player == "A":
@@ -217,7 +225,7 @@ class Trust(InstructionsFrame):
         endowment = root.status["endowments"][root.status["trustblock"] - 1]
 
         if root.status["trustblock"] == 1:            
-            text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5))
+            text = eval("instructionsT" + str(root.status["trustblock"])).format(endowment, endowment, int(endowment/5), endowment)
         else:
             _, otherwins, otherreward, otherversion = root.status["outcome" + str(root.status["trustblock"] + 2)].rstrip("_True").split("|") 
             selectedVersion = after_text if "treatment" in otherversion else before_text 
@@ -231,7 +239,7 @@ class Trust(InstructionsFrame):
                 conditionText = ""
             if root.status["trustblock"] == 4:
                 conditionText += eval(otherversion.split("_")[1] + "Text")
-            text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5))
+            text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5), endowment)
 
         height = 22
         width = 100
@@ -242,17 +250,20 @@ class Trust(InstructionsFrame):
         self.labA.grid(column = 0, row = 2, columnspan = 3, pady = 10)        
 
         # ta x-pozice tady je hnusny hack, idealne by se daly texty odmen vsechny sem ze slideru
-        self.labR = ttk.Label(self, text = "Odměna", font = "helvetica 15 bold", background = "white", anchor = "center", width = 28)
-        self.labR.grid(column = 1, row = 2, pady = 10, sticky = E)
+        self.labR = ttk.Label(self, text = "Rozdělení odměn po tomto kroku", font = "helvetica 15 bold", background = "white", anchor = "center", width = 30)
+        self.labR.grid(column = 1, row = 2, pady = 5, sticky = E)
+
+        self.labX = ttk.Label(self, text = "Finální rozdělení odměn", font = "helvetica 15 bold", background = "white", anchor = "center", width = 28)
+        self.labX.grid(column = 1, row = 5, pady = 5, sticky = E)
 
         self.frames = {}
         for i in range(7):            
             if i != 6:
-                text = "Pokud hráč A pošle {} Kč, pošlu:".format(i*20)
+                text = "Pokud hráč A pošle {} Kč, pošlu hráči A zpět:".format(i*20)
                 ttk.Label(self, text = text, font = "helvetica 15", background = "white").grid(column = 0, row = 6 + i, pady = 1, sticky = E)
                 player = "B"
             else:
-                ttk.Label(self, text = "Pošlu:", font = "helvetica 15", background = "white").grid(column = 0, row = 3, pady = 1, sticky = E)            
+                ttk.Label(self, text = "Pošlu hráči B:", font = "helvetica 15", background = "white").grid(column = 0, row = 3, pady = 1, sticky = E)            
                 player = "A"
             maximum = int(i * 3 * endowment / 5 + endowment) if i < 6 else endowment            
             self.frames[i] = ScaleFrame(self, maximum = maximum, player = player, returned = int(i*endowment/5), endowment = endowment)
@@ -262,8 +273,13 @@ class Trust(InstructionsFrame):
         self.labB = ttk.Label(self, text = "Pokud budu hráč B", font = "helvetica 15 bold", background = "white")
         self.labB.grid(column = 0, row = 5, columnspan = 3, pady = 10)
 
+        self.checkVar = BooleanVar()
+        ttk.Style().configure("TCheckbutton", background = "white", font = "helvetica 15")
+        self.checkBut = ttk.Checkbutton(self, text = checkButtonText, command = self.checkbuttoned, variable = self.checkVar, onvalue = True, offvalue = False)
+        self.checkBut.grid(row = 18, column = 0, columnspan = 3)
+
         self.next.grid(column = 0, row = 19, columnspan = 3, pady = 5, sticky = N)            
-        #self.next["state"] = "disabled"
+        self.next["state"] = "disabled"
         
         self.text.grid(row = 1, column = 0, columnspan = 3)
 
@@ -288,6 +304,9 @@ class Trust(InstructionsFrame):
     #         #     break
     #     else:
     #         self.next["state"] = "normal"
+
+    def checkbuttoned(self):
+        self.next["state"] = "normal" if self.checkVar.get() else "disabled"
 
     def nextFun(self):
         self.send()
@@ -399,7 +418,7 @@ if __name__ == "__main__":
     from cheating import OutcomeWait
     GUI([Login,    
          OutcomeWait,
-         InstructionsTrust,
+         #InstructionsTrust,
          Trust,
          WaitTrust,
          TrustResult,
