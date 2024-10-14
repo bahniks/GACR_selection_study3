@@ -240,21 +240,21 @@ class Trust(InstructionsFrame):
             selectedVersion = after_text if "treatment" in otherversion else before_text
             prevblock = root.status["block"] - 1
             if root.status["condition"] == "version":
-                conditionText = versionTrustText.format(selectedVersion, root.conditions[prevblock - 1])
+                conditionText = versionTrustText.format(selectedVersion, root.status["conditions"][prevblock-1])
             elif root.status["condition"] == "reward":
-                reward = sum([i*3 + 3 for i in range(self.trials)][:root.wins[prevblock]])
+                reward = sum([i*3 + 3 for i in range(12)][:root.wins[prevblock]])
                 conditionText = rewardTrustText.format(otherreward, otherwins, reward, root.wins[prevblock])
             elif root.status["condition"] == "version_reward":
                 wins = root.wins[prevblock]
-                reward = sum([i*3 + 3 for i in range(self.trials)][:wins])                
-                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins, root.conditions[prevblock], reward, wins)
+                reward = sum([i*3 + 3 for i in range(12)][:wins])                
+                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins, root.status["conditions"][prevblock-1], reward, wins)
             elif root.status["condition"] == "control":
                 conditionText = ""
             if root.status["trustblock"] == 4:
                 conditionText += eval(otherversion.split("_")[1] + "Text")
             text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5), endowment)
 
-        height = 23
+        height = 24
         width = 100
 
         super().__init__(root, text = text, height = height, font = 15, width = width)
