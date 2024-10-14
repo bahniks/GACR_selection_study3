@@ -51,17 +51,17 @@ Svou volbu učiňte posunutím modrých ukazatelů níže."""
 
 rewardTrustText = """
 Tento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.
-Tento účastník podobně ví, jakou odměnu jste v minulém kole hry s házením kostkou dostal(a) Vy.
+Tento účastník podobně ví, že jste v minulém kole hry s házením kostkou dostal(a) odměnu {} za {} správných odhadů.
 """
 versionTrustText = """
 Tento účastník studie si v minulém kole hry s házením kostkou vybral {}.
-Tento účastník podobně ví, jakou verzi hry jste si v minulém kole hry s házením kostkou vybral(a) Vy.
+Tento účastník podobně ví, že jste si v minulém kole hry s házením kostkou vybral(a) verzi {}.
 """
 after_text = "PO verzi hry, ve které se uvádí, zda byla předpověď správná, či nikoliv, až poté, co se zobrazí výsledek hodu kostkou"
 before_text = "PŘED verzi hry, ve které se uvádí předpověď před tím, než se zobrazí výsledek hodu kostkou"
 version_rewardTrustText = """
 Tento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.
-Tento účastník podobně ví, jakou verzi hry jste si v minulém kole hry s házením kostkou vybral(a) Vy a jakou odměnu jste v ní dostal(a).
+Tento účastník podobně ví, že jste si v minulém kole hry s házením kostkou vybral(a) verzi {} a dostal(a) odměnu {} za {} správných odhadů.
 """
 
 
@@ -237,13 +237,17 @@ class Trust(InstructionsFrame):
             text += "\n\nSvou volbu učiňte posunutím modrých ukazatelů níže."
         else:
             _, otherwins, otherreward, otherversion = root.status["outcome" + str(root.status["trustblock"] + 2)].rstrip("_True").split("|") 
-            selectedVersion = after_text if "treatment" in otherversion else before_text 
+            selectedVersion = after_text if "treatment" in otherversion else before_text
+            prevblock = root.status["block"] - 1
             if root.status["condition"] == "version":
-                conditionText = versionTrustText.format(selectedVersion)
+                conditionText = versionTrustText.format(selectedVersion, root.conditions[prevblock - 1])
             elif root.status["condition"] == "reward":
-                conditionText = rewardTrustText.format(otherreward, otherwins)
+                reward = sum([i*3 + 3 for i in range(self.trials)][:root.wins[prevblock]])
+                conditionText = rewardTrustText.format(otherreward, otherwins, reward, root.wins[prevblock])
             elif root.status["condition"] == "version_reward":
-                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins)
+                wins = root.wins[prevblock]
+                reward = sum([i*3 + 3 for i in range(self.trials)][:wins])                
+                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins, root.conditions[prevblock], reward, wins)
             elif root.status["condition"] == "control":
                 conditionText = ""
             if root.status["trustblock"] == 4:
