@@ -11,8 +11,8 @@ from gui import GUI
 from quest import QuestInstructions #, Hexaco
 from intros import Initial, Intro, Ending #, HEXACOintro
 from demo import Demographics
-from cheating import CheatingInstructions, Cheating, Instructions2, Instructions3, Instructions4, Instructions5, Instructions6
-from cheating import EndCheating, Login, OutcomeWait, Info3 #, VotingResult, Perception, Debrief, FinalWait
+from cheating import CheatingInstructions, Cheating, Instructions2, Instructions3, Instructions4Check, Instructions5, Instructions6
+from cheating import EndCheating, Login, OutcomeWait, Info3  #, VotingResult, Perception, Debrief, FinalWait
 from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
 from trustgame import WaitTrust, Trust, TrustResult, InstructionsTrust
@@ -34,7 +34,7 @@ frames = [Initial,
           Trust, # trust instructions + decision
           WaitTrust,
           TrustResult,
-          Instructions4, # selection + info about trust
+          Instructions4Check, # selection + info about trust
           Cheating,
           OutcomeWait,          
           Trust,

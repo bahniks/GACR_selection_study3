@@ -425,7 +425,10 @@ class MultipleChoice(Canvas):
 class InstructionsAndUnderstanding(InstructionsFrame):
     def __init__(self, root, controlTexts, name, randomize = True, fillerheight = 255, finalButton = None, **kwargs):
         super().__init__(root, **kwargs)
-        self.controlTexts = controlTexts
+        if type(controlTexts) == str:
+            self.controlTexts = self.root.texts[controlTexts]
+        else:
+            self.controlTexts = controlTexts
         self.randomize = randomize
         self.finalButton = finalButton
 

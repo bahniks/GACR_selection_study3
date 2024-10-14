@@ -113,13 +113,22 @@ intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto blo
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-versionText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
+versionText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybral(a) v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
 rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole (ve verzi “PŘED” nebo “PO”).</b> Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
-version_rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybrali pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
+version_rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybral(a) pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
 controlText = ""
 
 
+controlManipulation = 'Jaké informace se o Vás dozví účastník studie, s kterým budete spárováni pro úlohu s dělením peněz?' 
+answersManipulation = ['Jakou verzi úlohy s kostkami jste si vybral(a) pro toto kolo a kolik správných odhadů jste v něm učinil(a).', 'Jakou verzi úlohy s kostkami jste si vybral(a) pro toto kolo.', 'Kolik správných odhadů jste učinil(a) v tomto kole úlohy s kostkami.', 'Nebude mít o Vás žádné informace.'] 
 
+correctFeedback = "Ano, bude vědět, "
+incorrectFeedback = "Ne, bude vědět, "
+correctFeedbackControl = "Ano, "
+incorrectFeedbackControl = "Ne, "
+
+
+# PÁTÝ BLOK
 intro_block_5 = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
 <b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
@@ -133,6 +142,7 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
 
+# ŠESTÝ BLOK
 intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
 <b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
@@ -743,6 +753,7 @@ class Login(InstructionsFrame):
                 if "start" in response:
                     info, condition, incentive_order, tokenCondition, winning_block, winning_trust, trustRoles, trustPairs = response.split("|")              
                     self.root.status["condition"] = condition   
+                    self.create_control_question(condition)
                     self.root.status["incentive_order"] = incentive_order                    
                     self.root.status["tokenCondition"] = eval(tokenCondition)
                     self.root.texts["block"] = self.root.status["winning_block"] = winning_block
@@ -781,18 +792,15 @@ class Login(InstructionsFrame):
         self.root.texts["add_block_6"] = eval(condition + "Text")
         self.root.texts["add_block_6"] += tokenConditionText if self.root.status["tokenCondition"] else "\n\n" + version_choice
 
-    # def create_control_question(self, source, condition):        
-    #     condition = source + "_" + condition
-    #     global answers3
-    #     correctAnswer = correct_answers3[condition]
-    #     answers3 += [correctAnswer]
-    #     global feedback3
-    #     if condition == "experimenter_divided":
-    #         correctAnswer.replace("Sečte se", "se sečte")
-    #     else:
-    #         correctAnswer = correctAnswer[:1].lower() + correctAnswer[1:]
-    #     for i in range(4):
-    #         feedback3[i] += correctAnswer
+    def create_control_question(self, condition):        
+        feedbackManipulation = []
+        conditions = ["version_reward", "version", "reward", "control"]
+        cf = correctFeedback if condition != "control" else correctFeedbackControl
+        inf = incorrectFeedback if condition != "control" else incorrectFeedbackControl
+        for i, cond in enumerate(conditions):
+            f = cf if condition == cond else inf
+            feedbackManipulation.append(f + answersManipulation[conditions.index(condition)].lower())
+        self.root.texts["controlTexts2"] = [[controlManipulation, answersManipulation, feedbackManipulation]]        
 
     def write(self, response):
         self.file.write("Login" + "\n")
@@ -803,14 +811,47 @@ class Login(InstructionsFrame):
 
 
 
+class Instructions4Check(InstructionsAndUnderstanding):
+    def __init__(self, root):
+        text = intro_block_4.replace("Chcete hrát verzi “PŘED” nebo “PO”?", "")        
+        super().__init__(root, text = text, height = 20, update = ["incentive_4", "add_block_4"], name = "Cheating 4 Control Question", randomize = False, controlTexts = "controlTexts2", fillerheight = 300)
+        self.next.grid_forget()
+        self.next = ttk.Button(self.controlFrame, text = "Pokračovat", command = self.nextFun)
+        self.next.grid(row = 4, column = 0)
+
+    def nextFun(self):
+        if self.controlstate == "feedback":
+            self.file.write(self.id + "\t" + str(self.controlNum) + "\t" + self.controlQuestion.getAnswer() + "\n\n")
+            self.controlQuestion.grid_forget()
+            self.control = ttk.Button(self, text = controlchoicetext,
+                                    command = lambda: self.response("control"))
+            self.treatment = ttk.Button(self, text = treatmentchoicetext,
+                                        command = lambda: self.response("treatment"))
+            self.control.grid(row = 2, column = 0)
+            self.treatment.grid(row = 2, column = 2)        
+            self.next.grid_forget()
+            self.text["state"] = "normal"
+            self.text.insert("end", "Chcete hrát verzi “PŘED” nebo “PO”?")
+            self.text["state"] = "disabled"
+            self.next["text"] = "Pokračovat k volbě"           
+        else:
+            super().nextFun()
+    
+    def response(self, choice):
+        self.root.status["conditions"].append(choice)
+        InstructionsFrame.nextFun(self)
+        
+
+
+
 controlTexts1 = [[intro_control1, intro_answers1, intro_feedback1], [intro_control2, intro_answers2, intro_feedback2]]
-# controlTexts3 = [[control1, answers1, feedback1], [control2, answers2, feedback2], [control3, answers3, feedback3]]
+
 
 CheatingInstructions = (InstructionsAndUnderstanding, {"text": intro_block_1, "height": 24, "width": 105, "name": "Cheating Instructions Control Questions", "randomize": False, "controlTexts": controlTexts1})
 Instructions2 = (InstructionsFrame, {"text": intro_block_2, "height": 5, "update": ["win1"]})
 Instructions3 = (Selection, {"text": intro_block_3, "update": ["win2"]})
 Info3 = (InstructionsFrame, {"text": info_block_3, "height": 7, "update": ["win3"]})
-Instructions4 = (Selection, {"text": intro_block_4, "update": ["incentive_4", "add_block_4"]})
+#Instructions4 = (Selection, {"text": intro_block_4, "update": ["incentive_4", "add_block_4"]})
 Instructions5 = (Selection, {"text": intro_block_5, "update": ["incentive_5", "add_block_5"]})
 Instructions6 = (Selection, {"text": intro_block_6, "height": 19, "update": ["add_block_6"]})
 
@@ -818,10 +859,10 @@ EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["tr
 
 
 
+
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([Login,      
-    Instructions6, # pryc
+    GUI([Login,
           CheatingInstructions,
           Cheating,
           Instructions2,
@@ -830,7 +871,8 @@ if __name__ == "__main__":
           Cheating,
           Info3,
           #OutcomeWait,
-          Instructions4, # selection + info about trust
+          Instructions4Check, # selection + info about trust
+          #Instructions4,
           Cheating,
           OutcomeWait,
           Instructions5, # selection + info about trust
