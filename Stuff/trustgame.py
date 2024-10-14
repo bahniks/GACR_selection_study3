@@ -419,7 +419,7 @@ class WaitTrust(InstructionsFrame):
 TrustResult = (InstructionsFrame, {"text": "{}", "update": ["trustResult"]})
 
 controlTexts = [[trustControl1, trustAnswers1, trustFeedback1], [trustControl2, trustAnswers2, trustFeedback2], [trustControl3, trustAnswers3, trustFeedback3]]
-InstructionsTrust = (InstructionsAndUnderstanding, {"text": instructionsT1.format(TRUST[1], TRUST[1], int(TRUST[1]/5), TRUST[1]) + "\n\n", "height": 23, "width": 100, "name": "Trust Control Questions", "randomize": False, "controlTexts": controlTexts, "fillerheight": 300})
+InstructionsTrust = (InstructionsAndUnderstanding, {"text": instructionsT1.format(TRUST[1], TRUST[1], int(TRUST[1]/5), TRUST[1]) + "\n\n", "height": 23, "width": 100, "name": "Trust Control Questions", "randomize": False, "controlTexts": controlTexts, "fillerheight": 300, "finalButton": "Pokračovat k volbě"})
 
 
 if __name__ == "__main__":
@@ -427,7 +427,7 @@ if __name__ == "__main__":
     from cheating import OutcomeWait
     GUI([Login,    
          OutcomeWait,
-         #InstructionsTrust,
+         InstructionsTrust,
          Trust,
          WaitTrust,
          TrustResult,

@@ -17,8 +17,7 @@ from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
 from trustgame import WaitTrust, Trust, TrustResult, InstructionsTrust
 #from trustgame import DictatorFeelings2, WaitResult2, DictatorEnd
-#from questionnaire import TEQ, RSMS, PoliticalWill
-#from tosca import TOSCA
+from questionnaire import PoliticalSkill, TDMS
 
 frames = [Initial,
           Login,
@@ -47,7 +46,7 @@ frames = [Initial,
           Trust,
           WaitTrust,
           TrustResult,
-          Instructions6, # selection + info about trust and payment for info
+          Instructions6, # selection + info about trust and token contribution to charity
           Cheating,
           OutcomeWait,
           Trust,
@@ -59,12 +58,9 @@ frames = [Initial,
           LotteryWin,
           LotteryInstructions,
           DiceLottery,
-          #QuestInstructions,
-          #RSMS,
-          #TEQ,
-          #TOSCA,
-          #PoliticalWill,
-          #HEXACOinfo,
+          QuestInstructions,
+          PoliticalSkill,
+          TDMS,
           Demographics,
           Ending
          ]

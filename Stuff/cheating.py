@@ -25,13 +25,13 @@ intro_block_1 = """V následujícím úkolu budete hádat, jestli na virtuální
 
 Úkol je rozdělen do šesti samostatných bloků a každý blok sestává z dvanácti kol. V každém kole budete hádat výsledek jednotlivých hodů kostkou. Bloky se odlišují pravidly, dle nichž budete hádat hody kostkou. Pravidla níže však platí pro všech šest bloků.
 
-Uhodnete-li první hod v daném bloku, získáte 5 Kč, uhodnete-li další, získáte za něj dalších 10 Kč, uhodnete-li další hod, získáte za něj dalších 15 Kč a tak dále. Za každý další uhodnutý hod získáte navíc částku o 5 Kč vyšší, než byla předchozí odměna. Pokud tedy uhodnete všech 12 hodů v daném bloku, za poslední dvanáctý uhodnutý hod získáte 60 Kč a celkem získáte 390 Kč. Celkové odměny za různé množství správných odhadů jsou zobrazeny v této tabulce:
+Uhodnete-li první hod v daném bloku, získáte 3 Kč, uhodnete-li další, získáte za něj dalších 6 Kč, uhodnete-li další hod, získáte za něj dalších 9 Kč a tak dále. Za každý další uhodnutý hod získáte navíc částku o 3 Kč vyšší, než byla předchozí odměna. Pokud tedy uhodnete všech 12 hodů v daném bloku, za poslední dvanáctý uhodnutý hod získáte 36 Kč a celkem získáte 264 Kč. Celkové odměny za různé množství správných odhadů jsou zobrazeny v této tabulce:
 <c>
 Správných odhadů |  0 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |  10 |  11 |  12 |
 -----------------------------------------------------------------------------------------------
-Odměna v Kč      |  0 |   5 |  15 |  30 |  50 |  75 | 105 | 140 | 180 | 225 | 275 | 330 | 390 |
+Odměna v Kč      |  0 |   3 |   9 |  18 |  30 |  45 |  63 |  84 | 112 | 144 | 180 | 220 | 264 |
 </c>
-Po skončení studie bude jeden blok náhodně vylosován. Obdržíte peníze, které jste vydělali pouze v tomto vylosovaném bloku. Pokud správně uhodnete všech dvanáct hodů v daném bloku, a tento blok bude později vylosován, obdržíte 390 Kč. Vaše výsledky v ostatních blocích nijak neovlivní množství peněz, které obdržíte.
+Po skončení studie bude jeden blok náhodně vylosován. Obdržíte peníze, které jste vydělali pouze v tomto vylosovaném bloku. Pokud správně uhodnete všech dvanáct hodů v daném bloku, a tento blok bude později vylosován, obdržíte 264 Kč. Vaše výsledky v ostatních blocích nijak neovlivní množství peněz, které obdržíte.
 
 Abychom ověřili, že rozumíte instrukcím, odpovězte prosím na kontrolní otázky:"""
 
@@ -41,8 +41,8 @@ intro_answers1 = ['Pravděpodobnost správného odhadu v každém kole je 50%.',
 intro_feedback1 = ['Ano, budete odhadovat jednu ze dvou stejně pravděpodobných možností.', 'Ne, každý blok sestává z dvanácti kol.', 'Ne, odměna závisí pouze na počtu správných odhadů v jednom náhodně vylosovaném bloku.', 'Ne, odměna bude vyplacena až za všechny části studie dohromady po jejím skončení.']
 
 intro_control2 = 'Kolik obdržíte za úkol peněz, pokud bude vylosován blok, kde uhodnete dohromady 4 hody?' 
-intro_answers2 = ['30 Kč (0 + 5 + 10 + 15)', '45 Kč (5 + 10 + 15 + 15)', '50 Kč (5 + 10 + 15 + 20)', '60 Kč (4 x 15)'] 
-intro_feedback2 = ['Ne, obdželi byste 50 Kč. Za první hod 5 Kč a za každý další o 5 Kč více (tj. 5 + 10 + 15 + 20).', 'Ne, obdželi byste 50 Kč. Za první hod 5 Kč a za každý další o 5 Kč více (tj. 5 + 10 + 15 + 20).', 'Ano, obdželi byste 50 Kč.', 'Ne, obdželi byste 50 Kč. Za první hod 5 Kč a za každý další o 5 Kč více (tj. 5 + 10 + 15 + 20).']
+intro_answers2 = ['18 Kč (0 + 3 + 6 + 9)', '27 Kč (6 + 6 + 9 + 9)', '30 Kč (3 + 6 + 9 + 12)', '48 Kč (4 x 12)'] 
+intro_feedback2 = ['Ne, obdželi byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).', 'Ne, obdželi byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).', 'Ano, obdželi byste 30 Kč.', 'Ne, obdželi byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).']
 
 
 # ÚLOHA
@@ -186,7 +186,7 @@ class Cheating(ExperimentFrame):
         self.displayNum = self.createDots # self.createDots or self.createText
         self.fakeRolling = not TESTING
         self.diesize = 240
-        self.rewards = [i*5 + 5 for i in range(self.trials)]
+        self.rewards = [i*3 + 3 for i in range(self.trials)]
         #######################
 
         if not "block" in self.root.status:
@@ -672,7 +672,7 @@ class OutcomeWait(InstructionsFrame):
                     else:
                         chance = random.random() / 2
                     otherwins = sum([1 if random.random() > chance else 0 for i in range(12)])
-                    otherreward = sum([i*5 + 5 for i in range(12)][:otherwins])        
+                    otherreward = sum([i*3 + 3 for i in range(12)][:otherwins])        
                     if self.root.status["block"] == 7:
                         if self.root.status["tokenCondition"]:
                             contributed = random.choice(["contributed", "notContributed"])

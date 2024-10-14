@@ -423,10 +423,11 @@ class MultipleChoice(Canvas):
         
 
 class InstructionsAndUnderstanding(InstructionsFrame):
-    def __init__(self, root, controlTexts, name, randomize = True, fillerheight = 255, **kwargs):
+    def __init__(self, root, controlTexts, name, randomize = True, fillerheight = 255, finalButton = None, **kwargs):
         super().__init__(root, **kwargs)
         self.controlTexts = controlTexts
         self.randomize = randomize
+        self.finalButton = finalButton
 
         self.controlFrame = Canvas(self, background = "white", highlightbackground = "white",
                                  highlightcolor = "white")
@@ -461,7 +462,9 @@ class InstructionsAndUnderstanding(InstructionsFrame):
                 self.createQuestion()                
         else:            
             self.controlQuestion.showFeedback()
-            self.controlstate = "feedback"              
+            self.controlstate = "feedback"     
+            if self.controlNum == len(self.controlTexts) and self.finalButton:         
+                self.next["text"] = self.finalButton
 
 
 class OneFrame(Canvas):

@@ -13,22 +13,9 @@ from gui import GUI
 from constants import TESTING, AUTOFILL
 
 
-TEQintro = """
-Přečtěte si pečlivě každé z následujících tvrzení a ohodnoťte, jak často cítíte nebo jednáte způsobem, který je popsán. 
-Své odpovědi označte ve formuláři. Neexistují správné nebo špatné odpovědi ani záludné otázky. 
-Prosím, odpovídejte na každou otázku co nejupřímněji, jak jen můžete.
-"""
 
-RSMSintro = """Přečtěte si pečlivě každé z následujících tvrzení a ohodnoťte, jak často je tvrzení o Vás pravdivé. 
-"""
 
-hexacotext = """Pokud jste ještě nedokončili celý tištěný dotazník, prosím odpovězte nyní na zbývající otázky na poskytnutý záznamový arch.
-Zkontrolujte také, že máte v záznamovém archu správně vyplněné své identifikační číslo {}.
-
-Jakmile dotazník dokončíte, klikněte na tlačítko Pokračovat.
-"""
-
-polwillintro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
+intro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
 
 
 class Questionnaire(ExperimentFrame):
@@ -133,43 +120,9 @@ class Questionnaire(ExperimentFrame):
 
 
 
-TEQ = (Questionnaire,
-                {"words": "teq.txt",
-                 "question": TEQintro,
-                 "labels": ["Nikdy",
-                            "Zřídka",
-                            "Někdy",
-                            "Často",
-                            "Vždy"],
-                 "values": 5,
-                 "labelwidth": 6,
-                 "text": False,
-                 "fontsize": 14,
-                 "blocksize": 4,
-                 "filetext": "TEQ"})
-
-RSMS = (Questionnaire,
-                {"words": "rsms.txt",
-                 "question": RSMSintro,
-                 "labels": ["Určitě vždy pravdivé",
-                            "Obvykle pravdivé",
-                            "Částečně pravdivé,\nale s výjimkou",
-                            "Částečně nepravdivé,\nale s výjimkou",
-                            "Obvykle nepravdivé",
-                            "Určitě vždy nepravdivé"],
-                 "values": 6,
-                 "labelwidth": 10,
-                 "text": False,
-                 "fontsize": 14,
-                 "blocksize": 13,
-                 "wraplength": 520,
-                 "filetext": "RSMS",
-                 "pady": 2,
-                 "fixedlines": 2})
-
-PoliticalWill = (Questionnaire,
-                {"words": "polwill.txt",
-                 "question": polwillintro,
+PoliticalSkill = (Questionnaire,
+                {"words": "polskill.txt",
+                 "question": intro,
                  "labels": ["Zcela\nnesouhlasím",
                             "Nesouhlasím",
                             "Mírně\nnesouhlasím",
@@ -180,17 +133,34 @@ PoliticalWill = (Questionnaire,
                  "values": 7,
                  "labelwidth": 11,
                  "text": False,
-                 "fontsize": 13,
-                 "blocksize": 9,
+                 "fontsize": 15,
+                 "blocksize": 6,
                  "wraplength": 450,
-                 "filetext": "Political Will",
+                 "filetext": "Political Skill",
+                 "fixedlines": 2,
+                 "pady": 3})
+
+TDMS = (Questionnaire,
+                {"words": "tdms.txt",
+                 "question": intro,
+                 "labels": ["Zcela\nnesouhlasím",
+                            "Nesouhlasím",
+                            "Mírně\nnesouhlasím",
+                            "Neutrální",
+                            "Mírně\nsouhlasím",
+                            "Souhlasím",
+                            "Zcela\nsouhlasím"],
+                 "values": 7,
+                 "labelwidth": 11,
+                 "text": False,
+                 "fontsize": 15,
+                 "blocksize": 4,
+                 "wraplength": 450,
+                 "filetext": "TDMS",
                  "fixedlines": 2,
                  "pady": 3})
 
 
-HEXACOinfo = (InstructionsFrame, {"text": hexacotext, "height": 5, "update": ["idNumber"]})
-
-
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    GUI([PoliticalWill, RSMS, TEQ])
+    GUI([TDMS, PoliticalSkill])

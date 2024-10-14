@@ -14,9 +14,9 @@ from gui import GUI
 ################################################################################
 # TEXTS
 
-options = ((42, 44, 46, 48, 50),
-           (30, 40, 50, 60, 70),
-           (100, 100, 100, 100, 100))
+options = ((22, 24, 26, 28, 30),
+           (5, 15, 25, 35, 45),
+           (200, 170, 140, 110, 80))
 
 instructions = """
 V následujícím úkolu uděláte 5 nezávislých rozhodnutí mezi dvěma možnostmi. První možnost vždy reprezentuje jistou odměnu a druhá možnost vždy reprezentuje loterii. Číslo s procenty reprezentuje pravděpodobnost, že vyhrajete a Vaše odměna bude {} Kč. Pokud prohrajete, Vaše odměna bude 0 Kč. Pravděpodobnost výhry se liší mezi rozhodnutími tak, že riziková možnost (tj. loterie) je s každým dalším řádkem více atraktivní.
