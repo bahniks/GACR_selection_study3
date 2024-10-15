@@ -533,11 +533,12 @@ class Selection(InstructionsFrame):
 
 
     def response(self, choice):
+        self.choice = choice
         self.root.status["conditions"].append(choice)
         self.nextFun()
 
     def write(self):        
-        pass # TODO - minimalne ukladani o prispevku charite, verze jde zjistit z vysledku
+        self.file.write("Selection\n" + "\t".join([self.id, self.root.status["block"], self.choice]))
 
     
     
@@ -694,7 +695,6 @@ class Login(InstructionsFrame):
                     self.root.status["trust_roles"] = list(trustRoles)
                     self.root.status["trust_pairs"] = trustPairs.split("_")                 
                     self.update_intros(condition, incentive_order)
-                    #self.create_control_question(condition) # todo
                     self.progressBar.stop()
                     self.write(response)
                     self.nextFun()                      
@@ -708,8 +708,8 @@ class Login(InstructionsFrame):
                     self.changeText("Studie není otevřena")
                 elif response == "closed":
                     self.changeText("Studie je uzavřena pro přihlašování")
-                elif response == "not_grouped": # to asi nebude potreba
-                    self.changeText("Nebyla Vám přiřazena žádná skupina. Zavolejte prosím experimentátora zvednutím ruky.")
+                elif response == "not_grouped":
+                    self.changeText("V experimentu nezbylo místo. Zavolejte prosím experimentátora zvednutím ruky.")
             count += 1                  
             sleep(0.1)        
 
@@ -737,7 +737,7 @@ class Login(InstructionsFrame):
 
     def write(self, response):
         self.file.write("Login" + "\n")
-        self.file.write(self.id + response.replace("_", "\t").replace("|", "\t").lstrip("start") + "\n\n")        
+        self.file.write(self.id + response.replace("|", "\t").lstrip("start") + "\n\n")        
 
     def gothrough(self):
         self.run()
@@ -771,7 +771,9 @@ class Instructions4Check(InstructionsAndUnderstanding):
     
     def response(self, choice):
         self.root.status["conditions"].append(choice)
-        InstructionsFrame.nextFun(self)
+        self.file.write("Selection\n" + "\t".join([self.id, self.root.status["block"], choice]))
+        InstructionsFrame.nextFun(self)    
+    
         
 
 
