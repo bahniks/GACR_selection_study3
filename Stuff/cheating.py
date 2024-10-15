@@ -538,7 +538,7 @@ class Selection(InstructionsFrame):
         self.nextFun()
 
     def write(self):        
-        self.file.write("Selection\n" + "\t".join([self.id, self.root.status["block"], self.choice]))
+        self.file.write("Selection\n" + "\t".join([self.id, str(self.root.status["block"]), self.choice]))
 
     
     
@@ -771,7 +771,7 @@ class Instructions4Check(InstructionsAndUnderstanding):
     
     def response(self, choice):
         self.root.status["conditions"].append(choice)
-        self.file.write("Selection\n" + "\t".join([self.id, self.root.status["block"], choice]))
+        self.file.write("Selection\n" + "\t".join([self.id, str(self.root.status["block"]), choice]))
         InstructionsFrame.nextFun(self)    
     
         
