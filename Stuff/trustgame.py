@@ -385,7 +385,7 @@ class WaitTrust(InstructionsFrame):
                     
                     if int(self.root.status["winning_trust"]) == block + 2:
                         reward = endowment - sentA + sentB if self.root.status["trust_roles"][block-1] == "A" else endowment + sentA*3 - sentB    
-                        self.root.texts["trust"] = str(reward)                        
+                        self.root.texts["trust"] = str(reward)
 
                     dice = "" if block == 4 else diceText
 

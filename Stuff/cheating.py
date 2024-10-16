@@ -524,7 +524,7 @@ class Selection(InstructionsFrame):
 
     def token(self, response):
         self.root.status["tokenContributed"] = response
-        self.sendData({'id': self.id, 'round': "token", 'offer': str(response)})        
+        self.sendData({'id': self.id, 'round': "paidtoken", 'offer': str(response)})        
         self.yes["state"] = "disabled"
         self.no["state"] = "disabled"
         self.question2["foreground"] = "black"
