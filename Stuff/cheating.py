@@ -160,7 +160,7 @@ version_choice = "Chcete hrát verzi “PŘED” nebo “PO”?"
 
 
 # ČEKÁNÍ
-wait_text = "Prosím počkejte na ostatní účastníky studie."
+wait_text = "Prosím počkejte na druhého hráče."
 
 
 
@@ -607,7 +607,7 @@ class OutcomeWait(InstructionsFrame):
         while True:
             self.update()
             if count % 50 == 0:
-                data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"], 'offer': "outcome"})                
+                data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"] - 1, 'offer': "outcome"})                
                 data = data.encode('ascii')
                 if URL == "TEST":            
                     otherversion = random.choice(["treatment", "control"])
@@ -638,7 +638,7 @@ class OutcomeWait(InstructionsFrame):
                             if "trustblock" in self.root.status:
                                 self.root.status["outcome" + str(self.root.status["trustblock"] + 3)] = response
                         else:
-                            self.root.status["outcome" + str(self.root.status["block"])] = response                         
+                            self.root.status["outcome" + str(self.root.status["block"] - 1)] = response                         
                     self.progressBar.stop()
                     self.nextFun()  
                     return

@@ -106,7 +106,7 @@ trustFeedback2 = ["Chybná odpověď. Hráč A obdrží 100 Kč, z kterých 40 K
 
 
 trustControl3 = "Jakou odměnu obdrží hráč B, pokud hráč A pošle 40 Kč a hráč B mu pošle zpět 60 Kč?"
-trustAnswers3 = ["80 Kč (100 + 40 - 60)", "160 Kč (100 + 3 × 40 - 60)", "240 Kč (100 + 3 × 60 - 40))", "280 Kč (100 + 3 × 40 + 60)"]
+trustAnswers3 = ["80 Kč (100 + 40 - 60)", "160 Kč (100 + 3 × 40 - 60)", "240 Kč (100 + 3 × 60 - 40)", "280 Kč (100 + 3 × 40 + 60)"]
 trustFeedback3 = ["Chybná odpověď. Hráč B obdrží 100 Kč, ke kterým obdrží 120 Kč od hráče A (poslaných 40 Kč se ztrojnásobí) a následně pošle hráči A 60 Kč, tj. na konec obdrží 160 Kč (100 + 3 × 40 - 60).", "Správná odpověď.", "Chybná odpověď. Hráč B obdrží 100 Kč, ke kterým obdrží 120 Kč od hráče A (poslaných 40 Kč se ztrojnásobí) a následně pošle hráči A 60 Kč, tj. na konec obdrží 160 Kč (100 + 3 × 40 - 60).", "Chybná odpověď. Hráč B obdrží 100 Kč, ke kterým obdrží 120 Kč od hráče A (poslaných 40 Kč se ztrojnásobí) a následně pošle hráči A 60 Kč, tj. na konec obdrží 160 Kč (100 + 3 × 40 - 60)."]
 
 
@@ -227,7 +227,7 @@ class Trust(InstructionsFrame):
             root.status["trustblock"] += 1
 
         if not "endowments" in root.status:
-            endowments = list(map(TRUST.__getitem__, [1,2,0,2])) if root.status["incentive_order"] == "high-low" else list(map(TRUST.__getitem__, [1,0,2,2]))
+            endowments = list(map(TRUST.__getitem__, [1,2,0,1])) if root.status["incentive_order"] == "high-low" else list(map(TRUST.__getitem__, [1,0,2,1]))
             root.status["endowments"] = endowments
 
         endowment = root.status["endowments"][root.status["trustblock"] - 1]
@@ -333,8 +333,8 @@ class Trust(InstructionsFrame):
 
     def write(self):
         block = self.root.status["trustblock"]
-        self.file.write("Trust\n")
-        d = [self.id, str(block + 2), self.root.status["trust_pairs"][block-1], self.root.status["trust_roles"][block-1], self.root.status["condition"], self.root.status["incentive_order"], self.root.status["endowments"][block-1]]
+        self.file.write("Trust\n")        
+        d = [self.id, str(block + 2), self.root.status["trust_pairs"][block-1], list(self.root.status["trust_roles"])[block-1], self.root.status["condition"], self.root.status["incentive_order"], self.root.status["endowments"][block-1]]
         self.file.write("\t".join(map(str, d + self.responses)))
         if URL == "TEST":
             if self.root.status["trust_roles"][block-1] == "A":                        
