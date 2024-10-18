@@ -38,6 +38,8 @@ class GUI(Tk):
         
         writeTime = localtime()
         self.id = str(uuid4())
+        if TESTING:
+            self.title("TEST " + self.id)
         self.outputfile = os.path.join("Data", strftime("%y_%m_%d_%H%M%S", writeTime) + "_" + self.id + ".txt")
 
         self.bind("<Escape>", self.closeFun)

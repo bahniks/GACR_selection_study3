@@ -72,7 +72,7 @@ class Ending(InstructionsFrame):
         root.texts["rounded_reward"] = ceil(root.texts["reward"] / 10) * 10
         root.texts["participation_fee"] = str(PARTICIPATION_FEE)
         updates = ["block", "dice", "trustblock", "trust", "lottery_win", "participation_fee", "contribution", "reward", "rounded_reward"]
-        super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 20, update = updates)
+        super().__init__(root, text = ending, keys = ["g", "G"], proceed = False, height = 24, update = updates)
         self.file.write("Ending\n")
         self.file.write(self.id + "\t" + "\t".join([str(root.texts["rounded_reward"]), str(root.texts["block"])]) + "\n\n")
 
