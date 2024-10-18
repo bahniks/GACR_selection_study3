@@ -601,10 +601,13 @@ class OutcomeWait(InstructionsFrame):
         self.progressBar.grid(row = 2, column = 1, sticky = N)
 
     def checkOffers(self):
-        count = 0
+        t0 = perf_counter() - 4
+        #count = 0
         while True:
             self.update()
-            if count % 50 == 0:
+            if perf_counter() - t0 > 5:
+                t0 = perf_counter()
+            #if count % 50 == 0:
                 data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"] - 1, 'offer': "outcome"})                
                 data = data.encode('ascii')
                 if URL == "TEST":            
@@ -640,8 +643,8 @@ class OutcomeWait(InstructionsFrame):
                     self.progressBar.stop()
                     self.nextFun()  
                     return
-            count += 1
-            sleep(0.1)
+            #count += 1
+            #sleep(0.1)
 
     def run(self):
         self.progressBar.start()

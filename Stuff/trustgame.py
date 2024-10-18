@@ -355,10 +355,12 @@ class WaitTrust(InstructionsFrame):
         self.progressBar.grid(row = 2, column = 1, sticky = N)
 
     def checkUpdate(self):
-        count = 0
+        t0 = perf_counter() - 4
+        #count = 0
         while True:
             self.update()
-            if count % 50 == 0:                
+            if perf_counter() - t0 > 5:
+                t0 = perf_counter()
                 block = self.root.status["trustblock"]
                 endowment = self.root.status["endowments"][block - 1] 
 
@@ -400,8 +402,8 @@ class WaitTrust(InstructionsFrame):
                     self.progressBar.stop()
                     self.nextFun()  
                     return
-            count += 1
-            sleep(0.1)
+            #count += 1
+            #sleep(0.1)
 
     def run(self):
         self.progressBar.start()
