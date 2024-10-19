@@ -298,7 +298,6 @@ class Trust(InstructionsFrame):
         
         self.text.grid(row = 1, column = 0, columnspan = 3)
 
-        #self.rowconfigure(15, weight = 1)
         self.rowconfigure(0, weight = 1)
         self.rowconfigure(1, weight = 0)
         self.rowconfigure(2, weight = 0)
@@ -312,14 +311,6 @@ class Trust(InstructionsFrame):
         self.columnconfigure(2, weight = 1)
         self.columnconfigure(3, weight = 2)
 
-    # def checkAnswers(self):        
-    #     for frame in self.frames.values():
-    #         pass
-    #         # if not frame.messageVar.get():
-    #         #     break
-    #     else:
-    #         self.next["state"] = "normal"
-
     def checkbuttoned(self):
         self.next["state"] = "normal" if self.checkVar.get() else "disabled"
 
@@ -329,7 +320,7 @@ class Trust(InstructionsFrame):
         super().nextFun()
 
     def send(self):        
-        self.responses = [self.frames[i].valueVar.get() for i in range(7)]
+        self.responses = [self.frames[i].valueVar.get().strip() for i in range(7)]
         data = {'id': self.id, 'round': "trust" + str(self.root.status["trustblock"]), 'offer': "_".join(self.responses)}
         self.sendData(data)
 
@@ -351,13 +342,11 @@ class Trust(InstructionsFrame):
 class WaitTrust(InstructionsFrame):
     def __init__(self, root):
         super().__init__(root, text = wait_text, height = 3, font = 15, proceed = False, width = 45)
-        #self.what = what
         self.progressBar = ttk.Progressbar(self, orient = HORIZONTAL, length = 400, mode = 'indeterminate')
         self.progressBar.grid(row = 2, column = 1, sticky = N)
 
     def checkUpdate(self):
         t0 = perf_counter() - 4
-        #count = 0
         while True:
             self.update()
             if perf_counter() - t0 > 5:
@@ -403,25 +392,15 @@ class WaitTrust(InstructionsFrame):
                     self.progressBar.stop()
                     self.nextFun()  
                     return
-            #count += 1
-            #sleep(0.1)
 
     def run(self):
         self.progressBar.start()
         self.checkUpdate()
 
     def write(self, response):
-        pass
-        # if self.what == "pairing":
-        #     self.file.write("Pairing" + "\n")
-        # elif self.what == "decision1":
-        #     self.file.write("Dictator Results 1" + "\n")
-        # self.file.write(self.id + "\t" + response.replace("_", "\t") + "\n\n") 
+        self.file.write("Trust Results" + "\n")
+        self.file.write(self.id + "\t" + response.replace("_", "\t") + "\n\n") 
 
-       
-
-# DictatorEnd = (InstructionsFrame, {"text": "{}", "height": 8, "update": ["dictatorEnd"]})
-# DictatorFeelings2 = (DictatorFeelings, {"round": 2})
 
 
 TrustResult = (InstructionsFrame, {"text": "{}", "update": ["trustResult"]})

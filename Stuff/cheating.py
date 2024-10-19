@@ -163,9 +163,9 @@ wait_text = "Prosím počkejte na druhého hráče."
 
 
 # KONEC
-endtext = """Toto je konec posledního bloku. 
-{}
-Toto je konec úkolu s kostkou.
+endtext = """Toto je konec úkolů s kostkou a dělením peněz.
+
+Pro pokračování k další části studie klikněte na tlačítko Pokračovat.
 """
 
 
@@ -486,10 +486,8 @@ class Selection(InstructionsFrame):
 
         ttk.Style().configure("TButton", font = "helvetica 15", width = 16)
 
-        self.control = ttk.Button(self, text = controlchoicetext,
-                                  command = lambda: self.response("control"))
-        self.treatment = ttk.Button(self, text = treatmentchoicetext,
-                                    command = lambda: self.response("treatment"))
+        self.control = ttk.Button(self, text = controlchoicetext, command = lambda: self.response("control"))
+        self.treatment = ttk.Button(self, text = treatmentchoicetext, command = lambda: self.response("treatment"))
 
         self.control.grid(row = 2, column = 0)
         self.treatment.grid(row = 2, column = 2)        
@@ -527,72 +525,17 @@ class Selection(InstructionsFrame):
         self.no["state"] = "disabled"
         self.question2["foreground"] = "black"
         self.control.grid(row = 5, column = 0)
-        self.treatment.grid(row = 5, column = 2)   
+        self.treatment.grid(row = 5, column = 2) 
+        self.file.write("Token\n" + "\t".join([self.id, str(response)]) + "\n\n")  
 
 
-    def response(self, choice):
-        self.choice = choice
+    def response(self, choice):        
         self.root.status["conditions"].append(choice)
+        self.file.write("Selection\n" + "\t".join([self.id, str(self.root.status["block"]), choice]) + "\n\n")
         self.nextFun()
 
-    def write(self):        
-        self.file.write("Selection\n" + "\t".join([self.id, str(self.root.status["block"]), self.choice]))
 
-    
-    
-
-
-# class Debrief(InstructionsFrame):
-#     def __init__(self, root):
-#         super().__init__(root, text = perception_intro, height = 2, font = 15)
-
-#         self.Q1 = TextArea(self, d1, alines = 5, qlines = 2, width = 60)
-#         self.Q2 = Measure(self, d2, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)  
-#         self.Q3 = Measure(self, d3, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)
-#         self.Q4 = Measure(self, d4, values = scale, questionPosition = "above", left = "", right = "", labelPosition = "next", filler = 700)
-#         self.Q5 = TextArea(self, d5, alines = 5, width = 60)
-
-#         self.Q1.grid(row = 2, column = 1)
-#         self.Q2.grid(row = 3, column = 1)
-#         self.Q3.grid(row = 4, column = 1)
-#         self.Q4.grid(row = 5, column = 1)
-#         self.Q5.grid(row = 6, column = 1)
-
-#         self.warning = ttk.Label(self, text = "Odpovězte prosím na všechny otázky.",
-#                                  background = "white", font = "helvetica 15", foreground = "white")
-#         self.warning.grid(row = 7, column = 1)
-
-#         self.next.grid(row = 8, column = 1)
-
-#         self.rowconfigure(0, weight = 2)
-#         self.rowconfigure(1, weight = 1)
-#         self.rowconfigure(2, weight = 1)
-#         self.rowconfigure(3, weight = 1)
-#         self.rowconfigure(4, weight = 1)
-#         self.rowconfigure(5, weight = 1)
-#         self.rowconfigure(6, weight = 1)
-#         self.rowconfigure(7, weight = 1)
-#         self.rowconfigure(8, weight = 1)
-#         self.rowconfigure(9, weight = 2)
-
-#     def check(self):
-#         ok = all([self.Q1.check(), self.Q2.check(), self.Q3.check(), self.Q4.check(), self.Q5.check()])
-#         if ok:
-#             self.write()
-#         return ok
-
-#     def back(self):
-#         self.warning.config(foreground = "red")
-
-#     def write(self):
-#         self.file.write("Debrief\n" + "\t".join([self.id, self.Q2.answer.get(), self.Q3.answer.get(), self.Q4.answer.get()]))
-#         self.file.write("\t")
-#         self.Q1.write(False)        
-#         self.file.write("\t")
-#         self.Q5.write() 
-#         self.file.write("\n") 
-
-
+  
 
 class OutcomeWait(InstructionsFrame):
     def __init__(self, root):
@@ -602,12 +545,10 @@ class OutcomeWait(InstructionsFrame):
 
     def checkOffers(self):
         t0 = perf_counter() - 4
-        #count = 0
         while True:
             self.update()
             if perf_counter() - t0 > 5:
                 t0 = perf_counter()
-            #if count % 50 == 0:
                 data = urllib.parse.urlencode({'id': self.id, 'round': self.root.status["block"] - 1, 'offer': "outcome"})                
                 data = data.encode('ascii')
                 if URL == "TEST":            
@@ -641,17 +582,17 @@ class OutcomeWait(InstructionsFrame):
                         else:
                             self.root.status["outcome" + str(self.root.status["block"] - 1)] = response                         
                     self.progressBar.stop()
-                    self.nextFun()  
+                    self.write(response.rstrip("_True"))
+                    self.nextFun()                      
                     return
-            #count += 1
-            #sleep(0.1)
 
     def run(self):
         self.progressBar.start()
         self.checkOffers()
 
     def write(self, response):
-        pass
+        self.file.write("Cheating Results" + "\n")
+        self.file.write(self.id + "\t" + str(self.root.status["block"] - 1) + "\t" + response.replace("_", "\t") + "\n\n") 
 
 
 
@@ -772,7 +713,7 @@ class Instructions4Check(InstructionsAndUnderstanding):
     
     def response(self, choice):
         self.root.status["conditions"].append(choice)
-        self.file.write("Selection\n" + "\t".join([self.id, str(self.root.status["block"]), choice]))
+        self.file.write("Selection\n" + "\t".join([self.id, str(self.root.status["block"]), choice]) + "\n\n")
         InstructionsFrame.nextFun(self)    
     
         
@@ -786,11 +727,10 @@ CheatingInstructions = (InstructionsAndUnderstanding, {"text": intro_block_1, "h
 Instructions2 = (InstructionsFrame, {"text": intro_block_2, "height": 5, "update": ["win1"]})
 Instructions3 = (Selection, {"text": intro_block_3, "update": ["win2"]})
 Info3 = (InstructionsFrame, {"text": info_block_3, "height": 7, "update": ["win3"]})
-#Instructions4 = (Selection, {"text": intro_block_4, "update": ["incentive_4", "add_block_4"]})
 Instructions5 = (Selection, {"text": intro_block_5, "update": ["incentive_5", "add_block_5"]})
 Instructions6 = (Selection, {"text": intro_block_6, "height": 19, "update": ["add_block_6"]})
 
-EndCheating = (InstructionsFrame, {"text": endtext, "height": 10, "update": ["trust6"]}) # to do update
+EndCheating = (InstructionsFrame, {"text": endtext, "height": 6})
 
 
 
@@ -805,9 +745,7 @@ if __name__ == "__main__":
           Instructions3, # selection
           Cheating,
           Info3,
-          #OutcomeWait,
           Instructions4Check, # selection + info about trust
-          #Instructions4,
           Cheating,
           OutcomeWait,
           Instructions5, # selection + info about trust
@@ -816,6 +754,5 @@ if __name__ == "__main__":
           Instructions6, # selection + info about trust and payment for info
           Cheating,
           OutcomeWait,
-          #Debrief,    
           EndCheating
          ])

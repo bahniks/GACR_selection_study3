@@ -8,15 +8,14 @@ sys.path.append(os.path.join(os.getcwd(), "Stuff"))
 
 from gui import GUI
 
-from quest import QuestInstructions #, Hexaco
-from intros import Initial, Intro, Ending #, HEXACOintro
+from quest import QuestInstructions
+from intros import Initial, Intro, Ending
 from demo import Demographics
 from cheating import CheatingInstructions, Cheating, Instructions2, Instructions3, Instructions4Check, Instructions5, Instructions6
-from cheating import EndCheating, Login, OutcomeWait, Info3  #, VotingResult, Perception, Debrief, FinalWait
+from cheating import EndCheating, Login, OutcomeWait, Info3
 from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
 from trustgame import WaitTrust, Trust, TrustResult, InstructionsTrust
-#from trustgame import DictatorFeelings2, WaitResult2, DictatorEnd
 from questionnaire import PoliticalSkill, TDMS
 from anchoring import Anchoring, AnchoringInstructions
 
@@ -30,7 +29,6 @@ frames = [Initial,
           Instructions3, # selection
           Cheating,
           Info3,
-          #OutcomeWait, # tady asi neni nutne?
           InstructionsTrust,
           Trust, # trust instructions + decision
           WaitTrust,
@@ -53,7 +51,6 @@ frames = [Initial,
           Trust,
           WaitTrust,
           TrustResult,
-          #Debrief,    
           EndCheating,
           Lottery,
           LotteryWin,
