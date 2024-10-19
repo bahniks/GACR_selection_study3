@@ -111,9 +111,9 @@ intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto blo
 Chcete hrát verzi “PŘED” nebo “PO”?
 """
 
-versionText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybral(a) v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
-rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, kolik správných odhadů jste učinil(a) v tomto kole (ve verzi “PŘED” nebo “PO”).</b> Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
-version_rewardText = "<b>Před touto úlohou se tento účastnik studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybral(a) pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
+versionText = "<b>Před touto úlohou se tento účastník studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybral(a) v tomto kole.</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a)."
+rewardText = "<b>Před touto úlohou se tento účastník studie dozví, kolik správných odhadů jste učinil(a) v tomto kole (ve verzi “PŘED” nebo “PO”).</b> Vy budete podobně vědět, kolik správných odhadů učinil(a) on(a)."
+version_rewardText = "<b>Před touto úlohou se tento účastník studie dozví, jakou verzi úlohy (“PŘED” nebo “PO”) jste si vybral(a) pro toto kolo a kolik správných odhadů jste v něm učinil(a).</b> Vy budete podobně vědět, jakou verzi úlohy si vybral(a) on(a) a kolik správných odhadů učinil(a)."
 controlText = ""
 
 

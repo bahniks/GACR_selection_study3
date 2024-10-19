@@ -238,8 +238,8 @@ class Trust(InstructionsFrame):
         else:
             _, otherwins, otherreward, otherversion = root.status["outcome" + str(root.status["trustblock"] + 2)].rstrip("_True").split("|") 
             selectedVersion = after_text if "treatment" in otherversion else before_text
-            yourversion = "PO" if "treatment" in root.status["conditions"][prevblock-1] else "PŘED"
             prevblock = root.status["block"] - 1
+            yourversion = "PO" if "treatment" in root.status["conditions"][prevblock-1] else "PŘED"
             if root.status["condition"] == "version":
                 conditionText = versionTrustText.format(selectedVersion, yourversion)
             elif root.status["condition"] == "reward":
