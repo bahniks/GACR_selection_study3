@@ -6,14 +6,18 @@ import os
 
 from math import ceil
 
-from common import ExperimentFrame
+from common import InstructionsFrame
 from gui import GUI
 from constants import BONUS
 
 
-class Demographics(ExperimentFrame):
+intro = "Uveďte své demografické údaje."
+
+
+class Demographics(InstructionsFrame):
     def __init__(self, root):
-        super().__init__(root)
+        super().__init__(root, text = intro, width = 50, height = 1, savedata = True)
+        self.text.grid(row = 0, column = 1, columnspan = 4, sticky = E)
        
         self.sex = StringVar()
         self.language = StringVar()
@@ -91,18 +95,19 @@ class Demographics(ExperimentFrame):
 
         self.columnconfigure(5, weight = 1)
         self.columnconfigure(0, weight = 1)
+        self.columnconfigure(2, weight = 0)
         self.rowconfigure(0, weight = 1)
-        self.rowconfigure(8, weight = 1)
+        for i in range(1,7):
+            self.rowconfigure(i, weight = 0)
+        self.rowconfigure(7, weight = 1)
 
-        ttk.Style().configure("TButton", font = "helvetica 15")
-        self.next = ttk.Button(self, text = "Pokračovat", command = self.nextFun,
-                               state = "disabled")
         self.next.grid(row = 7, column = 2, pady = 15)
+        self.next["command"] = self.nextFun
+        self.next["state"] = "disabled"
 
 
     def checkAllFilled(self, _ = None):
-        if all([v.get() for v in [self.language, self.age, self.sex,
-                                  self.field, self.student]]):
+        if all([v.get() for v in [self.language, self.age, self.sex, self.field, self.student]]):
             self.next["state"] = "!disabled"
 
 
