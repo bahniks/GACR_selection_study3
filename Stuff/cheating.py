@@ -37,7 +37,7 @@ Abychom ověřili, že rozumíte instrukcím, odpovězte prosím na kontrolní o
 
 
 intro_control1 = 'Které tvrzení o úkolu je pravdivé?' 
-intro_answers1 = ['Pravděpodobnost správného odhadu v každém kole je 50%.', 'V každém bloku úkolu učiníte deset odhadů.', 'Odměna za úkol je dána součtem správných odhadů v pěti blocích úkolu.', 'Jakmile úkol dokončíte, experimentátor Vám za něj vyplatí odměnu.'] 
+intro_answers1 = ['Pravděpodobnost správného odhadu v každém kole je 50%.', 'V každém bloku úkolu učiníte deset odhadů.', 'Odměna za úkol je dána součtem správných odhadů v šesti blocích úkolu.', 'Jakmile úkol dokončíte, experimentátor Vám za něj vyplatí odměnu.'] 
 intro_feedback1 = ['Ano, budete odhadovat jednu ze dvou stejně pravděpodobných možností.', 'Ne, každý blok sestává z dvanácti kol.', 'Ne, odměna závisí pouze na počtu správných odhadů v jednom náhodně vylosovaném bloku.', 'Ne, odměna bude vyplacena až za všechny části studie dohromady po jejím skončení.']
 
 intro_control2 = 'Kolik obdržíte za úkol peněz, pokud bude vylosován blok, kde uhodnete dohromady 4 hody?' 
@@ -58,7 +58,7 @@ treatmenttext = '''Blok {}, Kolo {}
 
 Máte za úkol uhodnout, zda na kostce padne liché, nebo sudé číslo. Nyní prosím zvolte, zda v následujícím hodu padne liché, nebo sudé číslo, zapamatujte si svoji volbu a poté klikněte na tlačítko "Hodit kostkou".'''
 
-treatmenttext2 = "Zvolte, zda jste hádali správně a vydělali v tomto kole {} Kč, nebo zda jste hádali špatně a nevydělali jste v tomto kole nic."
+treatmenttext2 = "Zvolte, zda jste hádal(a) správně a vydělal(a) v tomto kole {} Kč, nebo zda jste hádal(a) špatně a nevydělal(a) jste v tomto kole nic."
 
 
 controltext = """Blok {}, Kolo {}
@@ -66,8 +66,8 @@ controltext = """Blok {}, Kolo {}
 Máte za úkol uhodnout, zda na kostce padne liché, nebo sudé číslo. Nyní prosím zvolte, zda v následujícím hodu padne liché, nebo sudé číslo, a poté klikněte na tlačítko "Hodit kostkou"."""
 
 controltext2 = "V tomto kole byla Vaše předpověď {}"
-wintext = "správná a vydělali jste {} Kč."
-losstext = "špatná a nevydělali jste možných {} Kč."
+wintext = "správná a vydělal(a) jste {} Kč."
+losstext = "špatná a nevydělal(a) jste možných {} Kč."
 
 
 # DRUHÝ BLOK
@@ -79,9 +79,9 @@ Toto je konec prvního bloku. Pokud bude tento blok vylosován, obdržíte {} K�
 # TŘETÍ BLOK
 intro_block_3 = """Toto je konec druhého bloku o dvanácti kolech. Pokud bude tento blok vylosován, obdržíte {} Kč.
 
-Jak jste zaznamenali, úkol měl dvě verze:
-<b>Verzi “PŘED”</b>, ve které uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
-<b>Verzi “PO”</b>, ve které uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+Jak jste zaznamenal(a), úkol měl dvě verze:
+<b>Verzi “PŘED”</b>, ve které uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a).
+<b>Verzi “PO”</b>, ve které uvádíte, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a), až poté, co vidíte výsledek hodu kostkou.
 
 Nyní Vás čeká třetí blok s dvanácti koly. V tomto bloku si můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
@@ -100,11 +100,11 @@ Tato úloha bude pokračovat následně čtvrtým blokem s dvanácti koly.
 # ČTVRTÝ BLOK
 intro_block_4 = """Nyní Vás čeká čtvrtý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
-<b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a).
+<b>Ve verzi “PO”</b> uvádíte, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a), až poté, co vidíte výsledek hodu kostkou.
 
-<b>Po tomto čtvrtém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B), kterou jste zrovna dokončili. 
-Částka přidělená oběma hráčům bude ovšem {} Kč</b> a budete spárováni s jiným účastníkem studie. 
+<b>Po tomto čtvrtém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B), kterou jste zrovna dokončil(a). 
+Částka přidělená oběma hráčům bude ovšem {} Kč</b> a budete spárován(a) s jiným účastníkem studie. 
 
 {}
 
@@ -129,8 +129,8 @@ incorrectFeedbackControl = "Ne, "
 # PÁTÝ BLOK
 intro_block_5 = """Nyní Vás čeká pátý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
-<b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a).
+<b>Ve verzi “PO”</b> uvádíte, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a), až poté, co vidíte výsledek hodu kostkou.
 
 <b>Po tomto pátém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). Částka přidělená oběma hráčům bude ovšem {} Kč</b> a budete spárováni s jiným účastníkem studie. 
 
@@ -143,10 +143,10 @@ Chcete hrát verzi “PŘED” nebo “PO”?
 # ŠESTÝ BLOK
 intro_block_6 = """Nyní Vás čeká šestý blok s dvanácti koly. V tomto bloku si opět můžete vybrat, jestli budete hrát verzi “PŘED” nebo “PO”.
 
-<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodli, či nikoliv a kolik jste vydělali.
-<b>Ve verzi “PO”</b> uvádíte, zda jste uhodli, či nikoliv a kolik jste vydělali, až poté, co vidíte výsledek hodu kostkou.
+<b>Ve verzi “PŘED”</b> uvádíte předpovědi před hodem kostkou. Po zvolení možnosti vidíte výsledek hodu a dozvíte se, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a).
+<b>Ve verzi “PO”</b> uvádíte, zda jste uhodl(a), či nikoliv a kolik jste vydělal(a), až poté, co vidíte výsledek hodu kostkou.
 
-Po tomto šestém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). <b>Částka přidělená oběma hráčům bude 200 Kč</b> a budete spárováni opět s jiným účastníkem studie. 
+Po tomto šestém bloku opět budete hrát úlohu s dělením peněz (mezi hráče A a hráče B). <b>Částka přidělená oběma hráčům bude 100 Kč</b> a budete spárováni opět s jiným účastníkem studie. 
 
 {}"""
 

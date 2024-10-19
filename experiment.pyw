@@ -18,6 +18,7 @@ from dicelottery import LotteryInstructions, DiceLottery
 from trustgame import WaitTrust, Trust, TrustResult, InstructionsTrust
 #from trustgame import DictatorFeelings2, WaitResult2, DictatorEnd
 from questionnaire import PoliticalSkill, TDMS
+from anchoring import Anchoring, AnchoringInstructions
 
 frames = [Initial,
           Login,
@@ -58,6 +59,8 @@ frames = [Initial,
           LotteryWin,
           LotteryInstructions,
           DiceLottery,
+          AnchoringInstructions, 
+          Anchoring,
           QuestInstructions,
           PoliticalSkill,
           TDMS,

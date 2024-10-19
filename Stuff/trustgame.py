@@ -17,9 +17,9 @@ from cheating import Login
 
 ################################################################################
 # TEXTS
-instructionsT1 = """Vaše rozhodnutí v této úloze budou mít finanční důsledky pro Vás a pro dalšího přítomného účastníka v laboratoři. Pozorně si přečtěte pokyny, abyste porozuměli studii a své roli v ní. 
+instructionsT1 = """Vaše rozhodnutí v této úloze budou mít finanční důsledky pro Vás a pro dalšího přítomného účastníka v laboratoři. Pozorně si přečtěte pokyny, abyste porozuměl(a) studii a své roli v ní. 
 
-V rámci této úlohy jste spárováni s dalším účastníkem studie. Oba obdržíte {} Kč.
+V rámci této úlohy jste spárován(a) s dalším účastníkem studie. Oba obdržíte {} Kč.
 
 Bude Vám náhodně přidělena jedna ze dvou rolí: budete buď hráčem A, nebo hráčem B. Oba účastníci ve dvojici budou vždy informováni o rozhodnutích druhého hráče.
 
@@ -30,9 +30,10 @@ Předem nebudete vědět, jaká je Vaše role a uvedete tedy rozhodnutí pro ob�
 
 Jakmile oba odešlete své odpovědi, dozvíte se jaká byla Vaše role a jaký je celkový výsledek rozhodnutí Vás a druhého účastníka. 
 
-Tuto úlohu budete hrát v rámci studie celkem čtyřikrát a Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z těchto čtyř."""
+Tuto úlohu budete hrát v rámci studie celkem čtyřikrát, vždy s různými účastníky studie, a Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z těchto čtyř. Ostatní hry Vaší konečnou odměnu nijak neovlivní."""
 
-instructionsT2 = """Nyní obdržíte opět úlohu, v které jste spárováni s jiným účastníkem studie a můžete si posílat peníze.
+
+instructionsT2 = """Nyní obdržíte opět úlohu, v které jste spárován(a) s jiným účastníkem studie a můžete si posílat peníze.
 <b>{}</b>
 V tomto kole oba obdržíte {} Kč.
 
@@ -117,7 +118,7 @@ wait_text = "Prosím počkejte na druhého hráče."
 
 trustResultTextA = """Náhodně Vám byla vybrána role hráče A.
 
-<b>Rozhodl jste se poslat {} Kč.</b>
+<b>Rozhodl(a) jste se poslat {} Kč.</b>
 Tato částka byla ztrojnásobena na {} Kč.
 <b>Ze svých {} Kč Vám poslal hráč B {} Kč.</b>
 
@@ -127,7 +128,7 @@ Tuto odměnu získáte, pokud bude toto kolo hry vylosováno pro vyplacení.{}
 
 trustResultTextB = """Náhodně Vám byla vybrána role hráče B.
 
-<b>Hráč A se rozhodl poslat {} Kč.</b>
+<b>Hráč A se rozhodl(a) poslat {} Kč.</b>
 Tato částka byla ztrojnásobena na {} Kč.
 <b>Ze svých {} Kč jste poslal(a) hráči B {} Kč.</b>
 
