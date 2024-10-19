@@ -33,8 +33,8 @@ Pokud zmáčknete tlačítko 'Ukončit házení', úlohu ukončíte a odnesete s
 """
 
 winningText = "Vaše současná výhra je: {} Kč"
-losingText = "Tímto úloha končí. Výhru jste ztratili."
-maximumText = "Více již vyhrát nemůžete. Tímto úloha končí. Vyhráli jste: {} Kč"
+losingText = "Tímto úloha končí. Výhru jste ztratil(a)."
+maximumText = "Více již vyhrát nemůžete. Tímto úloha končí. Vyhrál(a) jste: {} Kč"
 
 ################################################################################
 

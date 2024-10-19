@@ -211,13 +211,13 @@ class Cheating(ExperimentFrame):
 
         self.file.write("Cheating {}\n".format(self.blockNumber))
 
-        self.upperText = Text(self, height = 5, width = 60, relief = "flat", font = "helvetica 15",
+        self.upperText = Text(self, height = 5, width = 65, relief = "flat", font = "helvetica 15",
                               wrap = "word")
         self.upperButtonFrame = Canvas(self, highlightbackground = "white", highlightcolor = "white",
                                        background = "white", height = 100)
         self.die = Canvas(self, highlightbackground = "white", highlightcolor = "white",
                           background = "white", width = self.diesize, height = self.diesize)
-        self.bottomText = Text(self, height = 3, width = 60, relief = "flat", font = "helvetica 15",
+        self.bottomText = Text(self, height = 3, width = 65, relief = "flat", font = "helvetica 15",
                                wrap = "word")
         self.bottomButtonFrame = Canvas(self, highlightbackground = "white", highlightcolor = "white",
                                         background = "white", height = 100)

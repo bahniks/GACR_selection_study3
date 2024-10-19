@@ -34,8 +34,8 @@ Tuto úlohu budete hrát v rámci studie celkem čtyřikrát, vždy s různými 
 
 
 instructionsT2 = """Nyní obdržíte opět úlohu, v které jste spárován(a) s jiným účastníkem studie a můžete si posílat peníze.
-<b>{}</b>
-V tomto kole oba obdržíte {} Kč.
+<b>{}
+V tomto kole oba obdržíte {} Kč.</b>
 
 Podobně jako v předchozím kole úlohy:
 <i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí a obdrží ji hráč B.
@@ -52,7 +52,7 @@ Svou volbu učiňte posunutím modrých ukazatelů níže."""
 
 rewardTrustText = """
 Tento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.
-Tento účastník podobně ví, že jste v minulém kole hry s házením kostkou dostal(a) odměnu {} za {} správných odhadů.
+Tento účastník podobně ví, že jste v minulém kole hry s házením kostkou dostal(a) odměnu {} Kč za {} správných odhadů.
 """
 versionTrustText = """
 Tento účastník studie si v minulém kole hry s házením kostkou vybral {}.
@@ -62,7 +62,7 @@ after_text = "PO verzi hry, ve které se uvádí, zda byla předpověď správn�
 before_text = "PŘED verzi hry, ve které se uvádí předpověď před tím, než se zobrazí výsledek hodu kostkou"
 version_rewardTrustText = """
 Tento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.
-Tento účastník podobně ví, že jste si v minulém kole hry s házením kostkou vybral(a) verzi {} a dostal(a) odměnu {} za {} správných odhadů.
+Tento účastník podobně ví, že jste si v minulém kole hry s házením kostkou vybral(a) verzi {} a dostal(a) odměnu {} Kč za {} správných odhadů.
 """
 
 
@@ -70,8 +70,8 @@ instructionsT3 = instructionsT2
 
 
 instructionsT4 = """Nyní obdržíte opět úlohu, v které jste spárováni s jiným účastníkem studie a můžete si posílat peníze.
-<b>{}</b>
-V tomto kole oba obdržíte {} Kč.
+<b>{}
+V tomto kole oba obdržíte {} Kč.</b>
 
 Podobně jako v předchozích kolech úlohy:
 <i>Hráč A:</i> Má možnost poslat hráči B od 0 do {} Kč (po {} Kč). Poslaná částka se ztrojnásobí a obdrží ji hráč B.

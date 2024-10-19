@@ -19,7 +19,7 @@ options = ((22, 24, 26, 28, 30),
            (200, 170, 140, 110, 80))
 
 instructions = """
-V následujícím úkolu uděláte 5 nezávislých rozhodnutí mezi dvěma možnostmi. První možnost vždy reprezentuje jistou odměnu a druhá možnost vždy reprezentuje loterii. Číslo s procenty reprezentuje pravděpodobnost, že vyhrajete a Vaše odměna bude {} Kč. Pokud prohrajete, Vaše odměna bude 0 Kč. Pravděpodobnost výhry se liší mezi rozhodnutími tak, že riziková možnost (tj. loterie) je s každým dalším řádkem více atraktivní.
+V následujícím úkolu uděláte 5 nezávislých rozhodnutí mezi dvěma možnostmi. První možnost vždy reprezentuje jistou odměnu a druhá možnost vždy reprezentuje loterii. Číslo s procenty reprezentuje pravděpodobnost, že vyhrajete a získáte uvedenou odměnu. Pokud prohrajete, Vaše odměna bude 0 Kč. Pravděpodobnost výhry se liší mezi rozhodnutími tak, že riziková možnost (tj. loterie) je s každým dalším řádkem více atraktivní.
 
 Až tuto úlohu dokončíte, bude stanovena Vaše odměna. Pro to bude vybráno náhodně jedno z rozhodnutí (každé se stejnou pravděpodobností) a dostanete jistou odměnu nebo bude realizována odpovídající loterie (podle toho, zda zvolíte jistou odměnu nebo loterii). I když učiníte 5 rozhodnutí, pouze jedno z nich bude tedy rozhodovat o Vaši odměně.
 
@@ -48,7 +48,7 @@ class Lottery(ExperimentFrame):
         self.text = Text(self, font = "helvetica 15", relief = "flat", background = "white", height = 14,
                          wrap = "word", highlightbackground = "white", width = 90)
         self.text.grid(row = 1, column = 0, columnspan = 4)
-        self.text.insert("1.0", instructions.format(options[2][0]))
+        self.text.insert("1.0", instructions)
         self.text.config(state = "disabled")
 
         self.leftLabel = ttk.Label(self, text = "Jistá odměna", font = "helvetica 15", background = "white")
