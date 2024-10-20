@@ -4,8 +4,8 @@ TRUST = [50, 100, 200]
 TOKEN = 5
 
 AUTOFILL = False
-TESTING = True
+TESTING = False
 GOTHROUGH = False
 URL = "https://bahnik.pythonanywhere.com/"
-URL = "TEST"
-URL = "http://127.0.0.1:8000/"
+#URL = "TEST"
+#URL = "http://127.0.0.1:8000/"
