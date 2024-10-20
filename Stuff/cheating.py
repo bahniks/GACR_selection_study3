@@ -592,7 +592,7 @@ class OutcomeWait(InstructionsFrame):
 
     def write(self, response):
         self.file.write("Cheating Results" + "\n")
-        self.file.write(self.id + "\t" + str(self.root.status["block"] - 1) + "\t" + response.replace("_", "\t") + "\n\n") 
+        self.file.write(self.id + "\t" + str(self.root.status["block"] - 1) + "\t" + response.replace("|", "\t") + "\n\n") 
 
 
 
@@ -693,6 +693,7 @@ class Instructions4Check(InstructionsAndUnderstanding):
         self.next.grid_forget()
         self.next = ttk.Button(self.controlFrame, text = "Pokračovat", command = self.nextFun)
         self.next.grid(row = 4, column = 0)
+        self.next["state"] = "disabled"
 
     def nextFun(self):
         if self.controlstate == "feedback":

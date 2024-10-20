@@ -38,8 +38,6 @@ class GUI(Tk):
         
         writeTime = localtime()
         self.id = str(uuid4())
-        if TESTING:
-            self.title("TEST " + self.id)
         self.outputfile = os.path.join("Data", strftime("%y_%m_%d_%H%M%S", writeTime) + "_" + self.id + ".txt")
 
         self.bind("<Escape>", self.closeFun)
@@ -65,7 +63,10 @@ class GUI(Tk):
             if response == "continue":
                 for key, value in data.items():
                     setattr(self, key, value)    
-                      
+
+        if TESTING:
+            self.title("TEST " + self.id)
+
         mode = "a" if load else "w"
         with open(self.outputfile, mode = mode, encoding = "utf-8") as self.file:
             self.nextFrame()

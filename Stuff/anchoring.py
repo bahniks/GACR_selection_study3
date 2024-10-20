@@ -11,7 +11,7 @@ from common import ExperimentFrame, InstructionsFrame
 from gui import GUI
 from constants import TESTING
 
-NUMTRIALS = 9
+NUMTRIALS = 6
 
 
 items = [["subway", "vzdálenost tratě metra mezi stanicemi metra Muzeum a Hlavní nádraží"],
