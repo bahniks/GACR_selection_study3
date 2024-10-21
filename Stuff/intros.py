@@ -37,7 +37,7 @@ Studie založená na datech získaných v tomto experimentu bude volně dostupn�
 
 <b>Žádáme Vás, abyste nesděloval(a) detaily této studie možným účastníkům, aby jejich volby a odpovědi nebyly ovlivněny a znehodnoceny.</b>
   
-Můžete si vzít všechny svoje věci, vyplněný příjmový doklad a záznamový arch, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
+Můžete si vzít všechny svoje věci a vyplněný příjmový doklad, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
 
 Toto je konec experimentu. Děkujeme za Vaši účast!
  

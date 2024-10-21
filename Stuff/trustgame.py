@@ -274,7 +274,7 @@ class Trust(InstructionsFrame):
         self.frames = {}
         for i in range(7):            
             if i != 6:
-                text = "Pokud hráč A pošle {} Kč, pošlu hráči A zpět:".format(i*20)
+                text = "Pokud hráč A pošle {} Kč, pošlu hráči A zpět:".format(int(i*endowment/5))
                 ttk.Label(self, text = text, font = "helvetica 15", background = "white").grid(column = 0, row = 6 + i, pady = 1, sticky = E)
                 player = "B"
             else:
