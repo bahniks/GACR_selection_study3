@@ -19,9 +19,9 @@ options = ((26, 28, 30, 32, 34),
            (400, 250, 170, 100, 60))
 
 instructions = """
-V následujícím úkolu uděláte 5 nezávislých rozhodnutí mezi dvěma možnostmi. První možnost vždy reprezentuje jistou odměnu a druhá možnost vždy reprezentuje loterii. Číslo s procenty reprezentuje pravděpodobnost, že vyhrajete a získáte uvedenou odměnu. Pokud prohrajete, Vaše odměna bude 0 Kč. Pravděpodobnost výhry se liší mezi rozhodnutími tak, že riziková možnost (tj. loterie) je s každým dalším řádkem více atraktivní.
+V následujícím úkolu uděláte 5 nezávislých rozhodnutí mezi dvěma možnostmi. První možnost vždy reprezentuje jistou odměnu a druhá možnost vždy reprezentuje loterii. Číslo s procenty reprezentuje pravděpodobnost, že vyhrajete a získáte uvedenou odměnu. Pokud prohrajete, Vaše odměna bude 0 Kč.
 
-Až tuto úlohu dokončíte, bude stanovena Vaše odměna. Pro to bude vybráno náhodně jedno z rozhodnutí (každé se stejnou pravděpodobností) a dostanete jistou odměnu nebo bude realizována odpovídající loterie (podle toho, zda zvolíte jistou odměnu nebo loterii). I když učiníte 5 rozhodnutí, pouze jedno z nich bude tedy rozhodovat o Vaši odměně.
+Až tuto úlohu dokončíte, bude stanovena Vaše odměna. Bude náhodně vybráno jedno z rozhodnutí (každé se stejnou pravděpodobností) a dostanete jistou odměnu nebo bude realizována odpovídající loterie (podle toho, zda se ve vybrané volbě rozhodnete pro jistou odměnu nebo loterii). I když učiníte 5 rozhodnutí, pouze jedno z nich bude tedy rozhodovat o Vaši odměně.
 
 V každém z 5 řádků se rozhodněte a vyberte prosím, zda preferujete jistou odměnu nebo loterii.
 """
@@ -32,8 +32,8 @@ Bylo náhodně vybráno Vaše rozhodnutí číslo {}.
 {}
 """
 
-sure = "Protože jste zvolil/a jistou odměnu, vyhráváte {} Kč."
-risky = "Protože jste zvolil/a loterii, loterie byla realizována a vyhráváte {} Kč."
+sure = "Protože jste zvolil(a) jistou odměnu, vyhráváte {} Kč."
+risky = "Protože jste zvolil(a) loterii, loterie byla realizována a vyhráváte {} Kč."
 
 
 

@@ -150,9 +150,9 @@ Po tomto šestém bloku opět budete hrát úlohu s dělením peněz (mezi hrá�
 
 {}"""
 
-tokenConditionText = f"\n\n<b>Kromě toho máte nyní možnost věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz (mezi hráče A a hráče B).</b>\n"
+tokenConditionText = f"\n\n<b>Kromě toho máte nyní možnost věnovat ze své odměny za studii {TOKEN} Kč charitě Člověk v tísni, což se druhý hráč dozví před úlohou s dělením peněz (mezi hráče A a hráče B).</b>\n"
 
-tokenContribution = f"Chcete věnovat ze své výhry {TOKEN} Kč charitě Člověk v tísni?"
+tokenContribution = f"Chcete věnovat ze své odměny za studii {TOKEN} Kč charitě Člověk v tísni?"
 
 version_choice = "Chcete hrát verzi “PŘED” nebo “PO”?"
 

@@ -93,7 +93,7 @@ controlText = ""
 
 trustControl1 = "Jaká je role hráče A a hráče B ve studii?"
 trustAnswers1 = ["Hráč A rozhoduje, kolik vezme hráči B peněz a hráč B se rozhoduje, kolik vezme hráči A peněz na oplátku.",
-"Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B\njakékoli množství dostupných peněz zpět.", 
+"Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči A\njakékoli množství dostupných peněz zpět.", 
 "Hráči A a B se rozhodují, kolik si navzájem pošlou peněz. Transfer peněz mezi nimi je dán rozdílem poslaných peněz.", 
 "Hráč A se rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí. Hráč B může vzít hráči A\njakékoli množství zbylých peněz."]
 trustFeedback1 = ["Chybná odpověď. Hráč A rozhoduje, kolik hráči B pošle peněz. Poslané peníze se ztrojnásobí a hráč B může poslat hráči B jakékoli množství dostupných peněz zpět.", 
