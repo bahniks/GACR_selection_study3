@@ -67,7 +67,7 @@ class Demographics(InstructionsFrame):
         self.ageCB["values"] = tuple([""] + [str(i) for i in range(18, 80)])
         self.ageCB.bind("<<ComboboxSelected>>", lambda e: self.checkAllFilled())
 
-        self.fieldCB = ttk.Combobox(self, textvariable = self.field, width = 15,
+        self.fieldCB = ttk.Combobox(self, textvariable = self.field, width = 25,
                                     font = "helvetica 15", state = "readonly")
         self.fieldCB["values"] = ["Nestuduji VŠ",
                                   "Ekonomie / management",
@@ -91,7 +91,7 @@ class Demographics(InstructionsFrame):
         self.ageCB.grid(column = 2, row = 2, pady = 7, padx = 7, sticky = W)
         self.yes.grid(column = 2, row = 5, pady = 7, padx = 7, sticky = W)
         self.no.grid(column = 3, row = 5, pady = 7, padx = 7, sticky = W)
-        self.fieldCB.grid(column = 2, columnspan = 2, row = 6, pady = 7, padx = 7, sticky = W)
+        self.fieldCB.grid(column = 2, columnspan = 3, row = 6, pady = 7, padx = 7, sticky = W)
 
         self.columnconfigure(5, weight = 1)
         self.columnconfigure(0, weight = 1)

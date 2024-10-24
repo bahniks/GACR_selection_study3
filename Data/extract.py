@@ -1,7 +1,7 @@
 import os
 
 
-studies = {"Login": ("id", "condition","reward_order", "token", "winning_block", "winning_trust", "roles", "pairs"),
+studies = {"Login": ("id", "condition","reward_order", "token", "winning_block", "winning_trust", "roles", "pairs", "hexaco_id"),
            "Cheating Instructions Control Questions": ("id", "item", "answer"),
            "Cheating 1": ("id", "block", "trial", "version", "source", "condition", "roll", "prediction", "report", "reward", "time", "time1", "time2"), 
            "Cheating 2": ("id", "block", "trial", "version", "source", "condition", "roll", "prediction", "report", "reward", "time", "time1", "time2"), 
@@ -33,11 +33,13 @@ studies = {"Login": ("id", "condition","reward_order", "token", "winning_block",
             "Political Skill": ("id", "item", "answer"),           
            "TDMS": ("id", "item", "answer"),
            "Demographics": ("id", "sex", "age", "language", "student", "field"),
+           "Comments": ("id", "comment"),
            "Ending": ("id", "reward", "chosen_block")}
 
 frames = ["Initial",
           "Login",
           "Intro",
+          "HEXACOintro",
           "CheatingInstructions",
           "Cheating",
           "Instructions2",
@@ -77,6 +79,7 @@ frames = ["Initial",
           "QuestInstructions",
           "PoliticalSkill",
           "TDMS",
+          "HEXACOinfo",
           "Demographics",
           "Ending",
           "end"

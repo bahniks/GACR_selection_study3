@@ -9,19 +9,21 @@ sys.path.append(os.path.join(os.getcwd(), "Stuff"))
 from gui import GUI
 
 from quest import QuestInstructions
-from intros import Initial, Intro, Ending
+from intros import Initial, Intro, Ending, HEXACOintro
 from demo import Demographics
 from cheating import CheatingInstructions, Cheating, Instructions2, Instructions3, Instructions4Check, Instructions5, Instructions6
 from cheating import EndCheating, Login, OutcomeWait, Info3
 from lottery import Lottery, LotteryWin
 from dicelottery import LotteryInstructions, DiceLottery
 from trustgame import WaitTrust, Trust, TrustResult, InstructionsTrust
-from questionnaire import PoliticalSkill, TDMS
+from questionnaire import PoliticalSkill, TDMS, HEXACOinfo
 from anchoring import Anchoring, AnchoringInstructions
+from comments import Comments
 
 frames = [Initial,
           Login,
-          Intro,          
+          Intro,       
+          HEXACOintro,   
           CheatingInstructions,
           Cheating,
           Instructions2,
@@ -61,7 +63,9 @@ frames = [Initial,
           QuestInstructions,
           PoliticalSkill,
           TDMS,
+          HEXACOinfo,
           Demographics,
+          Comments,
           Ending
          ]
 

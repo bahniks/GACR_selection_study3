@@ -18,6 +18,14 @@ from constants import TESTING, AUTOFILL
 intro = "Označte, do jaké míry souhlasíte s následujícímí tvrzeními, na poskytnuté škále."
 
 
+hexacotext = """Pokud jste ještě nedokončili celý tištěný dotazník, prosím odpovězte nyní na zbývající otázky na poskytnutý záznamový arch.
+Zkontrolujte také, že máte v záznamovém archu správně vyplněné své identifikační číslo {}.
+
+Jakmile dotazník dokončíte, klikněte na tlačítko Pokračovat.
+"""
+
+
+
 class Questionnaire(ExperimentFrame):
     def __init__(self, root, words, question = "", labels = None, blocksize = 4, values = 7, text = True,
                  filetext = "", fontsize = 13, labelwidth = None, wraplength = 0, pady = 0, fixedlines = 0):
@@ -160,6 +168,8 @@ TDMS = (Questionnaire,
                  "fixedlines": 2,
                  "pady": 3})
 
+
+HEXACOinfo = (InstructionsFrame, {"text": hexacotext, "height": 5, "update": ["idNumber"]})
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))

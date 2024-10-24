@@ -51,8 +51,8 @@ Svou volbu učiňte posunutím modrých ukazatelů níže."""
 
 
 rewardTrustText = """
-Tento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {} správných odhadů.
-Tento účastník podobně ví, že jste v minulém kole hry s házením kostkou dostal(a) odměnu {} Kč za {} správných odhadů.
+Tento účastník studie v minulém kole hry s házením kostkou dostal odměnu {} Kč za {}.
+Tento účastník podobně ví, že jste v minulém kole hry s házením kostkou dostal(a) odměnu {} Kč za {}.
 """
 versionTrustText = """
 Tento účastník studie si v minulém kole hry s házením kostkou vybral {}.
@@ -61,9 +61,13 @@ Tento účastník podobně ví, že jste si v minulém kole hry s házením kost
 after_text = "PO verzi hry, ve které se uvádí, zda byla předpověď správná, či nikoliv, až poté, co se zobrazí výsledek hodu kostkou"
 before_text = "PŘED verzi hry, ve které se uvádí předpověď před tím, než se zobrazí výsledek hodu kostkou"
 version_rewardTrustText = """
-Tento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {} správných odhadů.
-Tento účastník podobně ví, že jste si v minulém kole hry s házením kostkou vybral(a) verzi {} a dostal(a) odměnu {} Kč za {} správných odhadů.
+Tento účastník studie si v minulém kole hry s házením kostkou vybral {}, a dostal odměnu {} Kč za {}.
+Tento účastník podobně ví, že jste si v minulém kole hry s házením kostkou vybral(a) verzi {} a dostal(a) odměnu {} Kč za {}.
 """
+one = "{} správný odhad"
+two_to_four = "{} správné odhady"
+other = "{} správných odhadů"
+
 
 
 instructionsT3 = instructionsT2
@@ -89,6 +93,8 @@ Svou volbu učiňte posunutím modrých ukazatelů níže."""
 contributedText = f"Tento účastník se rozhodl nepřispět {TOKEN} Kč charitě, když měl možnost."
 notContributedText = f"Tento účastník se rozhodl přispět {TOKEN} Kč charitě, když měl možnost."
 controlText = ""
+myselfNotContributed = f" Podobně on(a) ví, že jste nepřispěl(a) {TOKEN} Kč charitě."
+myselfContributed = f" Podobně on(a) ví, že jste přispěl(a) {TOKEN} Kč charitě."
 
 
 trustControl1 = "Jaká je role hráče A a hráče B ve studii?"
@@ -241,22 +247,35 @@ class Trust(InstructionsFrame):
             selectedVersion = after_text if "treatment" in otherversion else before_text
             prevblock = root.status["block"] - 1
             yourversion = "PO" if "treatment" in root.status["conditions"][prevblock-1] else "PŘED"
+            if otherwins == "1":
+                otherwinsText = one
+            else:
+                otherwinsText = two_to_four if 2 <= int(otherwins) <= 4 else other
+            otherwinsText = otherwinsText.format(otherwins)
+            wins = root.wins[prevblock]
+            if wins == 1:
+                mywinsText = one
+            else:
+                mywinsText = two_to_four if 2 <= int(wins) <= 4 else other
+            mywinsText = mywinsText.format(wins)
             if root.status["condition"] == "version":
                 conditionText = versionTrustText.format(selectedVersion, yourversion)
             elif root.status["condition"] == "reward":
-                reward = sum([i*3 + 3 for i in range(12)][:root.wins[prevblock]])
-                conditionText = rewardTrustText.format(otherreward, otherwins, reward, root.wins[prevblock])
+                reward = sum([i*3 + 3 for i in range(12)][:wins])
+                conditionText = rewardTrustText.format(otherreward, otherwinsText, reward, mywinsText)
             elif root.status["condition"] == "version_reward":
-                wins = root.wins[prevblock]
+                
                 reward = sum([i*3 + 3 for i in range(12)][:wins])                
-                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwins, yourversion, reward, wins)
+                conditionText = version_rewardTrustText.format(selectedVersion, otherreward, otherwinsText, yourversion, reward, mywinsText)
             elif root.status["condition"] == "control":
                 conditionText = ""
             if root.status["trustblock"] == 4:
                 conditionText += eval(otherversion.split("_")[1] + "Text")
+                if root.status["tokenCondition"]:
+                    conditionText += myselfContributed if root.status["tokenContributed"] else myselfNotContributed
             text = eval("instructionsT" + str(root.status["trustblock"])).format(conditionText, endowment, endowment, int(endowment/5), endowment)
 
-        height = 24
+        height = 25
         width = 100
 
         super().__init__(root, text = text, height = height, font = 15, width = width)

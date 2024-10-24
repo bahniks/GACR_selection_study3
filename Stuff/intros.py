@@ -37,7 +37,7 @@ Studie založená na datech získaných v tomto experimentu bude volně dostupn�
 
 <b>Žádáme Vás, abyste nesděloval(a) detaily této studie možným účastníkům, aby jejich volby a odpovědi nebyly ovlivněny a znehodnoceny.</b>
   
-Můžete si vzít všechny svoje věci a vyplněný příjmový doklad, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
+Můžete si vzít všechny svoje věci a vyplněný příjmový doklad a záznamový arch, a aniž byste rušil(a) ostatní účastníky, odeberte se do vedlejší místnosti za výzkumným asistentem, od kterého obdržíte svoji odměnu. 
 
 Toto je konec experimentu. Děkujeme za Vaši účast!
  
@@ -57,6 +57,14 @@ Děkujeme, že jste vypnul(a) svůj mobilní telefon, a že nebudete s nikým ko
 Pokud jste již tak neučinil(a), přečtěte si informovaný souhlas a pokud s ním budete souhlasit, podepište ho. 
 
 Počkejte na pokyn experimentátora.""".format(PARTICIPATION_FEE)
+
+
+hexacointrotext = """
+Před sebou máte na papíře vytištěný dotazník a záznamový arch. Do záznamového archu vyplňte do pole vlevo dole své identifikační číslo <b>{}</b>. Samotný dotazník ještě nevyplňujte.
+
+Jelikož probíhá v některých částech studie interakce s ostatními účastníky studie, může se stát, že na ně budete muset chvíli čekat. Během případného čekání můžete vyplňovat odpovědi na vytištěný dotazník do přiloženého záznamového archu. Aby nemuseli ostatní účastníci studie čekat na Vás, nevyplňujte dotazník, když je možné pokračovat ve studii na počítači.
+
+Po vyplnění identifikačního čísla do záznamového archu klikněte na tlačítko Pokračovat."""
 
 ################################################################################
 
@@ -105,7 +113,7 @@ class Ending(InstructionsFrame):
 
 Intro = (InstructionsFrame, {"text": intro, "proceed": True, "height": 23})
 Initial = (InstructionsFrame, {"text": login, "proceed": False, "height": 17, "keys": ["g", "G"]})
-# HEXACOintro = (InstructionsFrame, {"text": hexacointrotext, "height": 11, "update": ["idNumber"]})
+HEXACOintro = (InstructionsFrame, {"text": hexacointrotext, "height": 11, "update": ["idNumber"]})
 
 
 if __name__ == "__main__":

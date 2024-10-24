@@ -620,7 +620,7 @@ class Login(InstructionsFrame):
                     winning_trust = str(random.randint(3,6))
                     trustRoles = "".join([random.choice(["A", "B"]) for i in range(4)])
                     trustPairs = "_".join([str(random.randint(1, 10)) for i in range(4)])                    
-                    response = "|".join(["start", condition, incentive_order, str(tokenCondition), winning_block, winning_trust, trustRoles, trustPairs])
+                    response = "|".join(["start", condition, incentive_order, str(tokenCondition), winning_block, winning_trust, trustRoles, trustPairs, str(random.randint(1,2000))])
                 else:
                     response = ""
                     try:
@@ -629,7 +629,7 @@ class Login(InstructionsFrame):
                     except Exception:
                         self.changeText("Server nedostupný")
                 if "start" in response:
-                    info, condition, incentive_order, tokenCondition, winning_block, winning_trust, trustRoles, trustPairs = response.split("|")              
+                    info, condition, incentive_order, tokenCondition, winning_block, winning_trust, trustRoles, trustPairs, idNumber = response.split("|")              
                     self.root.status["condition"] = condition   
                     self.create_control_question(condition)
                     self.root.status["incentive_order"] = incentive_order                    
@@ -638,6 +638,7 @@ class Login(InstructionsFrame):
                     self.root.texts["trustblock"] = self.root.status["winning_trust"] = winning_trust
                     self.root.status["trust_roles"] = list(trustRoles)
                     self.root.status["trust_pairs"] = trustPairs.split("_")                 
+                    self.root.texts["idNumber"] = '{:03d}'.format(int(idNumber) % 1000)
                     self.update_intros(condition, incentive_order)
                     self.progressBar.stop()
                     self.write(response)
