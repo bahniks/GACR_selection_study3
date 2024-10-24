@@ -90,11 +90,11 @@ Vaše odměna za úlohu bude záviset na jedné, náhodně vylosované hře z ce
 Svou volbu učiňte posunutím modrých ukazatelů níže."""
 
 
-contributedText = f"Tento účastník se rozhodl nepřispět {TOKEN} Kč charitě, když měl možnost."
-notContributedText = f"Tento účastník se rozhodl přispět {TOKEN} Kč charitě, když měl možnost."
+contributedText = f"Tento účastník se rozhodl přispět {TOKEN} Kč charitě, když měl možnost."
+notContributedText = f"Tento účastník se rozhodl nepřispět {TOKEN} Kč charitě, když měl možnost."
 controlText = ""
-myselfNotContributed = f" Podobně on(a) ví, že jste nepřispěl(a) {TOKEN} Kč charitě."
 myselfContributed = f" Podobně on(a) ví, že jste přispěl(a) {TOKEN} Kč charitě."
+myselfNotContributed = f" Podobně on(a) ví, že jste nepřispěl(a) {TOKEN} Kč charitě."
 
 
 trustControl1 = "Jaká je role hráče A a hráče B ve studii?"

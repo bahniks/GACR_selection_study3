@@ -42,7 +42,7 @@ intro_feedback1 = ['Ano, budete odhadovat jednu ze dvou stejně pravděpodobnýc
 
 intro_control2 = 'Kolik obdržíte za úkol peněz, pokud bude vylosován blok, kde uhodnete dohromady 4 hody?' 
 intro_answers2 = ['18 Kč (0 + 3 + 6 + 9)', '27 Kč (6 + 6 + 9 + 9)', '30 Kč (3 + 6 + 9 + 12)', '48 Kč (4 x 12)'] 
-intro_feedback2 = ['Ne, obdželi byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).', 'Ne, obdželi byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).', 'Ano, obdželi byste 30 Kč.', 'Ne, obdželi byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).']
+intro_feedback2 = ['Ne, obdžel(a) byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).', 'Ne, obdžel(a) byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).', 'Ano, obdžel(a) byste 30 Kč.', 'Ne, obdžel(a) byste 30 Kč. Za první hod 3 Kč a za každý další o 3 Kč více (tj. 3 + 6 + 9 + 12).']
 
 
 # ÚLOHA
@@ -52,7 +52,7 @@ eventext = "Sudé (2, 4 nebo 6)"
 rolltext = "Hodit kostkou"
 correcttext = "Správně"
 incorrecttext = "Špatně"    
-predictiontext = "Zvolil/a jsem, jestli na kostce padne liché, nebo sudé číslo"
+predictiontext = "Zvolil(a) jsem, jestli na kostce padne liché, nebo sudé číslo"
 
 treatmenttext = '''Blok {}, Kolo {}
 
