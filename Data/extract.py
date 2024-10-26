@@ -81,12 +81,13 @@ frames = ["Initial",
           "TDMS",
           "HEXACOinfo",
           "Demographics",
+          "Comments",
           "Ending",
           "end"
          ]
 
-read = False
-compute = True
+read = True
+compute = False
 
 if read:
     for study in studies:
@@ -125,7 +126,7 @@ if read:
 
 if compute:
     times = {frame: [] for frame in frames}
-    with open("Time results.txt") as t:
+    with open("Time results.txt", mode = "r") as t:
         t.readline()
         for line in t:
             _, num, frame, time = line.split("\t")    
@@ -137,8 +138,6 @@ if compute:
     total = 0
     for frame, ts in times.items():
         if ts:
-            print(frame)        
-            print(round(sum(ts)/len(ts), 2))
             if frame != "Ending":
                 total += sum(ts)/len(ts)
     print("Total")
