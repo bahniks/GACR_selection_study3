@@ -34,7 +34,7 @@ studies = {"Login": ("id", "condition","reward_order", "token", "winning_block",
            "TDMS": ("id", "item", "answer"),
            "Demographics": ("id", "sex", "age", "language", "student", "field"),
            "Comments": ("id", "comment"),
-           "Ending": ("id", "reward", "chosen_block")}
+           "Ending": ("id", "reward")}
 
 frames = ["Initial",
           "Login",
@@ -110,8 +110,6 @@ if read:
                 study = line.strip()
                 if line.startswith("time: "):
                     with open("Time results.txt", mode = "a") as times:
-                        print(frames[count-1])
-                        print(line.split()[1])
                         times.write("\n" + "\t".join([file, str(count), frames[count-1], line.split()[1]]))
                         count += 1
                         continue
@@ -140,7 +138,5 @@ if compute:
         if ts:
             if frame != "Ending":
                 total += sum(ts)/len(ts)
-    print("Total")
-    print(round(total / 60, 2))
 
             
