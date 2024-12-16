@@ -430,14 +430,14 @@ InstructionsTrust = (InstructionsAndUnderstanding, {"text": instructionsT1.forma
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.getcwd()))
-    from cheating import OutcomeWait
+    #from cheating import OutcomeWait
     GUI([Login,    
-         OutcomeWait,
+         #OutcomeWait,
          InstructionsTrust,
          Trust,
          WaitTrust,
          TrustResult,
-         OutcomeWait,
+         #OutcomeWait,
          Trust,
          WaitTrust,
          TrustResult
